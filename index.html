@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Textbausteine Luis Perez Unfallchirurgie</title>
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #000;
+      z-index: 999;
+      overflow: hidden;
+      transition: opacity 0.3s ease;
+      opacity: 0.9;
+    }
+    
+    .menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .menu-item {
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .menu-item:hover {
+      background-color: #333;
+    }
+    
+    .content {
+      margin-left: 200px;
+      padding: 10px;
+    }
+    
+    /* Estilos CSS para los colores neón */
+    .neon {
+      color: #fff;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+    }
+    
+    /* Estilos CSS para el título */
+    h1 {
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+  
+  <script>
+    // Función para cambiar la pestaña activa y mostrar el contenido correspondiente
+    function changeTab(tabIndex) {
+      var tabs = document.getElementsByClassName('menu-item');
+      var contents = document.getElementsByClassName('content');
+      
+      // Ocultar todos los contenidos y desactivar todas las pestañas
+      for (var i = 0; i < contents.length; i++) {
+        contents[i].style.display = 'none';
+        tabs[i].classList.remove('neon');
+      }
+      
+      // Mostrar el contenido correspondiente y activar la pestaña seleccionada
+      contents[tabIndex].style.display = 'block';
+      tabs[tabIndex].classList.add('neon');
+    }
+    
+    // Mostrar la barra lateral al hacer clic en el título
+    document.getElementById('title').addEventListener('click', function() {
+      var sidebar = document.querySelector('.sidebar');
+      
+      sidebar.style.width = '200px';
+      sidebar.style.opacity = '0.9';
+    });
+  </script>
+</head>
+<body>
+  <h1 id="title">Textbausteine Luis Perez Unfallchirurgie</h1>
+  
+  <div class="sidebar">
+    <ul class="menu">
+      <li class="menu-item neon" onclick="changeTab(0)">Einleitung</li>
+      <li class="menu-item" onclick="changeTab(1)">Verlauf</li>
+      <li class="menu-item" onclick="changeTab(2)">Ende</li>
+      <li class="menu-item" onclick="changeTab(3)">Befunde</li>
+      <li class="menu-item" onclick="changeTab(4)">Atlas Fraktur </li>
+      <li class="menu-item" onclick="changeTab(5)">Bursektomie</li>
+      <li class="menu-item" onclick="changeTab(6)">Radiusfraktur </li>
+      <li class="menu-item" onclick="changeTab(7)">Lumbago </li>
+      <li class="menu-item" onclick="changeTab(8)">Hüftendoprothese</li>
+      <li class="menu-item" onclick="changeTab(9)">Kopf und Gesicht Fraktur </li>
+      <li class="menu-item" onclick="changeTab(10)">Kyphoplastie</li>
+      <li class="menu-item" onclick="changeTab(11)">ME</li>
+      <li class="menu-item" onclick="changeTab(12)">Rippenserienfraktur</li>
+      <li class="menu-item" onclick="changeTab(13)">SHT I</li>
+      <li class="menu-item" onclick="changeTab(14)">Tibiakopffraktur</li>
+      <li class="menu-item" onclick="changeTab(15)">Procedere</li>
+      <li class="menu-item" onclick="changeTab(16)">Schnittwunde</li>
+      <li class="menu-item" onclick="changeTab(17)">ABCDE SCHOCK</li>
+      <li class="menu-item" onclick="changeTab(18)">Untersuchungen</li>
+      <li class="menu-item" onclick="changeTab(19)">Verlauf KH</li>
+    </ul>
+  </div>
+  
+  <div class="content">
+    <h2>Einleitung</h2>
+    <p><p>Die Patientin stellte sich notfallmäßig am xx.yy.zzzz in unserer Notaufnahme vor. In der initialen Diagnostik zeigte sich keine knöcherne Fraktur. Bei Geh- und Streckunfähigkeit nahmen wir Herr/Frau XY zur suffizienten Schmerztherapie Stationär auf.</p>
+
+    <p>Herr/Frau [Nachname] wurde am [Aufnahmedatum] mit akuten thorakalen Schmerzen in unsere Klinik eingeliefert.</p>
+    </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Verlauf</h2>
+    <p><p>Während des stationären Aufenthaltes waren die Beschwerden rückläufig. Die Patientin zeigte keine neurologischen Auffälligkeiten und war stets kreislaufstabil.</p>
+
+    <p>Die MRT-Kontrolle zeigt: Wirbelkörperödem im lateralen Anteil des Axis links, sodass von einem frischen Frakturgeschehen auszugehen ist. Darüber hinaus findet sich ein Hämatom ventral und lateral im Bereich der Fraktur. Eine sichere Bandverletzung ist nicht abgrenzbar, jedoch auch nicht auszuschließen.</p>
+    
+    <p>Nach unauffälliger präoperativer Vorbereitung führten wir den o.g. Eingriff am xx.yy.zzzz durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos, die Wundheilung verlief bis zur Entlassung per primam. Die postoperative Röntgenkontrolle zeigte eine anatomische korrekte Stellung des OSG bei Z.n Metallenfernung.</p>
+    
+    <p>Anlegen einer Unterarmgipsschiene für 6 Wochen postoperativ. Die K-Drähte können nach radiologischer Bestätigung der Konsolidierung 6 Wochen postoperativ entfernt werden.</p>
+    
+    <p>Die Drainage konnte zeitgerecht entfernt werden, die Wundheilung verlief per primam.</p>
+    
+    <p>Die postoperative röntgenologische Kontrolle zeigen eine regelrechte Reposition der Frakturfragmente bei korrekter Lage des Osteosynthesematerials.</p>
+    
+    <p>Der Patient erhielt eine Schmerztherapie per oraler intravenöser Gabe sowie eine Thromboembolieprophylaxe.</p>
+    
+    <p>Die Patientin ist bereits in der palliativen Versorgung im Heim. Am xx.yy.zzzz entließen wir Herr/Frau XY in gutem Allgemeinzustand ins Altenheim zurück.</p>
+    
+    <p>Die bildgebende Diagnostik ergab eine Fraktur xxx des Unterarmes.</p>
+    
+    <p>Eine umfassende Anamnese wurde durchgeführt, bei der sich herausstellte, dass Sie zuvor keine signifikanten Vorerkrankungen hatten.</p>
+    <p>In den postoperativen Tagen wurde eine sorgfältige Überwachung und Betreuung auf unserer orthopädischen Station gewährleistet. Die Wundheilung verlief zufriedenstellend, und Sie zeigten eine gute Rehabilitationstendenz. Physiotherapeutische Maßnahmen wurden eingeleitet, um Ihre Muskulatur zu stärken, die Beweglichkeit des Gelenks zu verbessern und Ihnen bei der Wiedererlangung Ihrer Funktionen zu unterstützen.</p>
+</p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Ende</h2>
+    <p><p>Der Patient wurde postoperativ unter Entlastung des rechten Beines an Unterarmgehstützen mobilisiert.</p>
+
+    <p>Die Patientin wurde in unserem Frührehabilitations-Programm aufgenommen.</p>
+    
+    <p>Die Patientin wurde in unsere geriatrische Abteilung überwiesen.</p>
+    
+    <p>Unter Anleitung der Krankengymnasten erfolgte die Mobilisation. Das postoperative Röntgenbild zeigte eine regelgerechte Stellung des Duokopfprothese ohne Nachweis auf Lockerung.</p>
+    
+    <p>Der Patient erhielt postoperativ Physiotherapie und wurde unter Entlastung mit Rollator auf Stationsebene mobilisiert.</p>
+    
+    <p>Die Analgetikatherapie kann beschwerdeabhängig reduziert werden.</p>
+    
+    <p>Bei Besonderheiten bitten wir um eine Wiedervorstellung in unsere Klinik.</p>
+    
+    <p>Wir entließen Herrn/Frau XY bei subjektivem Wohlbefinden und reizlosen Wundverhältnissen am xx.yy.zzzz in Ihre weitere ambulante Behandlung. Achten Sie darauf, das operierte Gelenk zu schonen und übermäßige Belastungen zu vermeiden, bis Ihnen Ihr behandelnder Arzt grünes Licht gibt.</p>
+    <p>Unter Analgesie sowie physikalischen Anwendungen waren die Beschwerden im Verlauf deutlich rückläufig, sodass wir Herr/Frau XY am xx.yy.zzzz bei zufriedenstellendem Allgemeinbefinden in Ihre weitere hausärztliche Behandlung entlassen konnten.</p>
+
+<p>Wir entlassen Sie heute aus unserer Klinik nach einem stationären Aufenthalt aufgrund einer erfolgreichen Implantation einer Duokopf-Prothese im Bereich [Angabe des betroffenen Gelenks]. Wir möchten Ihnen einen Überblick über den Verlauf sowie die empfohlenen weiteren Maßnahmen geben.</p>
+</p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Untersuchung</h2>
+    
+    <h3>Finger</h3>
+<ul>
+  <p>D I, II, III, IV, V Links/rechts</p>
+  <p>Es zeigte sich eine Schwellung, ein lokaler Druckschmerz und leichte Beweglichkeitseinschränkung im Bereich des Grundglieds des X. Fingers.</p>
+  <p>Keine Achsabweichung, kein Rotationsfehler in Flexion.</p>
+  <p>2-Punktdiskriminierung intakt, Stumpf und Spitzdiskriminierung</p>
+  <p>Beuge-, und Streckfunktionen intakt, keine Sehnenverletzung der tiefen und oberflächlichen Beugesehnen.</p>
+  <p>Motorik, Sensibilität und Durchblutung intakt</p>
+</ul>
+
+<h3>Ellenbogen</h3>
+<ul>
+  <p>Schmerzen im rechten / linken Ellenbogen.</p>
+  <p>Beweglichkeit 0-0- °, volle Streckung schmerzbedingt nicht möglich</p>
+  <p>Supination / Pronation frei / eingeschränkt.</p>
+  <p>Keine Schwellung über der Epicondylen / dem Olecranon.</p>
+  <p>Platzwunde über dem Olecranon. Nicht verschmutzt.</p>
+  <p>Keine Bursabeteiligung.</p>
+  <p>Periphere Durchblutung, Motorik und Sensibilität intakt.</p>
+</ul>
+<U1>
+<H3>Schulter</H3>
+
+<p>Bei der Inspektion zeigt sich eine unauffällige äußere Erscheinung der Schulter. Beidseits gleiches Mitschwingen der Arme/Schonhaltung des Armes. Es sind keine äußeren Verletzungen oder Schwellungen erkennbar. Keine Narben oder Entzündungszeichen. Vertikale und horizontale Symmetrie der Schultern/Schulterschiefstand.</p>
+
+<p>Mäßiger Druckschmerz über dem Sternoklavikulargelenk, der Clavicula, dem Akromioklavikulargelenk, dem Acromion, dem Processus coracoideus, dem Sulcus intertubercularis, dem Tuberculum minus und majus.</p>
+
+<p>Die aktive Beweglichkeit der rechten Schulter ist eingeschränkt. Der Patient berichtet über Schmerzen bei Abduktion, Flexion und Innenrotation. Die passive Beweglichkeit zeigt eine ähnliche Einschränkung.</p>
+
+<p>Schultergelenk - isoliert<br>
+Ante-/Retroversion: 90°/0°/30°<br>
+Ad-/Abduktion: 20°/0°/90°<br>
+Innen-/Außenrotation: 70°/0°/60° (in Neutral-0-Stellung)<br>
+Innen-/Außenrotation: 70°/0°/70° (bei 90° abduziertem Oberarm)</p>
+
+<p>Schultergelenk - unter Mitbeteiligung des Schultergürtels<br>
+Ante-/Retroversion: 170°/0°/40°<br>
+Ad-/Abduktion: 40°/0°/180°<br>
+Innen-/Außenrotation: 95°/0°/80°</p>
+
+<p>Die Kraftprüfung der Schulter zeigt keine offensichtlichen Muskelschwächen oder -verluste. Die Muskelkraft ist normal.</p>
+
+<p>Die Laxitätstests oder xxxxtest der Schulter, einschließlich des Apprehension-Tests und des Sulcus-Zeichens sowie xxx, sind negativ. Es sind keine Anzeichen für xxxxxx oder eine instabile Schulter vorhanden.</p>
+
+<p>Pathologischer/Physiologischer Nackengriff/Schürzengriff/Codman-Griff<br>
+M. supraspinatus: Jobe-Test<br>
+M. subscapularis: Lift-Off-Test, Belly-Press-Test ("Napoleon-Test")<br>
+M. infraspinatus: Infraspinatus-Test<br>
+Palm-Up-Test, Speed-Test: Bizepssehne<br>
+Painful-Arc-Test, Neer-Test, Hawkins-Kennedy-Test: Impingement-Syndrom<br>
+Vordere/hintere Schublade<br>
+Sulcus-Zeichen (syn. "Untere Schublade")</p>
+
+<p>Die neurovaskuläre Untersuchung zeigt keine Auffälligkeiten. Die Sensibilität ist intakt, und es sind keine neurologischen Defizite vorhanden.</p>
+<U1/>
+<U1>
+  <H3>Handgelenk</H3>
+<p>Inspektion:<br>
+  Bei der Inspektion zeigt sich eine unauffällige äußere Erscheinung des Handgelenks. Es sind keine äußeren Verletzungen, Schwellungen oder Rötungen erkennbar. Die Handgelenkskontur ist symmetrisch.</p>
+  
+  <p>Palpation:<br>
+  Bei der Palpation werden keine lokalen Druckschmerzen oder Schwellungen festgestellt. Die Befunde sind symmetrisch.</p>
+  
+  <p>Beweglichkeit:<br>
+  Die aktive und passive Beweglichkeit des Handgelenks ist normal. Der Patient kann das Handgelenk in alle Richtungen frei bewegen, ohne Schmerzen oder Einschränkungen zu spüren. Die Range of Motion (ROM) ist innerhalb der normalen Grenzen.</p>
+  
+  <p>Stabilitätstests:<br>
+  Die Stabilitätstests des Handgelenks, einschließlich der Dorsal- und Palmarflexion sowie der Radial- und Ulnardeviation, zeigen keine Anzeichen für eine instabile Gelenksituation. Das Handgelenk zeigt eine gute Stabilität.</p>
+  
+  <p>Kraftprüfung:<br>
+  Die Kraftprüfung der Hand zeigt keine offensichtlichen Muskelschwächen oder -verluste. Die Griffstärke und Fingerbewegungen sind normal.</p>
+  
+  <p>Neurovaskuläre Untersuchung:<br>
+  Die neurovaskuläre Untersuchung des Handgelenks zeigt keine Auffälligkeiten. Die Sensibilität der Finger ist intakt, und es sind keine neurologischen Defizite vorhanden. Die Pulskontrolle an der Handgelenksarterie ist normal.</p>
+<U1/> 
+</U1> 
+<h3>OSG</h3>
+<p>Inspektion:<br>
+  Bei der Inspektion zeigt sich eine unauffällige äußere Erscheinung des oberen Sprunggelenks. Es sind keine äußeren Verletzungen, Schwellungen oder Rötungen erkennbar. Die Gelenkkontur und die Muskulatur sind symmetrisch.</p>
+  
+  <p>Palpation:<br>
+  Bei der Palpation werden keine lokalen Druckschmerzen oder Schwellungen festgestellt. Die Befunde sind symmetrisch.</p>
+  
+  <p>Beweglichkeit:<br>
+  Die aktive und passive Beweglichkeit des oberen Sprunggelenks ist normal. Der Patient kann das Gelenk in alle Richtungen frei bewegen, ohne Schmerzen oder Einschränkungen zu spüren. Die Range of Motion (ROM) ist innerhalb der normalen Grenzen.</p>
+  
+  <p>Stabilitätstests:<br>
+  Die Stabilitätstests des oberen Sprunggelenks, einschließlich der Inversion und Eversion, zeigen keine Anzeichen für eine instabile Gelenksituation. Das Gelenk zeigt eine gute Stabilität.</p>
+  
+  <p>Kraftprüfung:<br>
+  Die Kraftprüfung des oberen Sprunggelenks zeigt keine offensichtlichen Muskelschwächen oder -verluste. Die muskuläre Funktion und die Fähigkeit, das Gelenk zu stabilisieren, sind normal.</p>
+  
+  <p>Neurovaskuläre Untersuchung:<br>
+  Die neurovaskuläre Untersuchung des oberen Sprunggelenks zeigt keine Auffälligkeiten. Die Sensibilität im Bereich des Gelenks und die Durchblutung sind normal. Es sind keine neurologischen Defizite vorhanden.</p>
+</U1>
+<h3>Hand</h3>
+<ul>
+  <p>Schwellung:</p>
+  <p>Hämatom:</p>
+  <p>Wunden:</p>
+  <p>Fehlstellung:</p>
+  <p>E/F:</p>
+  <p>Radial/ulnar Abduktion:</p>
+  <p>Umwendbewegung:</p>
+  <p>Faustschluss:</p>
+  <p>Rotationsfehler der Finger:</p>
+  <p>Druckschmerz:</p>
+  <p>Druckschmerz der Tabatiere:</p>
+  <p>Druckschmerz des SL-Spaltes:</p>
+  <p>Beugen und Strecken der Finger in allen Gliedern gegen Kraft möglich</p>
+  <pi>Beugen und Strecken des Daumens gegen Kraft möglich:</p>
+  <p>Instabilität von Fingergelenken:</p>
+</ul>
+
+<h3>LWS</h3>
+<ul>
+  <p>Klinisch zeigte sich</p>
+  <p>Der Patient betritt den Untersuchungsraum in der Liege.</p>
+  <p>Keine Rötung, keine Schwellung, keine Überwärmung</p>
+  <p>Druck und Klopfschmerz der BWK 9-LWK 5 mit Ausstrahlung in Bein Links in L5 Dermatom.</p>
+  <p>Lasègue beidseits negativ</p>
+  <p>Kraft der unteren Extremität:</p>
+  <p>Zehenheber: 5/5 rechts und 2/5 Links </p>
+  <p>Zehensenker: 5/5 rechts und 4/5 Links</p>
+  <p>Fußheber: 5/5 rechts und 2/5 Links</p>
+  <p>Fußsenker: 5/5 rechts und 4/5 Links.</p>
+  <p>Kniestrecker: 5/5 rechts und 2/5 Links</p>
+  <p>Kniebeuger: 5/5 rechts und 2/5 Links</p>
+  <p>Hüftstrecker: 5/5 rechts und 2/5 Links</p>
+  <p>Hüftbeuger: 5/5 rechts und 2/5 Links</p>
+  <p>Hackengang sehr schwierig und Zehenspitzengang nur mit Hilfe möglich. keine Gang Ataxie. ASR/PSR rechts vorhanden, links abgeschwächt.</p>
+  <p>Sensibilitätsstörungen mit Paresthesie in L5 Dermatom Links</p>
+  <p>Durchblutung bei bds. kraftvoll tastbaren Pulsen des Fußes ATP und ADP intakt</p>
+  <p>Anamnesitisch keine Blasen oder Mastdarmstörungen</p>
+</ul>
+
+<h3>KNIE</h3>
+<ul>
+  <p>Wach, adäquat, ansprechbar.</p>
+  <p>Knie links/rechts</p>
+  <p>Gehfähig /Bettlägerig / Pat. betritt den Untersuchungsraum mit Rollstuhl</p>
+  <p>Leichte / mäßige / Starke Schwellung, kein Hämatom ca. X cm, kein intraartikulärer Kniegelenkserguss, Hautmantel intakt (ca. XX cm oberflächliche Abschürfung/ subkutane Platzwunde über/oberhalb/unterhalb der Patella.)</p>
+  <p>Keine Deformität, Physiologische Stellung der Patella sowie der Muskelkonturen und -tonus der umliegenden Muskulatur.</p>
+  <p>Leichter / mäßiger / Starker punktueller/ Diffuse Druckschmerz über dem medialen/ lateralen Gelenkspalt / oberhalb/unterhalb der Patella / an den medialen/lateralen/linken/rechten Patellaränder.</p>
+  <p>Physiologische Patellaverschieblichkeit / leichter Verschiebeschmerz der Patella.</p>
+  <p>Regelrechte Palpation der Sehnenansätze.</p>
+  <p>Kniekehle schmerzfrei, keine palpierte Zyste</p>
+  <p>Extension/Flexion, Abduktion/Adduktion und Innen-/Außenrotation des Kniegelenkes regelrecht</p>
+  <p>(Schmerzbedingte eingeschenkte Extension/Flexion, Abduktion/Adduktion und Innen-/Außenrotation des Kniegelenkes)</p>
+  <p>In Streckung keine pathologische Valgisierung/Varisierung möglich</p>
+  <p>Negativer Schubladen-Test</p>
+  <p>Negativer Lachman-Test</p>
+  <p>Negative Steinmann-I-Zeichen sowie negativer McMurray-Test</p>
+  <p>Physiologische Fingernagelprobe 2 S, keine Parästhesie</p>
+  <p>Kraft der unteren Extremitäten 5/5</p>
+</ul>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Atlas Fraktur Typ III und dislozierte Denz Fraktur typ II</h2>
+    <p><p>Platzwunde an der Stirn</p>
+
+    <p>Schürfwunden re. Handgelenk und Handrücken</p>
+    
+    <p>stationäre Aufnahme zur Überwachung, weiterführenden Diagnostik und Schmerztherapie.</p>
+    
+    <p>Anlage einer Philadelphia-Halskrawatte</p>
+    
+    <p>Wundversorgung mit Naht unter lokale Betäubung</p>
+    
+    <p>Anamnese und Verlauf:</p>
+    
+    <p>Herr/Frau XY wurde aus Altenheim mit dem RTW in unsere Notfallambulanz gebracht. Laut Aussage des Pflegepersonals sei die Pat. aus dem Rollstuhl aufgestanden und gestürzt. Pat. gibt einen diffusen Ganzkörperschmerz an. Pat sei dement und nehme OAKs in Form von Clopidogrel ein. Die Vorgeschichte der Patientin dürfen wir freundlicherweise als bekannt voraussetzen und verweisen auf unser Unfallbericht vom xx.yy.zzzz.</p>
+    
+    <p>In der initialen Diagnostik mit CCT und CT-HWS zeigte sich Atlas Fraktur Typ III und dislozierte Denz Fraktur Typ II. Nach RS mit der neurochirurg. Kollegen im Klinik-XYZ und nach ausführlichem Gespräch mit der Betreuerin wurde die konservative Behandlung mit Philadelphia entschiedet.</p>
+    
+    <p>Die Patientin ist bereits in der palliativen Versorgung im Heim. Am xx.yy.zzzz entließen wir Herr/Frau XY in gutem Allgemeinzustand ins Altenheim zurück.</p>
+    
+    <p>Therapievorschlag:</p>
+    
+    <p>Tragen der Philadelphia-Halskrawatte für 3 Monaten.</p>
+    
+    <p>Röntgenkontrolle der HWS in 2 und 6 Wochen.</p>
+    
+    <p>Wir empfehlen regelmäßige Wundkontrollen sowie Entfernung des Nahtmaterials ab dem 10. Tag postop.</p>
+    
+    <p>Die medikamentöse analgetische Therapie kann je nach Bedarf beschwerdeabhängig weiter reduziert werden.</p>
+    
+    <p>Fortsetzen mit de AOKs in Form von Clopidogrel.</p>
+    
+    <p>Bei Besonderheiten bitten wir um eine Wiedervorstellung in unserer Klinik.</p>
+    
+    <p>Entnehmen Sie bitte der beigefügten Medikamentenliste.</p>
+    
+    <p>Baker-Zyste</p>
+    
+    <p>OP: Knieoperation offen links am xx.yy.zzzz</p>
+    
+    <p>Anamnese und Verlauf:</p>
+    
+    <p>Bei Herrn/Frau XY besteht eine große Bakerzyste im Bereich des linken Kniegelenkes dorsalseitig. Diese wird im MRT vom xx.yy.zzzz beschrieben und ist auch klinisch verifizierbar.</p>
+    
+    <p>Nach entsprechender präoperativer Vorbereitung führten wir den o.g. Eingriff am xx.yy.zzzz durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam und war trocken zum Entlassungszeitpunkt. Die Durchblutung, Motorik und Sensibilität des linken Beines waren jederzeit intakt. Unter Anleitung der Krankengymnasten erfolgte die Mobilisation.</p>
+    
+    <p>Der Patient erhielt postoperativ Physiotherapie und wurde unter Entlastung mit Rollstuhl auf Stationsebene mobilisiert.</p>
+    
+    <p>Letztendlich konnten wir Herr/Frau XY am xx.yy.zzzz in gutem Allgemeinzustand und reizlosen Wundverhältnissen aus unserer stationären Behandlung entlassen.</p>
+    
+    <p>Wir empfehlen:</p>
+    
+    <p>Die Fortführung der Krankengymnastik unter Anleitung mit Vollbelastung.</p>
+    
+    <p>Allgemeine Befundkontrolle.</p>
+    
+    <p>Regelmäßige Wundkontrollen. Fadenentfernung am 12.-14.Tag postop.</p>
+    
+    <p>Fortführung der Antikoagulationstherapie für 3 Monate</p>
+    
+    <p>20 KG Teilbelastung für 1 Woche</p>
+    
+    <p>Medikamentenplan ausgedruckt und liegt dabei.</p>
+    </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Bursektomie</h2>
+    <p><div>
+        <p>Anamnese und Verlauf:</p>
+        <p>
+          Der Patient stellte sich notfallmäßig am xx.yy.zzzz in unserer chirurgischen Ambulanz vor. Er klagt seit Mittwoch xx.yy.zzzz über anhaltende Knieschmerzen. Ein Trauma ist nicht erinnerlich. Tetanusschutz sei nicht mehr aktuell. Der Patient spricht kein Deutsch und wurde mittels eines Übersetzers unterstützt. Untersuchungsbefund: Der Patient beklagt Drückschmerzen über Patella links, lokal ist eine Schwellung mit Rötung und Überwärmung ohne Hinweis für Hämatom oder offene Verletzungen. Der Bandapparat und pMDS waren intakt.</p>
+        <p>
+          Röntgen- und Sono-Befund: keine Frakturen, Verkalkungen in Bereich des Quadricepssehnenansatzes und kein Hinweis auf einer Ruptur.</p>
+        <p>
+          Über eine operative Versorgung wurde der Patient mittels Übersetzung ausführlich informiert und aufgeklärt, OP- Aufklärung und Anästhesie Aufklärung erfolgt am xx.yy.zzzz. Covid 19 Abstrich und ein Termin wurde am xx.yy.zzzz organisiert und eine Operationstermin für Bursektomie links am xx.yy.zzzz. vereinbart. Bis OP-Tag ist mit Umschlägen mit Prontosan, Schmerztherapie behandelt worden.</p>
+        <p>
+          Nach entsprechender präoperativer Vorbereitung führten wir am xx.yy.zzzz den o. g. Eingriff durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam und war trocken zum Entlassungszeitpunkt.</p>
+        <p>
+          Wir konnten Herr/Frau XY am xx.yy.zzzz mit trockenen und reizlosen Wundverhältnissen aus unserer stationären Behandlung entlassen.</p>
+        <p>
+          Therapievorschlag:</p>
+        <ul>
+          <li>Mobilisation mit axialer Vollbelastung in der Medijeans-Schiene für 14 Tage.</li>
+          <li>Wir empfehlen regelmäßige Wundkontrolle.</li>
+          <li>Fadenzug nach 14 Tagen, dann Vollbelastung mit erlaubter freier Mobilisation des rechten Kniegelenkes.</li>
+        </ul>
+      </div>
+      
+      
+      
+      </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Distale mehrfragmentäre grob-dislozierte Radiusextensionsfraktur links bei liegender Osteosynthese</h2>
+    <p><div>
+        <p>Versagen des Osteosynthesematerials, Z.n. Revisions-OP mit Re-Osteosynthese, Fehllage der Schrauben und Repositionsverlust</p>
+        <p>
+          Die Vorgeschichte der o.g. Patientin dürfen wir freundlicherweise als bekannt voraussetzen. Wir verweisen auf den Unfallbericht von xx.yy.zzzz.</p>
+        <p>
+          Nach üblicher präoperativer Vorbereitung und Basisdiagnostik wurde die Patientin xx.yy.zzzz operativ versorgt (Winkelstabile Platte: Radius distal). Nach der ersten Revision wurde röntgenologisch eine Osteosynthese Materialversagen diagnostiziert. Die Patienten wurde erneut am xx.yy.zzzz mittels Entfernung der winkelstabilen volaren Synthes-Radius-LCP-Platte, erneute offene Frakturreposition, Re-Osteosynthese mittels K-Drähten und einer distalen LCP-Radiusplatte aus Titan (Fa. Synthes) stabilisiert.</p>
+        <p>
+          Die postoperative röntgenologische Kontrolle zeigen eine regelrechte Reposition der Frakturfragmente bei korrekter Lage des Osteosynthesematerials.</p>
+        <p>
+          Die Drainage konnte zeitgerecht entfernt werden, die Wundheilung verlief per primam.</p>
+        <p>
+          Wir konnten somit die Patientin in einer relativ gutem Allgemeinzustand und reizloser, trockener Nahtreihe in ihre weitere stationäre Rehabilitation am xx.yy.zzzz entlassen.</p>
+        <p>
+          Revision, Entfernen der alten Platte, Reposition radiologisch kontrolliert und besetzen einer neuen palmaren Platte am xx.yy.zzzz.</p>
+        <p>
+          Entfernung der winkelstabilen volaren Synthes-Radius-LCP-Platte, erneute offene Frakturreposition, Re-Osteosynthese mittels K-Drähten und einer distalen LCP-Radiusplatte aus Titan (Fa. Synthes) am xx.yy.zzzz.</p>
+        <p>
+          Verlauf:</p>
+        <p>
+          Nach entsprechender präoperativer Vorbereitung führten wir am xx.yy.zzzz den o. g. Eingriff durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam und war trocken zum Entlassungszeitpunkt. X2</p>
+        <p>
+          Wir konnten Herr/Frau XY am xx.yy.zzzz mit trockenen und reizlosen Wundverhältnissen aus unserer stationären Behandlung entlassen.</p>
+        <p>
+          Therapievorschlag:</p>
+        <ul>
+          <li>Anlegen einer Unterarmgipsschiene für 6 Wochen postoperativ. Die K-Drähte können nach radiologischer Bestätigung der Konsolidierung 6 Wochen postoperativ entfernt werden.</li>
+          <li>Wir empfehlen regelmäßige Wundkontrolle, das Nahtmaterial ist resorbierbar und muss nicht entfernt werden.</li>
+          <li>Die Analgetikatherapie kann beschwerdeabhängig reduziert werden.</li>
+        </ul>
+      </div></p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Akute Lumbago</h2>
+    <p><p>Stationär Aufnahme zur Analgetikatherapie und Mobilisation mittels Krankengymnastik.</P>
+
+      <P>Anamnese und Verlauf:</P>
+      
+      <p>Die Patientin stellte sich notfallmäßig am xx.yy.zzzz in unserer chirurgischen Ambulanz vor. Sie berichtet, sie habe am xx.yy.zzzz beim Einkaufen eine Kiste Wasser tragen wollen. Nachdem Sie das Wasser in den Korb gestellt hat, verspürte sie starke Rückenschmerzen, die nicht in die Beine ausstrahlt. Sie habe am Wochenende schon mehrmals Ibuprofen 400 mg eingenommen. Die UV gibt an, das seit gestern die Schmerzen immer stärker geworden seien. Tetanusschutz aktuell.</p>
+      
+      <p>Bei der Untersuchung klagte die Patientin über Druck- und Klopfschmerzen im LWS- und Sakralbereich sowie ISG rechts mehr als links, keine Muskelschwäche oder Taubheit in beiden Beinen. Lasègue-Zeichen positiv bei 45° beidseits.</p>
+      
+      <p>In der initialen Diagnostik zeigte sich keine knöcherne Fraktur. Bei Geh- und Streckunfähigkeit nahmen wir Herr/Frau XY zur suffizienten Schmerztherapie Stationär auf.</p>
+      
+      <p>Unter Analgesie sowie physikalischen Anwendungen waren die Beschwerden im Verlauf deutlich rückläufig, sodass wir Herr/Frau XY am xx.yy.zzzz bei zufriedenstellendem Allgemeinbefinden in Ihre weitere hausärztliche Behandlung entlassen konnten.</p>
+      
+      <h2>Wir empfehlen:</h2>
+      
+      <ul>
+        <li>Regelmäßige Befundkontrollen und die Fortführung der Krankengymnastischen Übungsbehandlung.</li>
+        <li>Die medikamentöse analgetische Therapie kann je nach Bedarf beschwerdeabhängig weiter reduziert werden.</li>
+        <li>Bei anhaltenden Beschwerden oder Neurologie weitere Diagnostik erwägen. (MRT)</li>
+      </ul>
+      
+      <p>Medikamentenplan ausgedruckt und liegt dabei.</p>
+      
+      <p>Die o. g. Präparate können durch Medikamente anderer Hersteller mit gleichem Inhaltsstoff und gleicher Dosierung ersetzt werden.</p>
+      </p></p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Hüftendoprothese (Duokopf)</h2>
+    <p><div>
+        <p>Op: am xx.yy.zzzz Implantation einer Duokopfprothese (Avenirschaft Gr. 3, modular-bipolar 28/46 mm)</p>
+        <p>Anamnese und Verlauf:</p>
+        <p>Der Patient stellte sich notfallmäßig am xx.yy.zzzz in unserer chirurgischen Ambulanz vor. Die Patientin gibt an im Keller das Gleichgewicht verloren zu haben und dort 24 h gelegen zu haben bevor sie gefunden wurde. Vorher kein Schwindel. Sie wurde hierher mit Rettungsdienst gebracht, klagte sie über Schmerzen im Schultergelenk sowie Hüftgelenk links. Sie war nicht bewusstlos und nimmt Clopidogrel 75 mg 1-0-0 ein.</p>
+        <p>Befund:</p>
+        <ul>
+          <li>Patientin ist wach, adäquat und orientiert.</li>
+          <li>Pupillen isokor, kein neurologisches Defizit.</li>
+          <li>Kopf und Halswirbelsäule: unauffällig, keine Bewegungseinschränkung, keine Druck- oder Klopfschmerzen.</li>
+          <li>Thorax, Bauch und Becken: unauffällig, keine Druckschmerzen, Bauch ist weich ohne Abwehrspannung.</li>
+          <li>Schulter links: normale Beweglichkeit, Druckschmerzen am Humeruskopf, Druckschmerzen im Schulterblatt links, Ellenbogen, Hand und Finger unauffällig, pDMS intakt.</li>
+          <li>Bein links kurz und außenrotiert.</li>
+          <li>Hüfte links: Druckschmerzen mit schmerzhafter Bewegungseinschränkung, pDMS intakt.</li>
+          <li>restliche Extremitäten: unauffällig, pDMS intakt.</li>
+        </ul>
+        <p>Nach entsprechender präoperativer Vorbereitung führten wir den o.g. Eingriff am xx.yy.zzzz durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam und war trocken zum Entlassungszeitpunkt. Die Durchblutung, Motorik und Sensibilität des linken Beines waren jederzeit intakt. Unter Anleitung der Krankengymnasten erfolgte die Mobilization. Das postoperative Röntgenbild zeigte eine regelgerechte Stellung des Duokopfprothese ohne Nachweis auf Lockerung.</p>
+        <p>Der Patient erhielt postoperativ Physiotherapie und wurde unter Entlastung mit Rollator auf Stationsebene mobilisiert.</p>
+        <p>Letztendlich konnten wir Herr/Frau XY in gutem Allgemeinzustand und reizlosen Wundverhältnissen aus unserer stationären Behandlung entlassen.</p>
+        <p>Wir empfehlen:</p>
+        <ul>
+          <li>Die Fortführung der Krankengymnastik unter Anleitung mit Vollbelastung.</li>
+          <li>Röntgenkontrolle in 6 Wochen oder bei Zunehmenden Schmerzen.</li>
+          <li>Regelmäßige Wundkontrollen.</li>
+          <li>bis zur Vollmobilisierung eine Thromboseprophylaxe mittels niedermolekularen Heparins unter Kontrolle der Trombozyten.</li>
+        </ul>
+      </div></p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Kopf und Gesicht Fraktur (Schockraum)</h2>
+    <p><div>
+        <h4>Diagnosen:</h4>
+        <ul>
+          <li>Subdurales Hämatom links retro-orbital und parietal</li>
+          <li>Subdurales Hämatom rechts retro-orbitales</li>
+          <li>Jochbogen links</li>
+          <li>Orbitaseitenwand- und Dachfraktur links</li>
+          <li>Orbitadachfraktur rechts</li>
+          <li>SHT I°</li>
+          <li>Knieprellungen mit Schürfungen beidseits</li>
+        </ul>
+      
+        <h4>Anamnese und Verlauf:</h4>
+        <p>Die Vorgeschichte der Patientin dürfen wir freundlicherweise als bekannt voraussetzen. Der Patient sei in die Häuslichkeit auf die Treppen gestürzt. Der Patient kam mit RD und NA in den Schockraum und wurde mit tiefer Bewusstlosigkeit angemeldet. Kein Hinweis über den Sturzmechanismus, der Patient wurde vom Angehörigen liegend aufgefunden. Der Tetanusschutz ist unklar. Der Patient nimmt keine Medikation ein und hat keine Allergien.</p>
+      
+        <p>Der Patient war wach, jedoch stark alkoholisiert, grob orientiert, kooperativ und hatte eine Stief-Neck-Krause angelegt. Der Patient beklagte keine Beschwerden. Die Pupillen waren rund, mittelweit und isokor, die Lichtreaktion beidseitig prompt. Es wurde kein Liquor aus Nase oder Ohren beobachtet. Der Patient erbrach mehrmals im Schockraum, das Erbrochene enthielt altes und frisches Blut. Im Nasenbereich fanden sich mehrere Blutkrusten, ohne Nachweis einer Blutungsquelle. Es wurden keine Verletzungen im Mund festgestellt, und die Atmung war unauffällig. Der Patient gab keine Schmerzen im Halswirbelsäulenbereich an.</p>
+      
+        <p>Im Bereich von Thorax, Abdomen und Becken beklagte der Patient keine Schmerzen. Die Lungen wurden beidseits gut belüftet, es gab keine klinischen Hinweise auf einen Pneumothorax. Der Patient gab keine Rückenschmerzen oder Kribbelparästhesien an.</p>
+      
+        <p>An beiden Kniegelenken waren mehrere Schürfwunden ohne klinischen Hinweis auf Erguss oder Verletzungen des Bandapparats zu erkennen. Der Patient konnte alle Extremitäten frei bewegen, die motorische und sensible Funktion war intakt.</p>
+      
+        <h4>Röntgenbefund:</h4>
+        <p>Sono-FAST: Es wurde keine freie Flüssigkeit und keine Organverletzung festgestellt.</p>
+      
+        <p>CT Trauma Spirale: Es wurden mehrere Brüche des Jochbogens links ohne wesentliche Dislokation, Frakturen der Orbitaseitenwand und des Dachs links, Orbitadachfraktur rechts, ein subdurales Hämatom retro-orbital und parietal links sowie wahrscheinlich ein retroorbitales subdurales Hämatom rechts festgestellt. Es wurden keine weiteren Frakturen, freie Flüssigkeit oder Verletzungen von Organen oder Gefäßen festgestellt.</p>
+      
+        <h4>Laborkontrolle:</h4>
+        <p>Alkoholspiegel: 3,24, ansonsten keine Besonderheiten. Ein Urinstatus konnte nicht abgenommen werden.</p>
+      
+        <p>Am xx.yy.zzzz wurde eine CCT-Verlaufskontrolle durchgeführt. Dabei wurde eine unveränderte Tripod-Fraktur links festgestellt. Das Hämatom im temporopolaren Bereich hatte eine konstante Größe von 12 x 11 x 18 mm. Es gab auch keine Veränderungen in den extraaxialen Gaseinschlüssen links, die an das Hämatom und die Fraktur am Os temporale angrenzten (Serie 5, Bild 21-28) sowie im retroorbitalen Bereich. Ein unverändertes Hämatom befand sich auch im frontobasalen Bereich rechts, angrenzend an die Orbitafraktur.</p>
+      
+        <p>Am xx.yy.zzzz wurde erneut eine CCT-Verlaufskontrolle durchgeführt. Dabei wurden keine Veränderungen festgestellt.</p>
+      
+        <h4>Entlassung:</h4>
+        <p>Wir können Herr/Frau XY am xx.yy.zzzz in gutem Allgemeinzustand nach Hause entlassen. Es wird empfohlen:</p>
+        <ul>
+          <li>Bei anhaltenden Beschwerden eine Weiterbehandlung bei einem niedergelassenen Fachchirurgen in Erwägung zu ziehen.</li>
+          <li>Schmerztherapie bei Bedarf.</li>
+        </ul>
+      
+        <h4>Weitere Empfehlungen:</h4>
+        <ul>
+          <li>Weiterführende Besprechung des weiteren Vorgehens mit einem MKG-Chirurgen.</li>
+          <li>Regelmäßige Überprüfung der Befunde und laborchemische Kontrollen.</li>
+          <li>Medikamentenplan ausgedruckt und beigelegt.</li>
+          <li>Die oben genannten Präparate können durch Medikamente anderer Hersteller mit gleichem Inhaltsstoff und gleicher Dosierung ersetzt werden.</li>
+          <li>Kopf- und Gesichtstrauma.</li>
+        </ul>
+      </div>
+      </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Kyphoplastie BWK 12 und LWK 3</h2>
+    <p><div>
+        <h4>Leitliniengerechten Früh-Reha-Programm</h4>
+      
+        <h4>Anamnese und Verlauf:</h4>
+        <p>Die Vorgeschichte der Patientin dürfen wir freundlicherweise als bekannt voraussetzen und verweisen diesbezüglich auf unseren Unfallbericht vom xx.yy.zzzz. Nach üblicher präoperativer Vorbereitung und Basisdiagnostik wurde die Patientin am xx.yy.zzzz operativ versorgt. Der intra- und postoperative Verlauf gestaltete sich komplikationslos, die Wundheilung verlief primär und war bis zur Entlassung reizfrei. Das postoperative Röntgenbild zeigte eine regelgerechte intervertebrale Verteilung des Knochenzementes in BWK 12 und LWK 3.</p>
+      
+        <p>Die Patientin wurde in unserem Frührehabilitations-Programm aufgenommen und auf Stationsebene am Rollator mobilisiert. Bei reizlosen Wundverhältnissen und gutem Allgemeinzustand konnten wir sie am xx.yy.zzzz aus unserer stationären Behandlung entlassen.</p>
+      
+        <p>Am xx.yy.zzzz konnten wir Herr/Frau XY bei subjektivem Wohlbefinden und mit reizlosen Wundverhältnissen aus unserer stationären Behandlung entlassen.</p>
+      
+        <h4>Therapievorschlag:</h4>
+        <ul>
+          <li>Allgemeine Befund-Wundkontrolle.</li>
+          <li>Entfernung des Nahtmaterials im 12. Tag postoperativ.</li>
+          <li>Fortführung der Thromboembolieprophylaxe bis zur vollständigen Remobilisation unter regelmäßigen Blutbildkontrollen.</li>
+          <li>Fortführung der Krankengymnastik.</li>
+          <li>Schweres Heben sollte für 6 bis 8 Wochen postoperativ unterlassen werden.</li>
+          <li>Die Analgetikatherapie kann beschwerdeabhängig reduziert werden.</li>
+          <li>Röntgenkontrolle des LWS in 6 Wochen oder bei zunehmenden Schmerzen.</li>
+          <li>Bei Besonderheiten bitten wir um eine Wiedervorstellung in unsere Klinik.</li>
+        </ul>
+      
+        <p>Die Medikamentenliste wurde der Patientin mitgegeben.</p>
+      </div>
+      </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Materialentfernung</h2>
+    <p><div>
+        <p>Die Vorgeschichte dürfen wir freundlicherweise als bekannt voraussetzen. Bei Herrn/Frau XY haben wir am xx.yy.zzzz eine Patellalängsfraktur rechtsseitig offen reponiert und mit zwei kanülierten Schrauben osteosynthetisch versorgt. Der Pat. gibt an, danach keine Probleme mit dem Kniegelenk gehabt zu haben – seit ca. 4 Monaten verspüre er nun Schmerzen insbesondere beim Gehen und bei Belastung/Arbeit. Die Schmerzen bestünden hauptsächlich medial der Kniescheibe. Klinisch zeigt sich ein reizloses rechtes Kniegelenk. Deutlicher Druckschmerz am medialen/distalen Patellarand.</p>
+      
+        <p>Die freundlicherweise zur Verfügung gestellten Röntgenaufnahmen des rechten Kniegelenkes in 2 Ebenen mit Patella tangential vom xx.yy.zzzz zeigen eine zu lange distale Schraube sowie eine intraartikuläre Schraubenlage.</p>
+      
+        <p>Wir haben den Befund mit Herrn/Frau XY ausführlich besprochen und ihm die Metallentfernung empfohlen. Diesbezüglich wurde ein Termin zur stationären Aufnahme für den xx.yy.zzzz mit präoperativer Vorbereitung am xx.yy.zzzz vereinbart.</p>
+      
+        <p>Nach unauffälliger präoperativer Vorbereitung führten wir den o.g. Eingriff am xx.yy.zzzz durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos, die Wundheilung verlief bis zur Entlassung per primam.</p>
+      
+        <p>Der Patient wurde postoperativ unter Entlastung des rechten Beines an Unterarmgehstützen mobilisiert.</p>
+      
+        <p>Wir entließen Herrn/Frau XY bei subjektivem Wohlbefinden und reizlosen Wundverhältnissen am xx.yy.zzzz in Ihre weitere hausärztliche Behandlung.</p>
+      
+        <h4>Wir empfehlen:</h4>
+        <ul>
+          <li>Allgemeine Befundkontrolle.</li>
+          <li>Regelmäßige Wundkontrollen.</li>
+          <li>Fortführung der Thromboembolieprophylaxe bis zur Vollmobilisation.</li>
+          <li>Fäden sind resorbierbar, Entfernung der Steristrips ab dem 12. Tag möglich.</li>
+          <li>Vollbelastung nach Entfernung der Steristrips.</li>
+        </ul>
+      </div>
+      </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Rippenserienfraktur</h2>
+    <p><div>
+        <h4>Befund:</h4>
+        <p>Druckschmerz über der 5. und 6. Rippe li. ventral mit schmerzhafter Bewegung, keine Luftnot, SpO2 96%, Lungen gut belüftet, Hautmantel und periphere DMS intakt.</p>
+      
+        <h4>Röntgenbefund:</h4>
+        <p>Rippen li. in 2 Eb.+ Thorax-Aufnahme: Gering dislozierte Rippenfrakturen 6-8, kein sicherer Hinweis auf Pneumothorax.</p>
+      
+        <p>CT-Thorax: Nahezu undislozierte Serienfraktur der Rippen 4 bis 8 links. Kein Pneumothorax, keine Lungenkontusion. Zeichen einer pulmonalvenösen Stauung. Geringe Pleuraergüsse beidseits. Ausgeprägte Verkalkungen der Herzklappen. Ventrale Zwerchfellrelaxation rechts. Sternalcerclagen. Verkalkte mediastinale und hiläre Lymphknoten. Kleiner verkalkter Herd rechts im ventralen Lungenoberlappen. Nicht vollständig erfasste Nieren, Zeichen einer Harnstauung rechts. Sonographische Korrelation angeraten. Alte Deckplattenfraktur in der oberen LWS.</p>
+      
+        <h4>Sono-Abdomen (FAST):</h4>
+        <p>Keine freie Flüssigkeit oder frische innere Organverletzung, v.a. Hydronephrose re., Nierenzyste li.</p>
+      
+        <h4>Urin-Status:</h4>
+        <p>Erythrozyten im Normbereich, Leuko. 100/ul.</p>
+      
+        <h4>Therapie:</h4>
+        <p>Stationäre Aufnahme zur Schmerztherapie und weiteren Behandlung. Thoraxchirurgisches und urologisches Konsil angemeldet.</p>
+      
+        <p>Schonung, Kühlung und Triflow. Atemgymnastik anmelden.</p>
+      
+        <p>Hausmedikation übernehmen (Tilidin weiter).</p>
+      
+        <p>Novalgin 1 g i.v. 3xtägl.</p>
+      
+        <p>Oxygesic akut b.B. bis zur 4xtägl.</p>
+      
+        <p>Heparin 7500 1xtägl.</p>
+      </div>
+      </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>SHT Grad I</h2>
+    <p><div>
+        <h4>Therapie:</h4>
+        <p>SHT</p>
+        <ul>
+          <li>24-stündige klinische Kontrolle der Vigilanz- und der Vitalparameter</li>
+          <li>Applikation einer analgetisch/antiphlogistischen Medikation</li>
+          <li>Infusionstherapie</li>
+          <li>Bildmorphologische Diagnostik mittels Röntgen und CCT</li>
+        </ul>
+      
+        <h4>Verlauf:</h4>
+        <p>In Anbetracht der beklagten Beschwerden des Unfallhergangs und der vorliegenden Klinik, erfolgte die stationäre Aufnahme zur weiteren Abklärung und zur Überwachung der Vitalparameter und der Vigilanz. Eine ICB und die Frakturereignis konnten ausgeschlossen werden. Es erfolgte die Einleitung weiterer konservativer Maßnahmen wie die Applikation einer analgetisch / antiphlogistischen Medikation und bildmorphologischen Kontrolle. Der AZ des o.g. Patienten zeigte sich im Verlauf blande.</p>
+      
+        <p>Im Verlauf zeigten sich sowohl die Klinik als auch die subjektiven Beschwerden rückläufig, so dass Herr/Frau XY am xx.yy.zzzz aus der stationären Behandlung in die ambulante Weiterbehandlung entlassen werden konnte.</p>
+      
+        <h4>Therapievorschlag:</h4>
+        <p>Bedarfsgerechte Analgesie. Weiterführung der häuslichen Medikation/Medikamentenplan ausgedruckt und liegt dabei.</p>
+      </div>
+      </p>
+
+      <p>Der Versicherte sei nach einer Rangelei mit seinem Mitschüler mit den Hinterkopf auf den Granitboden gefallen. Leichte Kopfschmerzen und keine Bewusstlosigkeit.</p>
+
+<p>Bei der klinische Untersuchung zeigte sich ein wacher, ansprechbarer Patient. Pupillen isokor und lichtreagibel. Kein Blutung oder Liquor aus Nase oder Ohren. Keine Kopfschmerzen, keine Übelkeit, kein Erbrechen, keine Bewusstlosigkeit, kein Amnesie, HWS: Kopf freibeweglich, keine DS/KS</p>
+
+<p>Minimales occipitales Hämatom</p>
+
+<p>Allergien: Pollen, Milch</p>
+<p>Vorerkrankungen: allergisches Asthma</p>
+
+<p>Proc:</p>
+<ul>
+  <li>Körperliche Schonung, bei Alarmzeichen (Erbrechen, Übelkeit) sofortige Wiedervorstellung oder 112 anrufen (Merkblatt mitgegeben)</li>
+  <li>Anamnese, Untersuchung, Beratung, Aushändigung des Merkblatts für Eltern mit Kindern nach Sturz</li>
+  <li>Anamnese, körperliche Untersuchung, Desinfektion mit Octenisept, Wundversorgung mit Hautkleber, Verband.</li>
+  <li>Anamnese, körperliche Untersuchung, Desinfektion mit Octenisept, Wundversorgung mit Naht Ethilon 4-0 in LA, Verband.</li>
+</ul>
+
+<p>Minimales occipitales Hämatom</p>
+
+<p>Schädelkontusion</p>
+
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Tibiakopffraktur</h2>
+    <p><div>
+        <h4>Anamnese und Verlauf:</h4>
+        <p>Der Patient stellte sich notfallmäßig am xx.yy.zzzz. in unserer chirurgischen Ambulanz vor. Der Pat. gibt an mit dem li. Fuß umgeknickt zu sein und auf Knie links gefallen. Seitdem könne er diesen nicht mehr voll belasten.</p>
+      
+        <h4>Befund:</h4>
+        <ul>
+          <li>Druckschmerz, deutliche Schwellung über proximale Unterschenkel links lateral, keine Hämatomverfärbung</li>
+          <li>DS über proximale Fibula, kein Gelenkerguss</li>
+          <li>Kreuzbänder, Seitenbänder stabil</li>
+          <li>Meniskus konnte wegen Schmerzen nicht untersucht werden</li>
+          <li>schmerzbedingte Bewegungseinschränkung Knie links, Flex/Ext: 100°/0°/10°</li>
+          <li>PDMS intakt, Hautmantel intakt</li>
+        </ul>
+      
+        <p>Nach entsprechender präoperativer Vorbereitung führten wir den o.g. Eingriff am xx.yy.zzzz durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam und war trocken zum Entlassungszeitpunkt. Das postoperative Röntgenbild zeigte eine regelgerechte Lage des eingebrachten Osteosynthesematerials sowie eine regelrechte Stellung der Fraktur.</p>
+      
+        <p>Der Patient erhielt postoperativ Physiotherapie und wurde unter Entlastung des linken Beines mittels Unterarmgehstützen auf Stationsebene mobilisiert.</p>
+      
+        <p>Letztendlich konnten wir Herrn/Frau XY in gutem Allgemeinzustand und reizlosen Wundverhältnissen aus unserer stationären Behandlung entlassen.</p>
+      
+        <h4>Entlassbefund:</h4>
+        <ul>
+          <li>Nahtreihe trocken und reizlos. Klammer in situ.</li>
+          <li>Die pDMS unverändert, klinisch keine Thrombosezeichen.</li>
+        </ul>
+      
+        <p>Wir empfehlen regelmäßige Wundkontrolle, das Nahtmaterial - Klammer - muss entfernt werden.</p>
+      
+        <ul>
+          <li>Für 6 Wochen postoperativ Entlastung, „Donjoy“-Schiene 0-30-60 für 4 Wochen danach frei.</li>
+          <li>Clexane 0,4 ml s.c 0-0-1</li>
+          <li>Fortführen der Krankengymnastik unter Entlastung des linken Beines für 6 Wochen postoperativ.</li>
+          <li>Die Analgetikatherapie kann beschwerdeabhängig reduziert werden.</li>
+        </ul>
+      </div>
+      </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Procedere</h2>
+    <p><p>Proc:</p>
+    <ul>
+      <li>Schonung, Kühlung, Hochlagerung</li>
+      <li>Analgesie bei Bedarf (Ibuprofen 600 mg 1-1-1)</li>
+    </ul>
+    <p>Bei Befundverschlechterung jederzeitige Wiedervorstellung in der Notaufnahme möglich</p>
+    <p>Bei Schmerzpersistenz Wiedervorstellung in der BG-Sprechstunde</p>
+    <p>Telefon BG-Sprechstunde: 09281 982730</p>
+    <p>Fadenzug in 10 Tagen beim Hausarzt / bei der Hausärztin.</p>
+    <p>Bei Schmerzpersistenz Wiedervorstellung beim niedergelassenen Orthopäde / bei der niedergelassenen Orthopädin.</p>
+    </p>
+    <p>Anordnungen für die Station:</p>
+<p>Schonung, Kühlung.</p>
+<p>Vitalparameter alle 4 St.</p>
+<p>Häusliche Medikation weiter</p>
+<p>Analgesie bei Bedarf Novalgin i.v. 1g 1-1-1, Dipidolor 7,5 mg i.v. 1-0-1</p>
+<p>Op für heute geplant. Bitte heute nüchtern lassen. Danke!</p>
+
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Schnittwunde</h2>
+    <p><p>Die Versicherte habe sich beim Bohren mit einem Werkstück in der D3 li. geschnitten. Sie habe versucht die Skalpellklinge zu wechseln</p>
+
+    <p>Sofortige Vorstellung in der Notaufnahme</p>
+    
+    <p>Wach, adäquat, ansprechbar</p>
+    <p>Rechter Daumen: Kleine Oberfläche Schnittwunden 1 cm palmar, kein Druckschmerz und keine Schwellung im Bereich der distalen Phalanx, DGG und dem DIP Gelenk. Finger ist aktiv gegen widerstand beweglich, periphere Durchblutung, Motorik und Sensibilität intakt.</p>
+    <p>Tetanus intakt</p>
+    
+    <p>Procedere:</p>
+    <p>Schonung, Kühlung, Hochlagerung. Analgesie bei Bedarf (Ibuprofen 600 mg 1-1-1).</p>
+    <p>Bei Befundverschlechterung jederzeitige Wiedervorstellung in der Notaufnahme möglich</p>
+    <p>Bei Schmerzpersistenz Wiedervorstellung in der BG--Sprechstunde Tel: 09281 982730</p>
+    <p>Fadenzug in 10 Tagen beim Hausarzt / bei der Hausärztin.</p>
+    
+    <p>Anamnese, körperliche Untersuchung, Desinfektion mit Octenisept, Wundversorgung mit Hautkleber, Verband.</p>
+    
+    <p>Anamnese, körperliche Untersuchung, Desinfektion mit Octenisept, Wundversorgung mit Naht Ethilon 4-0 in LA, Verband.</p>
+    
+    <p>Diagnose:</p>
+    <p>Schnittwunde am D1 links</p>
+    </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>ABCDE SCHOCK</h2>
+    <p><h3>A.: Airway Maintenance with Cervical Spine Protection:</h3>
+        <ul>
+          <li>Atemweg verlegt: Ja/Nein</li>
+          <li>Glasgow Coma Scale (GCS):</li>
+          <li>Anliegender Stiffneck bei Eintreffen: Ja/Nein; Stiffneck angelegt im Schockraum: Ja/Nein</li>
+          <li>Respiratorisch suffizient: Ja/Nein</li>
+          <li>Cardial suffizient: Ja/Nein</li>
+          <li>Tiefe Sedierung: Ja/Nein</li>
+        </ul>
+        
+        <h3>B.: Breathing and Ventation:</h3>
+        <ul>
+          <li>Inspektion, Palpation:</li>
+          <li>Auskultation:</li>
+          <li>Röntgen Thorax im Schockraum: Pneumothorax: Ja/Nein</li>
+          <li>Hämatothorax: Ja/Nein</li>
+          <li>Frakturen:</li>
+        </ul>
+        
+        <h3>C.: Circulation with Hemorrhage Control:</h3>
+        <ul>
+          <li>Antikoagulation:</li>
+          <li>Blutungsquellen:</li>
+          <li>Hautfarbe: Rosa/ Livide / Blass</li>
+          <li>Puls: Kräftig an allen Extremitäten tastbar</li>
+          <li>Bewustseinszustand: Wach/ Somnolent</li>
+          <li>Rekapillarisierungszeit: Hand rechts: < 3s; Hand links < 3s; Fuß rechts: < 3s; Fuß links < 3 s</li>
+          <li>Blutdruck:</li>
+          <li>Radiologische Zeichen eine Blutungsquelle:</li>
+          <li>Sonographische Zeichen einer Blutungsquelle:</li>
+        </ul>
+        
+        <h3>D.: Disability (Neurologic Evaluation):</h3>
+        <ul>
+          <li>Lichtreaktion der Pupillen: Prompt, seitengleich, konsensuell</li>
+          <li>Pupillengröße: Anisocorie, Normal seitengleich, verengt, erweitert</li>
+          <li>Fingerfolgeversuch:</li>
+          <li>Sprache:</li>
+          <li>GCS: s.o.</li>
+        </ul>
+        
+        <h3>E.: Exposure/ Environmental Control:</h3>
+        <ul>
+          <li>Komplett entkleidet:</li>
+        </ul>
+        
+        <h3>Bodycheck:</h3>
+        <p>Der Patient ist kreislaufstabil, wach, GCS 15, zu allen Qualitäten voll orientiert, verhält sich altersentsprechend, keine vermehrte Schläfrigkeit, kein Meningismus, kein Nystagmus, orientierende Hirnnervenprüfung unauffällig, keine neurologische Auffälligkeiten, Pupillen isokor, mittelweit, prompte direkte und konsensuelle Lichtreaktion bds., Augenmotilität intakt, Schädel stabil, keine Hämato- oder Liquorrhoe aus Mund/Hals, Nase oder Ohren. Enoral unauffällig.</p>
+        <p>Unauffälliges Achsenskelett
+        </p>
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>Körperliche Untersuchungen</h2>
+    
+
+
+  </div>
+  
+  <div class="content" style="display: none;">
+    <h2>KH Verlauf</h2>
+    <p>.</p>
+  </div>
+  
+  <script>
+    
+    
+    // Mostrar la barra lateral al hacer clic en el botón de menú
+    document.getElementById('menu-button').addEventListener('click', function() {
+      var sidebar = document.querySelector('.sidebar');
+      
+      sidebar.style.width = '200px';
+      sidebar.style.opacity = '0.9';
+    });
+    
+    // Mostrar la barra lateral al hacer clic en el título
+    document.querySelector('h1').addEventListener('click', function() {
+      var sidebar = document.querySelector('.sidebar');
+      
+      sidebar.style.width = '200px';
+      sidebar.style.opacity = '0.9';
+    });
+  </script>
+</body>
+</html>
