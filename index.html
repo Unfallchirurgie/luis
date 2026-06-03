@@ -4,312 +4,338 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dr. Luis Perez · Chirurgie</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Helvetica Neue',Arial,sans-serif;background:#f0ede8;color:#1a1410;font-size:14px;overflow:hidden;height:100vh}
-#wrap{display:flex;height:100vh}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Inter', system-ui, sans-serif; background: #f4f2ee; color: #1a1208; font-size: 14px; }
+body { overflow: hidden; }
+#shell { display: flex; height: 100vh; }
 
-/* ── LEFT SIDEBAR ── */
-#side{width:200px;flex-shrink:0;background:#1a1410;display:flex;flex-direction:column;overflow:hidden}
-#brand{padding:18px 14px 12px}
-#bname{font-size:14px;color:#f0e8d8;letter-spacing:.04em}
-#bsub{font-size:9px;color:#b8965a;letter-spacing:.25em;text-transform:uppercase;margin-top:3px}
-#side hr{border:none;border-top:1px solid #2e2820;margin:0 14px}
-#sfilter{padding:10px 12px}
-#sfilter input{width:100%;background:#2e2820;border:1px solid #3e3228;border-radius:5px;color:#d0c8b8;font-size:12px;padding:6px 9px;outline:none;font-family:inherit}
-#sfilter input:focus{border-color:#b8965a}
-#sfilter input::placeholder{color:#555}
-#snav{flex:1;overflow-y:auto;padding-bottom:20px}
-#snav::-webkit-scrollbar{width:3px}
-#snav::-webkit-scrollbar-thumb{background:#3e3228}
-.sg{font-size:9px;color:#555;letter-spacing:.2em;text-transform:uppercase;padding:14px 13px 5px}
-.si{display:block;width:100%;border:none;border-left:2px solid transparent;background:none;padding:7px 13px;font-family:inherit;font-size:12px;color:#888;text-align:left;cursor:pointer;transition:all .1s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.si:hover{color:#ddd;background:#2e2820}
-.si.on{color:#d4a85a;border-left-color:#b8965a}
-.si.cp{color:#6aa0c8}
-.si.cu{color:#c49060}
+/* ── SIDEBAR ─── */
+#sb { width: 220px; flex-shrink: 0; background: #161008; color: #ccc; display: flex; flex-direction: column; overflow: hidden; }
+#sb-brand { padding: 18px 16px 14px; border-bottom: 1px solid #2a2010; }
+#sb-name { font-size: 15px; font-weight: 500; color: #f5ead8; letter-spacing: .01em; }
+#sb-role { font-size: 9px; color: #a07838; letter-spacing: .3em; text-transform: uppercase; margin-top: 3px; }
+#sb-filter { padding: 10px 12px; border-bottom: 1px solid #1e1808; }
+#sb-filter input { width: 100%; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 6px; color: #bbb; font-family: inherit; font-size: 12px; padding: 6px 10px; outline: none; }
+#sb-filter input:focus { border-color: #a07838; }
+#sb-filter input::placeholder { color: #444; }
+#sb-nav { flex: 1; overflow-y: auto; padding: 6px 0 20px; }
+#sb-nav::-webkit-scrollbar { width: 2px; }
+#sb-nav::-webkit-scrollbar-thumb { background: #333; }
+.nav-grp { font-size: 9px; color: #3a3020; letter-spacing: .25em; text-transform: uppercase; padding: 14px 14px 4px; font-weight: 600; }
+.nav-btn { display: block; width: 100%; background: none; border: none; border-left: 2px solid transparent; padding: 6px 14px; font-family: inherit; font-size: 12px; color: #666; text-align: left; cursor: pointer; transition: all .1s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-btn:hover { color: #ddd; background: rgba(255,255,255,.04); border-left-color: #333; }
+.nav-btn.on { color: #c8a048; border-left-color: #a07838; background: rgba(160,120,56,.08); }
+.nav-btn.cp-style { color: #5a90c8; }
+.nav-btn.cu-style { color: #c87848; }
 
-/* ── MAIN ── */
-#main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+/* ── MAIN ─── */
+#main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 
-/* ── TOPBAR ── */
-#top{background:#fff;border-bottom:2px solid #e0d8c8;padding:10px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.dtab{border:1px solid #ccc;border-radius:20px;background:none;padding:5px 14px;font-family:inherit;font-size:12px;cursor:pointer;color:#888;transition:all .12s}
-.dtab:hover{border-color:#b8965a;color:#333}
-.dtab.all{background:#1a1410;border-color:#1a1410;color:#fff}
-.dtab.cp{background:#1a3a5a;border-color:#1a3a5a;color:#fff}
-.dtab.cu{background:#5a2a10;border-color:#5a2a10;color:#fff}
-#sbox{flex:1;position:relative}
-#sbox input{width:100%;background:#f5f0e8;border:1px solid #d8d0c0;border-radius:20px;font-family:inherit;font-size:13px;padding:7px 15px 7px 34px;outline:none;color:#222;transition:all .12s}
-#sbox input:focus{border-color:#b8965a;background:#fff}
-#sbox input::placeholder{color:#bbb}
-.sico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#bbb;font-size:15px;pointer-events:none}
-#rcnt{font-size:11px;color:#aaa;white-space:nowrap}
-#kibtn{background:#1a1410;border:none;border-radius:20px;color:#d4a85a;font-family:inherit;font-size:12px;font-weight:500;padding:7px 16px;cursor:pointer;white-space:nowrap}
-#kibtn:hover{background:#333}
+/* TOPBAR */
+#topbar { background: #fff; border-bottom: 2px solid #e0d8c8; padding: 10px 20px; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.dep-btn { background: none; border: 1.5px solid #ccc; border-radius: 20px; padding: 5px 16px; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer; color: #888; transition: all .12s; }
+.dep-btn:hover { border-color: #a07838; color: #222; }
+.dep-btn.active-all { background: #161008; border-color: #161008; color: #f5ead8; }
+.dep-btn.active-cp  { background: #1a3a60; border-color: #1a3a60; color: #fff; }
+.dep-btn.active-cu  { background: #5a2008; border-color: #5a2008; color: #fff; }
+#search-box { flex: 1; position: relative; }
+#search-box input { width: 100%; background: #f4f2ee; border: 1.5px solid #ddd; border-radius: 20px; font-family: inherit; font-size: 13px; padding: 7px 16px 7px 36px; outline: none; color: #1a1208; transition: all .12s; }
+#search-box input:focus { background: #fff; border-color: #a07838; box-shadow: 0 0 0 3px rgba(160,120,56,.1); }
+#search-box input::placeholder { color: #aaa; }
+.search-ico { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #aaa; pointer-events: none; font-size: 16px; }
+#counter { font-size: 11px; color: #aaa; white-space: nowrap; }
+#ki-btn { background: #161008; border: none; border-radius: 20px; color: #c8a048; font-family: inherit; font-size: 12px; font-weight: 600; padding: 7px 18px; cursor: pointer; transition: background .12s; white-space: nowrap; }
+#ki-btn:hover { background: #2a2010; }
 
-/* ── CONTENT: MASONRY CARDS ── */
-#content{flex:1;overflow-y:auto;padding:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:14px;align-content:start}
-#content::-webkit-scrollbar{width:5px}
-#content::-webkit-scrollbar-thumb{background:#d0c8b8;border-radius:5px}
+/* CONTENT */
+#content { flex: 1; overflow-y: auto; padding: 24px 28px; }
+#content::-webkit-scrollbar { width: 6px; }
+#content::-webkit-scrollbar-thumb { background: #d0c8b0; border-radius: 6px; }
 
-/* ── CARD ── */
-.card{background:#fff;border-radius:10px;border:1px solid #e4dac8;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .12s}
-.card:hover{box-shadow:0 4px 18px rgba(0,0,0,.1)}
-.card-head{display:flex;align-items:center;gap:8px;padding:11px 14px 9px;border-bottom:1px solid #f0e8d8}
-.tag{font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0}
-.tcp{background:#deeaf8;color:#1a3a5a}
-.tcu{background:#faebd8;color:#5a2a10}
-.clbl{font-size:11px;font-weight:600;color:#b8965a;letter-spacing:.05em;text-transform:uppercase;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ctxt{font-family:'Courier New',Courier,monospace;font-size:12px;color:#2a1e14;line-height:1.72;padding:13px 14px;white-space:pre-wrap;word-break:break-word;flex:1}
-.ctxt mark{background:rgba(184,150,90,.25);color:#6a4010;border-radius:2px;padding:0 1px}
-.card-foot{padding:8px 12px 10px;border-top:1px solid #f5f0e8;display:flex;align-items:center;gap:6px}
-.cbtn{background:#1a1410;border:none;border-radius:6px;color:#f0e8d8;font-family:inherit;font-size:12px;font-weight:500;padding:7px 16px;cursor:pointer;transition:all .12s;white-space:nowrap}
-.cbtn:hover{background:#333}
-.cbtn.done{background:#2a6a2a}
-.lrbtn{border:1px solid #ccc;border-radius:6px;background:#fff;font-family:inherit;font-size:11px;font-weight:600;padding:5px 10px;cursor:pointer;transition:all .12s}
-.lre{color:#1a3a5a;border-color:#8ab0d0}.lre:hover{background:#deeaf8}
-.lrl{color:#5a2a10;border-color:#c49060}.lrl:hover{background:#faebd8}
-.lrb{color:#666;font-size:10px}.lrb:hover{background:#f5f0e8}
-.mlcard{background:#fffce6;border:1px solid #e0c840;border-radius:10px;padding:12px 14px}
-.mlcard .tag{background:#fff3b0;color:#7a6000}
-.mltxt{font-size:12px;color:#5a4a00;line-height:1.65;margin-top:6px}
-.sec-title{font-size:13px;font-weight:600;color:#888;letter-spacing:.05em;text-transform:uppercase;padding:8px 4px 4px;grid-column:1/-1;border-bottom:2px solid #e0d8c8;margin-top:6px}
-.sec-title:first-child{margin-top:0}
-.empty{grid-column:1/-1;text-align:center;padding:80px;color:#bbb;font-size:14px}
+.grp-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #a09070; border-bottom: 2px solid #e0d8c8; padding-bottom: 8px; margin-top: 28px; margin-bottom: 14px; }
+.grp-label:first-child { margin-top: 0; }
 
-/* ── KI PANEL ── */
-#ki{width:360px;flex-shrink:0;background:#fff;border-left:2px solid #e4dac8;display:flex;flex-direction:column;overflow:hidden}
-#ki.off{display:none}
-#kihead{background:#1a1410;padding:13px 16px;display:flex;justify-content:space-between;align-items:center}
-#kit{font-size:14px;color:#d4a85a}
-#kis{font-size:9px;color:#555;letter-spacing:.2em;text-transform:uppercase;margin-top:2px}
-#kicl{background:none;border:none;color:#555;font-size:17px;cursor:pointer;line-height:1}
-#kicl:hover{color:#fff}
-#kimsgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:8px;background:#f8f5f0}
-#kimsgs::-webkit-scrollbar{width:3px}
-.km{padding:9px 12px;border-radius:9px;font-size:12.5px;line-height:1.62;max-width:93%}
-.ku{background:#1a1410;color:#f0e8d8;align-self:flex-end;border-radius:9px 9px 2px 9px}
-.ka{background:#fff;border:1px solid #e4dac8;color:#1a1410;align-self:flex-start;border-radius:9px 9px 9px 2px}
-.ks{background:rgba(184,150,90,.1);border:1px solid #e4dac8;color:#8a7258;align-self:center;font-size:11px;text-align:center;padding:5px 11px}
-#kift{padding:12px;border-top:1px solid #e4dac8}
-#kiinp{width:100%;background:#f5f0e8;border:1px solid #d8d0c0;border-radius:8px;font-family:inherit;font-size:13px;padding:9px 12px;outline:none;resize:none;min-height:42px;max-height:80px;color:#222;line-height:1.5;display:block}
-#kiinp:focus{border-color:#b8965a;background:#fff}
-#kirow{display:flex;justify-content:space-between;align-items:center;margin-top:7px}
-#kisend{background:#1a1410;border:none;border-radius:7px;color:#d4a85a;font-family:inherit;font-size:12px;font-weight:500;padding:7px 18px;cursor:pointer}
-#kisend:hover{background:#333}
-#kinote{font-size:10px;color:#bbb}
+/* CARD */
+.card { background: #fff; border: 1.5px solid #e8e0d0; border-radius: 10px; margin-bottom: 12px; overflow: hidden; transition: border-color .12s, box-shadow .12s; }
+.card:hover { border-color: #c8b890; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+.card-top { display: flex; align-items: center; gap: 10px; padding: 11px 16px 9px; border-bottom: 1px solid #f0e8d8; }
+.dep-tag { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: .1em; text-transform: uppercase; flex-shrink: 0; }
+.tag-cp { background: #ddeef8; color: #1a3a60; }
+.tag-cu { background: #faebd8; color: #5a2008; }
+.card-lbl { font-size: 12px; font-weight: 600; color: #a07838; letter-spacing: .04em; text-transform: uppercase; }
+.card-body { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 12px; line-height: 1.8; color: #2a2010; padding: 14px 16px; white-space: pre-wrap; word-break: break-word; }
+.card-body mark { background: rgba(160,120,56,.2); color: #6a3808; border-radius: 2px; }
+.card-foot { display: flex; align-items: center; gap: 8px; padding: 9px 14px 11px; border-top: 1px solid #f5f0e8; flex-wrap: wrap; }
+.btn-copy { background: #161008; border: none; border-radius: 6px; color: #f5ead8; font-family: inherit; font-size: 11px; font-weight: 600; padding: 6px 16px; cursor: pointer; transition: all .12s; }
+.btn-copy:hover { background: #2a2010; }
+.btn-copy.ok { background: #1a5a1a; }
+.btn-lr { background: #fff; border: 1.5px solid #ccc; border-radius: 6px; font-family: inherit; font-size: 11px; font-weight: 700; padding: 5px 10px; cursor: pointer; transition: all .12s; }
+.lr-re { color: #1a3a60; border-color: #90b8d8; } .lr-re:hover { background: #ddeef8; }
+.lr-li { color: #5a2008; border-color: #d0a080; } .lr-li:hover { background: #faebd8; }
+.lr-bds { color: #666; border-color: #ccc; font-size: 10px; } .lr-bds:hover { background: #f4f2ee; }
+.card-click-hint { font-size: 10px; color: #ccc; margin-left: auto; font-style: italic; }
+
+/* ML CARD */
+.ml-card { background: #fffce8; border: 1.5px solid #d4b800; border-radius: 10px; padding: 13px 16px; margin-bottom: 12px; }
+.ml-head { font-size: 9px; font-weight: 700; color: #8a7000; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 6px; }
+.ml-body { font-size: 12.5px; color: #5a4a00; line-height: 1.7; }
+
+/* KI PANEL */
+#ki { width: 380px; flex-shrink: 0; background: #fff; border-left: 2px solid #e8e0d0; display: flex; flex-direction: column; overflow: hidden; }
+#ki.closed { display: none; }
+#ki-head { background: #161008; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+#ki-title { font-size: 15px; color: #c8a048; font-weight: 400; }
+#ki-sub { font-size: 9px; color: #555; letter-spacing: .2em; text-transform: uppercase; margin-top: 2px; }
+#ki-x { background: none; border: none; color: #555; font-size: 20px; cursor: pointer; line-height: 1; }
+#ki-x:hover { color: #fff; }
+#ki-msgs { flex: 1; overflow-y: auto; padding: 14px; background: #f8f5f0; display: flex; flex-direction: column; gap: 10px; }
+#ki-msgs::-webkit-scrollbar { width: 3px; }
+.ki-m { padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; max-width: 94%; }
+.ki-u { background: #161008; color: #f5ead8; align-self: flex-end; border-radius: 10px 10px 3px 10px; }
+.ki-a { background: #fff; border: 1.5px solid #e8e0d0; color: #1a1208; align-self: flex-start; border-radius: 10px 10px 10px 3px; white-space: pre-wrap; }
+.ki-s { background: rgba(160,120,56,.1); border: 1.5px solid #e8e0d0; color: #8a7858; align-self: center; font-size: 11px; text-align: center; padding: 6px 14px; border-radius: 20px; }
+#ki-foot { padding: 14px; border-top: 1.5px solid #e8e0d0; background: #fff; }
+#ki-inp { width: 100%; background: #f4f2ee; border: 1.5px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 13px; padding: 10px 13px; outline: none; resize: none; min-height: 44px; max-height: 88px; color: #1a1208; line-height: 1.5; }
+#ki-inp:focus { border-color: #a07838; background: #fff; }
+#ki-row { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; }
+#ki-send { background: #161008; border: none; border-radius: 8px; color: #c8a048; font-family: inherit; font-size: 13px; font-weight: 600; padding: 8px 20px; cursor: pointer; }
+#ki-send:hover { background: #2a2010; }
+#ki-pow { font-size: 10px; color: #bbb; }
+.no-results { text-align: center; padding: 80px; color: #bbb; font-size: 14px; }
 </style>
 </head>
 <body>
-<div id="wrap">
+<div id="shell">
 
-<div id="side">
-  <div id="brand">
-    <div id="bname">Dr. Luis Perez</div>
-    <div id="bsub">Plastische Chirurgie</div>
+<!-- SIDEBAR -->
+<div id="sb">
+  <div id="sb-brand">
+    <div id="sb-name">Dr. Luis Perez</div>
+    <div id="sb-role">Plastische Chirurgie</div>
   </div>
-  <hr>
-  <div id="sfilter"><input type="text" placeholder="Suche…" oninput="navFilter(this.value)"></div>
-  <div id="snav"></div>
+  <div id="sb-filter">
+    <input type="text" placeholder="Navigation filtern…" id="nav-search" oninput="filterNav(this.value)">
+  </div>
+  <div id="sb-nav" id="nav-list"></div>
 </div>
 
+<!-- MAIN -->
 <div id="main">
-  <div id="top">
-    <button class="dtab all" id="ba" onclick="setDep('all')">Alle</button>
-    <button class="dtab" id="bp" onclick="setDep('cp')">Plastische</button>
-    <button class="dtab" id="bu" onclick="setDep('cu')">Unfall</button>
-    <div id="sbox">
-      <span class="sico">⌕</span>
-      <input type="text" placeholder="Baustein suchen…" oninput="doSearch(this.value)">
+  <div id="topbar">
+    <button class="dep-btn active-all" id="btn-all" onclick="setDep('all')">Alle</button>
+    <button class="dep-btn" id="btn-cp" onclick="setDep('cp')">Plastische</button>
+    <button class="dep-btn" id="btn-cu" onclick="setDep('cu')">Unfall</button>
+    <div id="search-box">
+      <span class="search-ico">⌕</span>
+      <input type="text" id="main-search" placeholder="Baustein suchen…" oninput="doSearch(this.value)">
     </div>
-    <div id="rcnt"></div>
-    <button id="kibtn" onclick="toggleKI()">✦ Claude KI</button>
+    <span id="counter"></span>
+    <button id="ki-btn" onclick="toggleKI()">✦ Claude KI</button>
   </div>
   <div id="content"></div>
 </div>
 
-<div id="ki" class="off">
-  <div id="kihead">
-    <div><div id="kit">Claude · KI-Assistent</div><div id="kis">Plastische &amp; Unfallchirurgie</div></div>
-    <button id="kicl" onclick="toggleKI()">✕</button>
+<!-- KI PANEL -->
+<div id="ki" class="closed">
+  <div id="ki-head">
+    <div>
+      <div id="ki-title">Claude · KI-Assistent</div>
+      <div id="ki-sub">Plastische &amp; Unfallchirurgie</div>
+    </div>
+    <button id="ki-x" onclick="toggleKI()">✕</button>
   </div>
-  <div id="kimsgs">
-    <div class="km ks">Medizinischer Assistent — powered by Claude.<br>Fragen zu Chirurgie, Briefen, Literatur.</div>
+  <div id="ki-msgs">
+    <div class="ki-m ki-s">Medizinischer Assistent powered by Claude.<br>Fragen zu Chirurgie, Briefen, OP-Berichten, Literatur.</div>
   </div>
-  <div id="kift">
-    <textarea id="kiinp" placeholder="Frage eingeben… (Enter = senden)"></textarea>
-    <div id="kirow">
-      <span id="kinote">Claude (Anthropic)</span>
-      <button id="kisend" onclick="sendKI()">Senden ↑</button>
+  <div id="ki-foot">
+    <textarea id="ki-inp" placeholder="Frage eingeben… (Enter = senden, Shift+Enter = Zeilenumbruch)"></textarea>
+    <div id="ki-row">
+      <span id="ki-pow">Claude (Anthropic)</span>
+      <button id="ki-send" onclick="sendKI()">Senden ↑</button>
     </div>
   </div>
 </div>
 
 </div>
 <script>
-// ─── DATA ────────────────────────────────────────────────────────────────────
-const D = [
+// ══════════════════════════════════════════════════════════════════════
+//  DATA  –  flat list, each item = one visible card
+// ══════════════════════════════════════════════════════════════════════
+const ITEMS = [
 
-// ══ CU BEFUND ═══════════════════════════════
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'SHT Kind – alles unauffällig', lr:false,
+// ── CU · Befund ───────────────────────────────────────────────────────
+{g:'CU · Befund cranio-caudal', dep:'cu', ml:true, lbl:'⚖ Medicolegal – SHT Kind',
+txt:`Kinder: Alter, Gewicht, Impfstatus und Begleitung dokumentieren. NAI aktiv ausschließen — Verletzungsmuster mit Unfallmechanismus abgleichen. NICE/PECARN-Kriterien für CT-Indikation dokumentieren.`},
+
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'SHT Kind – unauffällig + Proc',
 txt:`Kind ___ J. (~___kg). GCS 15, wach, kooperativ, altersentsprechend.
 Pupillen isokor, Lichtreaktion prompt bds. Kein Liquor/Blut aus Nase/Ohren.
 Keine Bewusstlosigkeit, keine Amnesie. Keine Kopfschmerzen, kein Erbrechen.
-Minimales Hämatom ___. HWS freibeweglich, kein DS.
-CCT nicht indiziert (PECARN-Kriterien negativ).
+Hämatom ___. HWS freibeweglich, kein DS. CCT nicht indiziert (PECARN negativ).
 Keine Hinweise auf nicht-akzidentelle Verletzung. Tetanus: aktuell.
+
 Proc: Häusl. Überwachung 24h – alle 2h Ansprechbarkeit prüfen.
-Paracetamol 15mg/kgKG b.B. (kein Ibuprofen/ASS erste 24h).
-Kein Sport, kein Bildschirm 24h. Alarmzeichen → 112.
+Paracetamol 15mg/kgKG b.B. (kein Ibuprofen/ASS erste 24h). Kein Sport 24h.
+Alarmzeichen → 112: Erbrechen ≥2×, starke KS, Krampf, Bewusstseinstrübung.
 SHT-Merkblatt Kind ausgehändigt.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'SHT Kind – ⚖ Medicolegal', lr:false, ml:true,
-txt:`Kinder: Alter, Gewicht, Impfstatus und Begleitung dokumentieren. NAI (Kindesmisshandlung) aktiv ausschließen — Verletzungsmuster mit Unfallmechanismus abgleichen. NICE/PECARN-Kriterien für CT-Indikation dokumentieren.`},
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'SHT I° Erwachsener',
+txt:`GCS 15, keine Bewusstlosigkeit, keine Amnesie. Pupillen isokor, Lichtreaktion prompt bds.
+Kein Liquor/Blut. Keine Kopfschmerzen, kein Erbrechen. Hämatom ___.
+HWS freibeweglich. Keine Neurologie.
+CCT: nicht indiziert / kein Nachweis einer intrakraniellen Verletzung.
+Diagnose: SHT Grad I° / Schädelkontusion.
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Sturz Älterer – vollständig', lr:false,
+Proc: Schonung 24h, kein Autofahren 24h.
+Paracetamol 500mg b.B. (kein NSAR erste 24h).
+Alarmzeichen → 112: Erbrechen, Krampf, Pupillenasymmetrie, starke KS.
+SHT-Merkblatt ausgehändigt.`},
+
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Sturz Älterer – CT-Indikation',
 txt:`Sturz am ___ aus dem Stand/von ___. Ursache: unklar/Schwindel/Synkope.
 Antikoagulation: ___ (zuletzt: ___). VE: ___. RR: ___ HF: ___ SpO2: ___%
-Schädel: Hämatom ___. Kein Krepitus, keine Stufenbildung. Pupillen isokor.
+Schädel: Hämatom ___. Kein Krepitus, keine Stufenbildung. Pupillen isokor. Kein Liquor.
 Thorax/Abdomen/Becken: unauffällig. WS: Klopfschmerz ___. Kein Querschnitt.
-CT-Indikation: Antikoagulation / Alter >65J / unklare Ursache / Amnesie.
+CT-Indikation dokumentiert: Antikoagulation / Alter >65J / unklare Sturzursache / Amnesie.
 CT-Befund: ___
-Diagnose: ___ Antikoagulation: fortführen/pausieren.`},
+Diagnose: ___ Antikoagulation: fortführen/pausieren. Osteoporose-Assessment empfohlen.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'HWS – vollständig', lr:false,
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'HWS – vollständig',
 txt:`HWS: Flex/Ext ___°/0°/___°, Rot re/li ___°/___°, Latfl. re/li ___°/___°.
-Kein Klopfschmerz C1–C7. Kein paravertebraler DS. Kein Lhermitte.
-Keine Ausstrahlung. Sensibilität C5–C8 intakt. Reflexe seitengleich.
+Kein Klopfschmerz C1–C7. Kein paravertebraler DS. Kein Hartspann.
+Kein Lhermitte. Keine Ausstrahlung. Sensibilität C5–C8 intakt. Reflexe seitengleich.
 Ottawa-C-Spine-Rule: negativ.
 Röntgen HWS 3 Eb.: kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'HWS Distorsion – Auffahrunfall', lr:false,
-txt:`Auffahrunfall. Fahrer/Beifahrer. Gurt: Ja. Airbag: Ja/Nein.
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'HWS-Distorsion – Auffahrunfall (QTF)',
+txt:`Auffahrunfall. Fahrer/Beifahrer. Gurt: Ja. Airbag: Ja/Nein. Fahrzeugschaden: ___.
 GCS 15, keine Bewusstlosigkeit, keine Amnesie.
 HWS: schmerzhaft eingeschränkt, kein Midline-DS, Ottawa neg., keine Neurologie.
 Schulter/Thorax/WS/Becken/Extremitäten: unauffällig. DMS intakt bds.
 Röntgen HWS 3 Eb.: kein Frakturnachweis.
 Diagnose: HWS-Distorsionstrauma (QTF Grad ___).
-Proc: Aktive Mobilisation (keine Immobilisation – QTF-Leitlinie).
-Ibuprofen 600mg 1-1-1 + Pantoprazol. Physiotherapie 10× manuelle Therapie.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Schulter', lr:true,
+Proc: Aktive Mobilisation (Immobilisation kontraindiziert – QTF-Leitlinie).
+Ibuprofen 600mg 1-1-1 + Pantoprazol 40mg. Physiotherapie 10× manuelle Therapie.
+WV bei Beschwerden >3 Wochen oder Neurologie.`},
+
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Schulter',
 txt:`Schulter re/li: Keine Stufenbildung ACG/SCG. DS ACG +/-, Clavicula +/-, Humeruskopf +/-.
 Bew.: AV ___°/0°/___°, Abd ___°/0°/___°, IR/AR ___°/0°/___°.
 Jobe neg/pos. Neer neg/pos. Hawkins neg/pos. Drop-Arm neg/pos. DMS intakt.
 Röntgen Schulter re/li 2 Eb.: kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Ellenbogen', lr:true,
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Ellenbogen',
 txt:`Ellenbogen re/li: Schwellung +/-, DS Epicond. lat/med +/-, Olecranon +/-, Radiusköpfchen +/-.
-Bew.: Ext/Flex ___°/0°/___°, Pro/Sup ___°/0°/___°. Bandstabilität regelrecht. Kein Erguss. DMS intakt.
+Bew.: Ext/Flex ___°/0°/___°, Pro/Sup ___°/0°/___°. Bandstabilität regelrecht. DMS intakt.
 Röntgen Ellenbogen re/li 2 Eb.: kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Handgelenk', lr:true,
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Handgelenk',
 txt:`Handgelenk re/li: DS dorsalradial +/-, Tabatière +/-, SL-Spalt +/-.
 Bew.: DF/PF ___°/0°/___°, Rad/Ulnar ___°/0°/___°, Pro/Sup ___°/0°/___°.
 DRUJ stabil. Watson: neg/pos. Griffstärke: seitengleich/reduziert. DMS intakt.
 Röntgen HG re/li 2 Eb.: kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Skaphoid-Verdacht', lr:true,
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Skaphoid-Verdacht',
 txt:`HG re/li: DS Tabatière +/-. DS Tuberculum scaphoideum +/-. DS SL-Spalt +/-.
 Faustschluss: möglich/eingeschränkt. DMS intakt.
-Röntgen: kein Frakturnachweis.
+Röntgen HG: kein Frakturnachweis.
 ⚠ Cave: Negativer Röntgen schließt Skaphoidfraktur NICHT aus → MRT/CT indiziert!`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Hand – Kurzstatus', lr:true,
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Hand – Kurzstatus',
 txt:`Hand re/li: Schwellung: ___. Hämatom: ___. Wunden: ___. Fehlstellung: nein.
-E/F ___°/___°. Faustschluss: vollständig/eingeschränkt. Rotationsfehler: nein.
+E/F ___°/___°. Faustschluss: vollständig/eingeschränkt. Rotationsfehler Finger: nein.
 DS Tabatière: nein/ja. DS SL-Spalt: nein/ja.
-Beugen/Strecken Finger gegen Kraft: möglich. DMS intakt.`},
+Beugen/Strecken Finger gegen Kraft: möglich. DMS intakt bds.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Finger – einzeln', lr:true,
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Finger – einzeln',
 txt:`D___ re/li: Schwellung +/-, DS Grund-/Mittel-/Endglied. Keine Achsabweichung, kein Rotationsfehler.
 FDP/FDS: Beugen gegen Widerstand möglich. Strecksehne: intakt. Seitenband: stabil.
-2-PD: ___mm (Norm <5mm). Kapillarperfusion <2s. DMS intakt.
+2-Punktdiskriminierung: ___mm (Norm <5mm). Kapillarperfusion <2s. DMS intakt.
 Röntgen D___ re/li: kein Frakturnachweis / Fraktur ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Thorax', lr:false,
-txt:`Thorax: Symm. Atemexkursion. DS Rippen ___: +/-.
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Thorax',
+txt:`Thorax: Symm. Atemexkursion, kein Paradoxatmen. DS Rippen ___: +/-.
 Auskultation: Vesikuläratmen bds. / Abschwächung ___. SpO2: ___%.
 Röntgen: kein Pneumothorax, kein Hämatothorax, kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Rippenserienfraktur – Befund + Therapie', lr:false,
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Rippenserienfraktur + Therapie',
 txt:`DS Rippe ___ bis ___ re/li. Schmerzhafte Atemexkursion. SpO2: ___%.
-CT-Thorax: Serienfraktur Rippen ___ bis ___. Kein Pneumothorax. Pleuraerguss: kein/gering.
+CT-Thorax: Serienfraktur Rippen ___ bis ___. Kein Pneumothorax. Pleuraerguss: kein/gering bds.
 Sono-FAST: keine freie Flüssigkeit.
-Therapie: Stationäre Aufnahme. Schonung, Triflow, Atemgymnastik.
-Novalgin 1g i.v. 3×tägl. Oxygesic akut b.B. Heparin 7500 IE tägl.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'BWS / LWS', lr:false,
-txt:`BWS: Regelrechte Kyphose. Klopfschmerz BWK ___: nein/ja.
-LWS: Klopfschmerz LWK ___: nein/ja. Schober: ___cm.
-Lasègue bds. neg. / pos. bei ___°.
+Therapie: Stationäre Aufnahme. Schonung, Triflow, Atemgymnastik.
+Novalgin 1g i.v. 3×tägl. Oxygesic akut b.B. Heparin 7500 IE tägl. Thoraxchirurg. Konsil.`},
+
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'BWS / LWS – systematisch',
+txt:`BWS: Regelrechte Kyphose. Klopfschmerz BWK ___: nein/ja. Keine Stufenbildung.
+LWS: Klopfschmerz LWK ___: nein/ja. Schober: ___cm. Lasègue bds. neg. / pos. bei ___°.
+
 Kraft:
-  Zehenheber:   5/5 re – __/5 li    Zehensenker: 5/5 re – __/5 li
-  Fußheber:     5/5 re – __/5 li    Fußsenker:   5/5 re – __/5 li
-  Kniestrecker: 5/5 re – __/5 li    Kniebeuger:  5/5 re – __/5 li
-  Hüftstrecker: 5/5 re – __/5 li    Hüftbeuger:  5/5 re – __/5 li
+  Zehenheber:   5/5 re – __/5 li    Zehensenker:  5/5 re – __/5 li
+  Fußheber:     5/5 re – __/5 li    Fußsenker:    5/5 re – __/5 li
+  Kniestrecker: 5/5 re – __/5 li    Kniebeuger:   5/5 re – __/5 li
+  Hüftstrecker: 5/5 re – __/5 li    Hüftbeuger:   5/5 re – __/5 li
+
 Sensibilität: intakt / Hypästhesie L___ re/li.
 ASR/PSR: regelrecht / abgeschwächt re/li.
-Keine Blasen-/Mastdarmstörung. DMS Füße intakt.`},
+Keine Blasen-/Mastdarmstörung. DMS Füße intakt bds.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Becken', lr:false,
-txt:`Becken: Kompression horiz./vertikal: schmerzfrei/schmerzhaft.
-Kein Krepitation. Symphyse regelrecht. DMS UE intakt bds.
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Becken',
+txt:`Becken: Kompression horiz./vertikal: schmerzfrei/schmerzhaft. Kein Krepitation. Symphyse regelrecht. DMS UE intakt bds.
 Röntgen Becken ap: kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Hüfte', lr:true,
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Hüfte',
 txt:`Hüfte re/li: Bein physiologisch / verkürzt und außenrotiert.
-DS Trochanter +/-. DS Leiste +/-. Bew. schmerzhaft/frei.
+DS Trochanter major +/-. DS Leiste +/-. Beweglichkeit schmerzhaft/frei.
 Stauchungsschmerz Achse +/-. DMS intakt.
 Röntgen Hüfte ax + Becken ap: kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Knie', lr:true,
-txt:`Knie re/li: Schwellung +/-, Hämatom ___, Hautmantel intakt.
-DS med./lat. Gelenkspalt. Ballottement: +/-.
-Lachman: neg/pos. Schublade v/h: neg/pos.
-Valgusstress: neg/pos. Varusstress: neg/pos.
-McMurray: neg/pos. Steinmann: neg/pos.
-Bew.: E/F ___°/0°/___°. DMS intakt. Kraft 5/5.
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Knie',
+txt:`Knie re/li: Schwellung +/-, Hämatom ___. DS med./lat. Gelenkspalt. Ballottement: +/-.
+Lachman: neg/pos. Schublade v/h: neg/pos. Valgusstress: neg/pos. Varusstress: neg/pos.
+McMurray: neg/pos. Steinmann: neg/pos. Bew.: E/F ___°/0°/___°. DMS intakt. Kraft 5/5.
 Röntgen Knie re/li 2+3 Eb.: kein Frakturnachweis / Befund: ___`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'OSG – Distorsion lateral', lr:true,
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'OSG – Distorsion lateral',
 txt:`OSG re/li: Supinationstrauma. Schwellung lateral. DS LFTA +/-, DS Lig. calcaneofibulare +/-.
 DS Basis MFK V: nein. DS Malleolus med.: nein. DS prox. Fibula: nein.
-Ottawa: neg. / pos. → Röntgen durchgeführt.
+Ottawa-Ankle-Rule: negativ / positiv → Röntgen.
 Röntgen OSG 2 Eb.: kein Frakturnachweis / Befund: ___
 Vordere Schublade: neg/pos. Talar Tilt: neg/pos. DMS intakt.
-Diagnose: OSG-Distorsion Grad ___.
-Proc: RICE. AirCast-Walker 4–6 Wo. Ibuprofen 600mg 1-1-1. BG-Tel: 09281 982730.`},
+Diagnose: OSG-Distorsion Grad ___ (I=Dehnung, II=Teilriss LFTA, III=Ruptur).
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Zeh – Fraktur / Prellung', lr:true,
+Proc: RICE. AirCast-Walker 4–6 Wochen. Ibuprofen 600mg 1-1-1. BG-Tel: 09281 982730.`},
+
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Zeh – Fraktur / Prellung',
 txt:`Zeh D___ re/li: Schwellung +/-, Hämatom +/-. Kein Rotationsfehler. DMS intakt.
-Röntgen: Fraktur D___ / kein Frakturnachweis.
-Proc: Buddy-Taping 4–6 Wo. Verbandsschuh. Analgesie b.B. Vollbelastung möglich.`},
+Röntgen: Fraktur D___ ___ / kein Frakturnachweis.
+Proc: Buddy-Taping D___ mit Nachbarzehe 4–6 Wochen. Verbandsschuh. Analgesie b.B. Vollbelastung möglich.`},
 
-// ══ CU SCHOCKRAUM ═══════════════════════════
-{g:'CU · Schockraum', dep:'cu', lbl:'ABCDE – komplett', lr:false, ml:true,
-txt:`⚖ Polytrauma: Alle Körperregionen dokumentieren — positive UND explizit negative Befunde. Fehlende Dokumentation gilt juristisch als fehlende Untersuchung. Tetanusschutz immer prüfen.`},
+// ── CU · Schockraum ──────────────────────────────────────────────────
+{g:'CU · Schockraum', dep:'cu', ml:true, lbl:'⚖ Medicolegal – ABCDE',
+txt:`Polytrauma: Alle Körperregionen dokumentieren — positive UND explizit negative Befunde. Fehlende Dokumentation gilt juristisch als fehlende Untersuchung. Tetanusschutz immer prüfen und dokumentieren.`},
 
-{g:'CU · Schockraum', dep:'cu', lbl:'ABCDE Schema', lr:false,
-txt:`A – AIRWAY + HWS:
-• Atemweg: frei / verlegt. GCS: E___V___M___ = ___
+{g:'CU · Schockraum', dep:'cu', lbl:'ABCDE Schema – vollständig',
+txt:`A – AIRWAY + HWS-Schutz:
+• Atemweg: frei / verlegt: ___
+• GCS bei Aufnahme: E___V___M___ = ___
 • Stiffneck: präklinisch Ja/Nein | Schockraum Ja/Nein
-• Respirat. suffizient: Ja/Nein | Cardial suffizient: Ja/Nein
 
 B – BREATHING:
-• Thorax: symm. Atemexk. / Paradoxatmen. Auskultation: Vesikuläratmen bds. / Abschwächung ___
+• Thorax: symm. Atemexkursion / Paradoxatmen. Auskultation: Vesikuläratmen bds. / Abschwächung ___
 • Röntgen: Pneumothorax Ja/Nein | Hämatothorax Ja/Nein | Frakturen: ___
 
 C – CIRCULATION:
-• Antikoagulation: keine / ___. Blutungsquellen: ___
-• Hautfarbe: rosa/livide/blass. Puls: kräftig bds. / Abschwächung ___
+• Antikoagulation: keine / ___. Blutungsquellen extern: ___
 • Rekapillarisierung: Hand re <3s | li <3s | Fuß re <3s | li <3s
 • RR: ___/___ | HF: ___/min | SpO2: ___%
 • FAST: keine freie Fl. / Befund: ___
 
 D – DISABILITY:
-• Pupillen: isokor / Anisokorie. Lichtreaktion: prompt / träge / aufgehoben
+• Pupillen: isokor, mittelweit / Anisokorie. Lichtreaktion: prompt / träge / aufgehoben
 • GCS: E___V___M___ = ___
 
 E – EXPOSURE:
@@ -317,10 +343,10 @@ E – EXPOSURE:
 
 BODYCHECK:
 Kopf/HWS: ___ | Thorax: ___ | Abdomen: ___ | Becken: ___
-WS: ___ | OE: ___ | UE: ___
-Pat. kreislaufstabil, GCS 15, Pupillen isokor, prompte Lichtreaktion, kein Meningismus, Achsenskelett unauffällig.`},
+WS: ___ | OE bds.: ___ | UE bds.: ___
+Kreislaufstabil, GCS 15, Pupillen isokor, prompte LR bds., kein Meningismus, Achsenskelett unauffällig.`},
 
-{g:'CU · Schockraum', dep:'cu', lbl:'FAST-Sonographie', lr:false,
+{g:'CU · Schockraum', dep:'cu', lbl:'FAST-Sonographie',
 txt:`FAST-Sonographie:
 • Perikarderguss: kein Nachweis
 • Perihepatisch (Morison): kein Nachweis / Nachweis: ___
@@ -328,16 +354,16 @@ txt:`FAST-Sonographie:
 • Kleines Becken (Douglas): kein Nachweis / Nachweis: ___
 Kein Hinweis auf frische innere Organverletzung.`},
 
-// ══ CU PROCEDERE ════════════════════════════
-{g:'CU · Procedere', dep:'cu', lbl:'Proc ambulant Standard', lr:false,
+// ── CU · Procedere ───────────────────────────────────────────────────
+{g:'CU · Procedere', dep:'cu', lbl:'Proc ambulant (Standard)',
 txt:`Proc:
 • Schonung, Kühlung, Hochlagerung
 • Analgesie b.B.: Ibuprofen 600mg 1-1-1 p.o. + Pantoprazol 40mg 1-0-0
 • Tetanusschutz: aktuell / aufgefrischt
-Bei Befundverschlechterung: WV Notaufnahme möglich.
+Bei Befundverschlechterung: WV Notaufnahme jederzeit möglich.
 BG-Sprechstunde: Tel. 09281 982730. Fadenzug 10 Tage beim Hausarzt.`},
 
-{g:'CU · Procedere', dep:'cu', lbl:'Proc Station', lr:false,
+{g:'CU · Procedere', dep:'cu', lbl:'Proc Station (Anordnungen)',
 txt:`Anordnungen Station:
 • Schonung, Kühlung, Hochlagerung Extremität
 • Vitalparameter alle 4h
@@ -346,66 +372,57 @@ txt:`Anordnungen Station:
 • Thromboseprophylaxe: Clexane 0,4ml s.c. 1×tägl.
 OP heute geplant – bitte nüchtern lassen. Danke!`},
 
-{g:'CU · Procedere', dep:'cu', lbl:'Schnittwunde Hand – Naht', lr:false,
+{g:'CU · Procedere', dep:'cu', lbl:'Schnittwunde Hand – Naht',
 txt:`Schnittwunde D___ re/li, palmar/dorsal, ___cm, glattrandig.
 FDP/FDS intakt. Strecksehne intakt. DMS intakt. 2-PD: ___mm. Tetanus: aktuell.
-Wundversorgung: Octenisept, Ethilon 4-0 in LA, steriler Verband.
+Wundversorgung: Octenisept, Naht Ethilon 4-0 in LA, steriler Verband.
 Proc: Schonung, Kühlung. Ibuprofen 600mg 1-1-1. Fadenzug 10 Tage.`},
 
-{g:'CU · Procedere', dep:'cu', lbl:'Schnittwunde Gesicht – Gewebekleber', lr:false,
+{g:'CU · Procedere', dep:'cu', lbl:'Schnittwunde Gesicht – Gewebekleber',
 txt:`Schnittwunde Gesicht ___cm, glattrandig, Subcutis intakt. Tetanus: aktuell.
 Wundversorgung: Octenisept, Histoacryl, steriler Verband.
 Proc: Verband 48h trocken. Paracetamol 500mg b.B. WV bei Infektzeichen.`},
 
-{g:'CU · Procedere', dep:'cu', lbl:'SHT I° – Proc ambulant', lr:false,
-txt:`GCS 15, keine Bewusstlosigkeit, keine Amnesie. Pupillen isokor. Kein Liquor/Blut.
-Keine Kopfschmerzen, kein Erbrechen. Hämatom ___. CCT: nicht indiziert/kein Befund.
-Diagnose: SHT Grad I°.
-Proc: Schonung 24h, kein Autofahren 24h.
-Paracetamol 500mg b.B. (kein NSAR erste 24h).
-Alarmzeichen → 112: Erbrechen, Krampf, Bewusstseinstrübung, starke KS.
-SHT-Merkblatt ausgehändigt.`},
-
-// ══ CU BRIEF ════════════════════════════════
-{g:'CU · Arztbrief', dep:'cu', lbl:'Einleitung stationär', lr:false,
-txt:`Die Patientin / der Patient stellte sich notfallmäßig am ___ in unserer Notaufnahme vor. In der initialen Diagnostik zeigte sich ___. Bei ___ nahmen wir Herrn/Frau ___ zur suffizienten Schmerztherapie und weiteren Abklärung stationär auf.`},
-
-{g:'CU · Arztbrief', dep:'cu', lbl:'Operativer Verlauf komplikationslos', lr:false,
-txt:`Nach unauffälliger präoperativer Vorbereitung führten wir den o.g. Eingriff am ___ durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam und war trocken zum Entlassungszeitpunkt. Die postoperative röntgenologische Kontrolle zeigte eine regelrechte Reposition der Frakturfragmente bei korrekter Lage des Osteosynthesematerials. Die Drainage konnte zeitgerecht entfernt werden.`},
-
-{g:'CU · Arztbrief', dep:'cu', lbl:'Mobilisation + Physiotherapie', lr:false,
-txt:`Unter Anleitung der Krankengymnasten erfolgte die Mobilisation. Der Patient erhielt postoperativ Physiotherapie und wurde unter Entlastung mittels Unterarmgehstützen / Rollator auf Stationsebene mobilisiert. Schmerztherapie p.o./i.v. sowie Thromboembolieprophylaxe wurden verabreicht.`},
-
-{g:'CU · Arztbrief', dep:'cu', lbl:'Entlassung ambulant', lr:false,
-txt:`Wir entließen Herrn/Frau ___ bei subjektivem Wohlbefinden und reizlosen Wundverhältnissen am ___ in die weitere ambulante Behandlung. Bei Besonderheiten bitten wir um Wiedervorstellung in unserer Klinik. Die Medikamentenliste wurde mitgegeben.`},
-
-{g:'CU · Arztbrief', dep:'cu', lbl:'Empfehlung Nachsorge OP', lr:false,
+{g:'CU · Procedere', dep:'cu', lbl:'Nachsorge nach OP CU',
 txt:`Empfehlungen:
 • Thromboseprophylaxe: Clexane 0,4ml s.c. 1×tägl. bis Vollmobilisation
 • Krankengymnastik unter Entlastung für ___ Wochen
-• Röntgenkontrolle in 6 Wochen oder bei Beschwerden
-• Fadenentfernung am ___. postop. Tag
+• Röntgenkontrolle in 6 Wochen oder bei zunehmenden Schmerzen
+• Fadenentfernung am ___. postoperativen Tag
 • Analgetikatherapie b.B. – beschwerdeabhängig reduzieren`},
 
-// ══ CP BRIEF ════════════════════════════════
-{g:'CP · Arztbrief', dep:'cp', lbl:'Einleitung ambulant CP', lr:false,
+// ── CU · Arztbrief ───────────────────────────────────────────────────
+{g:'CU · Arztbrief', dep:'cu', lbl:'Einleitung stationär',
+txt:`Die Patientin / der Patient stellte sich notfallmäßig am ___ in unserer Notaufnahme vor. In der initialen Diagnostik zeigte sich ___. Bei ___ nahmen wir Herrn/Frau ___ zur suffizienten Schmerztherapie und weiteren Abklärung stationär auf.`},
+
+{g:'CU · Arztbrief', dep:'cu', lbl:'Operativer Verlauf komplikationslos',
+txt:`Nach unauffälliger präoperativer Vorbereitung führten wir den o.g. Eingriff am ___ durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam und war trocken zum Entlassungszeitpunkt. Die röntgenologische Kontrolle zeigte regelrechte Frakturstellung bei korrekter Materiallage. Die Drainage konnte zeitgerecht entfernt werden.`},
+
+{g:'CU · Arztbrief', dep:'cu', lbl:'Mobilisation + Physiotherapie',
+txt:`Unter Anleitung der Krankengymnasten erfolgte die Mobilisation. Der Patient erhielt postoperativ Physiotherapie und wurde unter Entlastung mittels Unterarmgehstützen / Rollator auf Stationsebene mobilisiert. Schmerztherapie p.o./i.v. sowie Thromboembolieprophylaxe wurden verabreicht.`},
+
+{g:'CU · Arztbrief', dep:'cu', lbl:'Entlassung ambulant',
+txt:`Wir entließen Herrn/Frau ___ bei subjektivem Wohlbefinden und reizlosen Wundverhältnissen am ___ in die weitere ambulante Behandlung. Bei Besonderheiten bitten wir um Wiedervorstellung in unserer Klinik. Die Medikamentenliste wurde mitgegeben.`},
+
+// ── CP · Arztbrief ───────────────────────────────────────────────────
+{g:'CP · Arztbrief', dep:'cp', lbl:'Einleitung ambulant CP',
 txt:`... sich am ___ in unserer ambulanten operativen Therapie befand.
 
 Nach den üblichen präoperativen Vorbereitungen und Aufklärung über Risiken und Ausmaß der Behandlung, führten wir heute in komplikationsloser Larynxmaskenanästhesie / Fingerleitungsanästhesie / Lokalanästhesie o.g. Eingriff durch. Durchblutung, Motorik und Sensibilität wurden postoperativ kontrolliert und waren regelrecht. Wir konnten den Patienten / die Patientin am gleichen Tag bei stabilen Wundverhältnissen in die ambulante Behandlung entlassen.`},
 
-{g:'CP · Arztbrief', dep:'cp', lbl:'Einleitung stationär CP + AB', lr:false,
+{g:'CP · Arztbrief', dep:'cp', lbl:'Einleitung stationär CP + AB',
 txt:`Nach den üblichen präoperativen Vorbereitungen und Aufklärung über Risiken und Ausmaß der Behandlung, führten wir am ___ in komplikationsloser Larynxmaskenanästhesie o.g. Eingriff durch. Es erfolgte perioperative Antibiotikatherapie mit ___ 1-0-1 i.v. Durchblutung, Motorik und Sensibilität wurden regelmäßig kontrolliert und waren zu jedem Zeitpunkt regelrecht. Die Drainagen konnten zeitgerecht entfernt werden. Wir konnten den Patienten / die Patientin am ___ bei stabilen Wundverhältnissen in die ambulante Behandlung entlassen.`},
 
-{g:'CP · Arztbrief', dep:'cp', lbl:'WV-Termin Sana Hof', lr:false,
+{g:'CP · Arztbrief', dep:'cp', lbl:'WV-Termin Sana Hof',
 txt:`Ihr freundliches Einverständnis voraussetzend, haben wir mit dem Patienten / der Patientin einen Wiedervorstellungstermin am ___ um ___ Uhr vereinbart.
 Sana Klinikum Hof, Sprechstunde Chirurgie, Ebene -1, gegenüber IVZ. Tel: 09281/982530.
 Für Rückfragen stehen wir Ihnen jederzeit zur Verfügung.`},
 
-{g:'CP · Arztbrief', dep:'cp', lbl:'Narbenpflege Standard', lr:false,
+{g:'CP · Arztbrief', dep:'cp', lbl:'Narbenpflege Standard',
 txt:`Nach kompletter Abheilung der Wunde wird die Applikation (intensives Einmassieren) von rückfettenden Cremes (z.B. Bepanthen Wund- und Heilsalbe) 3× täglich für 2 Monate dringend empfohlen. Meidung der Sonnenexposition für mind. 6 Monate. Für Rückfragen stehen wir Ihnen jederzeit zur Verfügung.`},
 
-// ══ CP SEHNEN ═══════════════════════════════
-{g:'CP · Sehnen / Nerven', dep:'cp', lbl:'Flexorensehne – Kleinert', lr:true,
+// ── CP · Sehnen / Nerven ─────────────────────────────────────────────
+{g:'CP · Sehnen / Nerven', dep:'cp', lr:true, lbl:'Flexorensehne – Kleinert',
 txt:`Diagnose: Durchtrennung FDP/FDS D___ Zone ___ re/li.
 OP: Sehnennaht n. Adelaide/Zechner + Überwendlungsnaht 5-0 PDS. AB: Ampicillin/Sulbactam 2/1g i.v.
 Proc:
@@ -414,15 +431,15 @@ Proc:
 • Belastungsaufbau ab Woche 10–12
 • Fäden ex: 14. Tag | Narbenpflege: Bepanthen 3× tägl. 2 Monate`},
 
-{g:'CP · Sehnen / Nerven', dep:'cp', lbl:'Extensorensehne – Reverse Kleinert', lr:true,
+{g:'CP · Sehnen / Nerven', dep:'cp', lr:true, lbl:'Extensorensehne – Reverse Kleinert',
 txt:`Diagnose: Durchtrennung Extensor D___ Zone ___ re/li.
 OP: Extensorennaht. AB: Ampicillin/Sulbactam 2/1g i.v.
 Proc:
 • Gipsschiene bis Erhalt Reverse-Kleinert-Schiene
-• Reverse-Kleinert-Schema: 6 Wochen | Aktive Beübung: 4 Wochen | Belastung ab Woche 10
+• Reverse-Kleinert: 6 Wochen | Aktive Beübung: 4 Wochen | Belastung ab Woche 10
 • Fäden ex: 14. Tag | Narbenpflege: Bepanthen 3× tägl.`},
 
-{g:'CP · Sehnen / Nerven', dep:'cp', lbl:'CTS – Dekompression N. medianus', lr:true,
+{g:'CP · Sehnen / Nerven', dep:'cp', lr:true, lbl:'CTS – N. medianus Dekompression',
 txt:`Diagnose: Karpaltunnelsyndrom re/li.
 OP: Offene Dekompression N. medianus n. McKinnon. AB: Ampicillin/Sulbactam 2/1g i.v.
 Proc:
@@ -431,387 +448,481 @@ Proc:
 • Narbenpflege: Bepanthen intensiv 3× tägl. 2 Monate
 • Neurophysiologische Kontrolle in 2 Monaten`},
 
-{g:'CP · Sehnen / Nerven', dep:'cp', lbl:'Sulcus ulnaris – N. ulnaris', lr:true,
+{g:'CP · Sehnen / Nerven', dep:'cp', lr:true, lbl:'Sulcus ulnaris – N. ulnaris',
 txt:`Diagnose: Sulcus-ulnaris-Syndrom re/li. AB: Cefuroxim 1,5g i.v.
 Proc:
 • Nahtmaterial resorbierbar – Fadenenden am 14. Tag zurückkürzen
 • Schiene: 2 Wochen | Beübung ohne Belastung: 2 Wochen | Dann Belastungsaufbau
 • Neurophysiologische Kontrolle in 2 Monaten | Narbenpflege: Bepanthen 3× tägl.`},
 
-{g:'CP · Sehnen / Nerven', dep:'cp', lbl:'Neuronale Koaptation', lr:true,
+{g:'CP · Sehnen / Nerven', dep:'cp', lr:true, lbl:'Neuronale Koaptation / Nervenconduit',
 txt:`Diagnose: Nervenverletzung N. ___ D___ Zone ___ re/li.
 OP: Neuronale Koaptation / Nervenconduit Reaxxon. AB: Ampicillin/Sulbactam 2/1g i.v.
 Proc:
-• Gips: 2 Wochen (unkompliziert) / 4 Wochen (Spannungsverhältnisse)
-• Fäden ex: 14. Tag | Sensomotorisch-perzeptive Ergotherapie nach Abheilung
+• Gips: 2 Wochen / 4 Wochen (Spannungsverhältnisse)
+• Sensomotorisch-perzeptive Ergotherapie nach Abheilung
 • Neurophysiologische Kontrolle in 3 Monaten | Narbenpflege: Bepanthen 3× tägl.`},
 
-{g:'CP · Sehnen / Nerven', dep:'cp', lbl:'Amputation / Stumpfneurom', lr:true,
+{g:'CP · Sehnen / Nerven', dep:'cp', lr:true, lbl:'Amputation / Stumpfneurom',
 txt:`Diagnose: Amputation D___ / Stumpfneurom D___ re/li. AB: Ampicillin/Sulbactam 2/1g i.v.
 Proc:
 • Fäden ex: 14. Tag | Siliconfingerling ab Woche 3 | Belastungsaufbau ab Woche 8
 • Neuropathische Schmerzen: Targin 10/5mg 1-0-1 + Lyrica 50mg 1-0-1 p.o.
 • Sensomotorisch-perzeptive Ergotherapie | Narbenpflege: Bepanthen 3× tägl.`},
 
-// ══ CP HAND / GELENK ════════════════════════
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'Dupuytren – Fasziektomie', lr:true,
-txt:`Diagnose: Dupuytren'sche Kontraktur D___-D___ re/li.
+// ── CP · Hand / Gelenk ───────────────────────────────────────────────
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'Dupuytren – Fasziektomie',
+txt:`Diagnose: Dupuytren D___-D___ re/li.
 OP: Fasziektomie / Y-V-Plastik n. Dellon.
 Proc:
 • Arm hochlagern 48h | Gipsschiene: 7 Tage
 • Extensionshandschuh FixxGlove Classic D3-D5 dorsal (HMV 23.07.01.0005): 5 Wochen nachts
-• Fäden ex: 14. Tag | Beübung: 3 Wochen | Narbenpflege: Bepanthen 3× tägl.`},
+• Fäden ex: 14. Tag | Frühfunktionelle Beübung: 3 Wochen | Narbenpflege: Bepanthen 3× tägl.`},
 
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'Ringbandspaltung A1 / Tendovaginitis', lr:true,
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'Ringbandspaltung A1 / Tendovaginitis',
 txt:`Diagnose: Tendovaginitis stenosans D___ re/li. Digitus saltans.
 OP: Ringbandspaltung A1 in Infiltrationsanästhesie.
 Proc:
 • Ab sofort frühfunktionelle Beübung ohne Belastung: 3 Wochen
 • Fäden ex: 14. Tag | Narbenpflege: Bepanthen 3× tägl.`},
 
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'de Quervain – 1. SSF Spaltung', lr:true,
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'de Quervain – 1. SSF Spaltung',
 txt:`Diagnose: Tendovaginitis stenosans de Quervain re/li.
-OP: Spaltung 1. SSF in Lokalanästhesie.
+OP: Spaltung 1. SSF, Tenolyse, Synovialektomie in Lokalanästhesie.
 Proc:
-• Schiene: 1 Woche | Beübung ohne Belastung: 2 Wochen
+• Schiene: 1 Woche | Frühfunktionelle Beübung ohne Belastung: 2 Wochen
 • Nahtmaterial resorbierbar | Narbenpflege: Bepanthen 3× tägl.`},
 
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'Scaphoidfraktur – Herbertschraube', lr:true,
-txt:`OP: Osteosynthese Scaphoid re/li. AB: Cefuroxim 1,5g i.v.
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'Scaphoidfraktur – Herbertschraube',
+txt:`Diagnose: Scaphoidfraktur re/li. AB: Cefuroxim 1,5g i.v. Röntgen postop.: korrekte Materiallage.
 Proc:
-• Fäden ex: 14. Tag | Schiene: 2 Wochen
-• Dann zirkulärer Scaphoidgips: 3 Wochen
+• Fäden ex: 14. Tag | Schiene: 2 Wochen | Dann zirkulärer Scaphoidgips: 3 Wochen
 • Aktiv-passive Beübung ohne Belastung bis Woche 10 | Belastungsaufbau ab Woche 10`},
 
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'Rhizarthrose – Trapeziektomie RSIA', lr:true,
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'Rhizarthrose – Trapeziektomie RSIA (Lundborg)',
 txt:`Diagnose: Rhizarthrose CMC I re/li.
 OP: Resektions-Suspensions-Interpositions-Arthroplastik n. Lundborg. AB: Cefuroxim 1,5g i.v.
 Proc:
 • Nahtmaterial resorbierbar – Fadenenden am 14. Tag zurückkürzen
-• Schiene: 2 Wochen | Rhizosplint-Orthese: 2 Wochen 24h → 2 Wochen nachts
+• Schiene: 2 Wochen | Rhizosplint-Orthese: 2 Wochen 24h → dann 2 Wochen nachts
 • Aktiv-passive Beübung unter KG | Belastungsaufbau ab Woche 9`},
 
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'RSL-Fusion + Denervierung n. Wilhelm', lr:true,
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'RSL-Fusion + Denervierung n. Wilhelm',
 txt:`OP: RSL-Fusion + Spongiosaplastik Beckenkamm + Denervierung n. Wilhelm re/li. AB: Cefuroxim 1,5g i.v.
 Proc:
 • Fäden ex: 14. Tag | Schiene: 2 Wochen | Zirkulärer Cast: 8 Wochen (Daumen + Langfinger frei)
-• CT HG Woche 10 (MVZ 360°, Tel: 09281/983347) – Freigabe erst nach CT
-• Belastungsaufbau ab Woche 12`},
+• CT HG Woche 10 (MVZ 360°, Tel: 09281/983347) – Freigabe erst nach CT durch uns
+• Frühfunktionelle Beübung Langfinger ab sofort | Belastungsaufbau ab Woche 12`},
 
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'Phalangenfraktur – übungsstabil', lr:true,
-txt:`OP: Osteosynthese Phalanx D___ re/li. Übungsstabil.
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'Four Corner Fusion + Beckenspongiosa',
+txt:`OP: Four Corner Fusion + Spongiosaplastik Beckenkamm re/li. AB: Ampicillin/Sulbactam 2/1g i.v.
 Proc:
-• Hochlagerung 48h | Ab 2. Tag: 10×10 Übungen tägl.
+• Hochlagerung 1 Woche | Fäden ex: 14. Tag
+• Schiene: 2 Wochen | Zirkulärer Cast: 8 Wochen (Daumen + Langfinger frei)
+• CT HG Woche 10 (MVZ 360°, Tel: 09281/983347)
+• ME erst nach radiologischer Konsolidierung!`},
+
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'Phalangenfraktur – übungsstabil',
+txt:`OP: Osteosynthese Phalanx D___ re/li. Übungsstabile Versorgung.
+Proc:
+• Hochlagerung mind. 48h | Ab 2. Tag: 10×10 Übungen tägl. (Schiene selbst ab/anlegen)
 • Schiene: 5 Wochen | Belastungsaufbau ab Woche 8
 • Fäden ex: 14. Tag | Narbenpflege: Bepanthen 3× tägl.`},
 
-{g:'CP · Hand / Gelenk', dep:'cp', lbl:'MHK V – intramedullär', lr:true,
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'MHK V – intramedullär',
 txt:`Diagnose: Subkapitale MHK-V-Fraktur re/li.
-OP: Geschlossene Reposition + intramedullärer Draht.
+OP: Geschlossene Reposition + intramedullärer Draht. Röntgen postop.: korrekte Materiallage.
 Proc:
-• Fäden ex: 14. Tag | Schiene: 5 Wochen | Ab Tag 5: 3× tägl. Schiene ab + Finger beüben
+• Fäden ex: 14. Tag | Schiene: 5 Wochen
+• Ab Tag 5: 3× tägl. Schiene ab und Finger/HG beüben
 • ME Woche 6 extern. Röntgen-CD mitgegeben | Belastungsaufbau ab Woche 8`},
 
-// ══ CP LAPPENPLASTIK ════════════════════════
-{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Gestielte Lappenplastik – Nachsorge', lr:false,
-txt:`Proc – Pflegedienst tägl. VW:
-1. Octenisept tupfend
-2. Fetthaltige Gaze (Physiotulle)
-3. Kompresse (KEINE Saugkompressen)
-4. Kompressive Wicklung Idealbinde bis Knie
-Lappenplastik NICHT schwitzen/mazarieren!
+{g:'CP · Hand / Gelenk', dep:'cp', lr:true, lbl:'Ulnaverkürzungsosteotomie',
+txt:`OP: Ulnaverkürzungsosteotomie re/li. AB: Ampicillin/Sulbactam 2/1g i.v.
+⚠ CAVE: Drehende Bewegungen im Handgelenk STRIKT VERMEIDEN!
+Proc:
+• Nahtmaterial resorbierbar | Arm ohne Belastung bewegen – Rotation strikt vermeiden
+• Belastungsaufbau ab Woche 10 | MTB etc.: mind. 12 Wochen nicht
+• Narbenpflege: Bepanthen 3× tägl.`},
+
+// ── CP · Lappenplastik / Wunde ───────────────────────────────────────
+{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Gestielte Lappenplastik – Nachsorge komplett',
+txt:`Proc – Pflegedienst tägl. Verbandswechsel:
+  1. Tupfende Wunddesinfektion (Octenisept)
+  2. Fetthaltige Gaze (Physiotulle)
+  3. Kompresse (KEINE Saugkompressen)
+  4. Kompressive Wicklung Idealbinde bis Knie
+
+Lappenplastik/Spalthaut NICHT schwitzen/mazarieren!
 → Morgens Verbände ab, Fuß abduschen, 30 min trocknen, dünn eincremen → Verband
-Kompressionskleidung: 6 Monate konsequent Tag und Nacht.
-Narbenpflege: Bepanthen 3× tägl. 2 Monate. Meidung Sonne 6 Monate.
-WV nach 3+6 Wochen, 3+6 Monaten. Tel: 09281/982530`},
+→ Bei Schwitzen im AirCast Walker: Walker entfernen und Fuß trocknen
 
-{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Freier Lappen – Lappenkontrollen', lr:false,
+• Bein nur mit Kompressionswicklung tief lagern
+• Kompressionskleidung: 6 Monate konsequent Tag und Nacht
+• Narbenpflege: Bepanthen 3× tägl. 2 Monate | Meidung Sonne mind. 6 Monate
+• WV nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530`},
+
+{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Freier Lappen – Lappenkontrollen (Station)',
 txt:`Lappenkontrollen:
-• Dopplersignal stündlich | Rekapillarisierung: 1.–3. Tag stündlich → 2h → 1×/Schicht
-• Lappen blau → SOFORT Dr. Polykandriotis: 01728121378
-Heparin 17.000 IE/24h → PTT 60 für 3 Tage → Tag 4: Clexane 40 1-0-1, Heparin ab.
-Hb >9,0 halten. Strickte Hochlagerung 7 Tage. Dann Lappentraining (RS Dr. Polykandriotis).
-Kein Belastungsaufbau 4 Wochen. Kompressionsstrumpf 6 Monate. Meidung Sonne 6 Monate.
-WV nach 3+6 Wochen, 3+6 Monaten. Tel: 09281/982530`},
+• Dopplersignal stündlich
+• Rekapillarisierung: 1.–3. Tag stündlich → alle 2h → 1×/Schicht
+• Lappen blau / kein Dopplersignal → SOFORT Dr. Polykandriotis: 01728121378
+• DMS betroffene Extremität überwachen (Kompartment-Risiko)
 
-{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Spalthaut – Nachsorge', lr:false,
+Antikoagulation:
+• Heparin 17.000 IE/24h → PTT gesteuert (Ziel 60) für 3 Tage
+• Tag 4: Clexane 40mg 1-0-1 überlappend, Heparin absetzen
+• Hb >9,0 halten | Strickte Hochlagerung 7 Tage
+• Dann Lappentraining (Rücksprache Dr. Polykandriotis)
+• Kein Belastungsaufbau 4 Wochen | Kompressionsstrumpf nach Abheilung 6 Monate
+• WV nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530`},
+
+{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Spalthaut / Mesh Graft – Nachsorge',
 txt:`Proc – Pflegedienst tägl.:
-• Morgens: Verbände ab → 1h an Luft abtrocknen
-• Dann: Octenisept → Lomatüll → Kompresse → Kompressionswicklung
+• Morgens: alle Verbände ab → Transplantat mind. 1h an Luft abtrocknen
+• Dann: Octenisept → Lomatüll → Kompresse → Kompressionswicklung bis Knie
 • Entnahmestelle OS: Folie bis Tag 12 (Wechsel nur bei trüber Sekretion)
-• Ab Tag 14 bei Abheilung: kein Verband, tägl. fetthaltige Creme
-⚠ KEINE OKKLUSIVEN VERBÄNDE! Mazeration vermeiden!
-Kompressionsstrumpf 6 Monate. Narbenpflege: Bepanthen 3× tägl. 3 Monate.`},
+• Ab Tag 14 bei Abheilung: kein Verband, tägl. mehrmals fetthaltige Creme
 
-{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Suprathel – Verbrennung', lr:false,
-txt:`OP: Wundreinigung, Blasenabtragung, Suprathel®.
+⚠ KEINE OKKLUSIVEN VERBÄNDE! KEINE SAUGKOMPRESSEN! Mazeration vermeiden!
+• Kompressionsstrumpf: 6 Monate nach Abheilung
+• Narbenpflege: Bepanthen intensiv 3× tägl. 3 Monate | Meidung Sonne 6 Monate`},
+
+{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Verbrennung – Suprathel Nachsorge',
+txt:`OP: Chirurgische Wundreinigung, Blasenabtragung, Suprathel®. Stationäre Überwachung.
 Proc:
-• Erster VW NUR durch uns in Sprechstunde!
+• Erster VW NUR durch uns in Sprechstunde am ___ Uhr!
 • Verband löst sich → nur neu fixieren
-⚠ CAVE: Matrix auf der Haut NICHT ENTFERNEN!
-Ab Woche 3: Kompressionshandschuh 6 Monate.
-Narbenpflege: Bepanthen 3× tägl. 2 Monate. Meidung Sonne 6 Monate.
-WV nach 3+6 Wochen, 3 Monaten. Tel: 09281/982530`},
+⚠ CAVE: Die auf der Haut haftende Matrix NICHT ENTFERNEN!
+• Im Randbereich gelöste Matrix kann zurückgekürzt werden
+• Ab Woche 3: Kompressionshandschuh 6 Monate
+• Narbenpflege: Bepanthen 3× tägl. 2 Monate | Meidung Sonne 6 Monate`},
 
-// ══ CP ÄSTHETIK ══════════════════════════════
-{g:'CP · Ästhetik', dep:'cp', lbl:'Abdominoplastik + WARP', lr:false,
-txt:`OP: Abdominoplastik + WARP. AB: Clindamycin 600mg i.v.
+{g:'CP · Lappenplastik / Wunde', dep:'cp', lbl:'Basaliom – Lappenplastik + Spalthaut Kopf',
+txt:`OP: Exzision → R0-Histologie → Rotationslappenplastik + Spalthaut OS + Überknüpfverband 5 Tage.
 Proc:
-• Abduschen ab Woche 2 – Pflaster NICHT aufweichen!
-• Husten/Bauchpresse: 6 Wochen vermeiden
-• Kompressionskleidung: 6 Wochen Tag und Nacht
-• Belastung >5kg ab Woche 8 | Fadenenden am 12. Tag kürzen (resorbierbar)
-• Narbenpflege: Bepanthen 3× tägl. 2 Monate
-• WV nach 3+6 Wochen, 3+6 Monaten. Tel: 09281/982530`},
+• WV: Überknüpfverband entfernen wir. Bis dahin Verband belassen.
+• Keine Kopf-Tief-Haltung für 7 Tage
+• Fäden Kopf ex: 12. Tag | Folienverband OS: 12 Tage (Wechsel nur bei Infektzeichen)
+• Narbenpflege: Bepanthen 3× tägl. 2 Monate | Meidung Sonne konsequent
+• Nachsorge Basaliom: niedriges Rezidivrisiko → 6 Mo, dann 1×jährlich. Hohes Risiko → alle 3 Monate`},
 
-{g:'CP · Ästhetik', dep:'cp', lbl:'Mammaimplantat – Augmentation', lr:false,
+// ── CP · Ästhetik ─────────────────────────────────────────────────────
+{g:'CP · Ästhetik', dep:'cp', lbl:'Abdominoplastik + WARP',
+txt:`OP: Abdominoplastik + WARP. AB: Clindamycin 600mg i.v. Thromboseprophylaxe pneumatisch periop.
+Proc:
+• Kurzes Abduschen ab Woche 2 – Pflaster NICHT aufweichen!
+• Husten/Bauchpresse: 6 Wochen vermeiden
+• Kompressionskleidung: 6 Wochen konsequent Tag und Nacht
+• Belastung >5kg ab Woche 8 | Nahtmaterial resorbierbar – Fadenenden am 12. Tag kürzen
+• Narbenpflege: Bepanthen 3× tägl. 2 Monate
+• WV nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530`},
+
+{g:'CP · Ästhetik', dep:'cp', lbl:'Mammaimplantat – Augmentation Dual Plane',
 txt:`OP: Subpektorale Mammaaugmentation bds. Dual Plane n. Tebbets. AB: Ampicillin/Sulbactam 2/1g i.v. Implantatpass ausgehändigt.
 Proc:
-• Kompressionskleidung (BH): 6 Wochen Tag und Nacht
-• Kein Heben >5kg 6 Wochen | Armbelastung ab Woche 7
+• Kompressionskleidung (BH): 6 Wochen konsequent Tag und Nacht
+• Kein schweres Heben >5kg 6 Wochen | Armbelastung ab Woche 7
 • Abduschen möglich – Pflaster nicht aufweichen
-• Fadenenden am 14. Tag kürzen (resorbierbar)
-• WV nach 3+6 Wochen, 3+6 Monaten.`},
+• Nahtmaterial resorbierbar – Fadenenden am 14. Tag kürzen
+• WV nach 3 und 6 Wochen, 3 und 6 Monaten.`},
 
-{g:'CP · Ästhetik', dep:'cp', lbl:'Gynäkomastie – PAL + Mastektomie', lr:false,
+{g:'CP · Ästhetik', dep:'cp', lbl:'Gynäkomastie – PAL + Mastektomie',
 txt:`OP: PAL + subkutane Mastektomie + periareoläre Straffung bds. AB: Ampicillin/Sulbactam 2/1g i.v.
 Proc:
-• Kompressionsmieder: 6 Wochen Tag und Nacht
-• Kein Heben >5kg 6 Wochen | Armbelastung ab Woche 7
-• Abduschen ab Woche 2 – Pflaster nicht aufweichen
-• Fadenenden am 12. Tag kürzen | WV nach 3+6 Wochen, 3+6 Monaten. Tel: 09281/982530`},
+• Kompressionsmieder: 6 Wochen konsequent Tag und Nacht
+• Kein Heben >5kg 6 Wochen | Armbelastung ab Woche 7 | Abduschen ab Woche 2
+• Nahtmaterial resorbierbar – Fadenenden am 12. Tag kürzen
+• WV nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530`},
 
-{g:'CP · Ästhetik', dep:'cp', lbl:'Narbenkorrektur Gesicht', lr:false,
-txt:`Proc nach Narbenkorrektur Gesicht:
-• Kühlung: 48h Tag und Nacht (mind. 3 Kühl-Packs abwechselnd)
-• Kopftieflagerung 48h STRENGSTENS VERBOTEN
-• Duschen erst ab Tag 5! Nicht am Gesicht manipulieren!
-• Nach Fadenentfernung: Creme 3× tägl. massieren für 1 Monat
-• Dann 2 Monate: 1× tägl. Silikongel mit LSF (BabScar Care, Asclepios)
-• Endgültiges Ergebnis erst nach 6 Monaten sichtbar`},
-
-{g:'CP · Ästhetik', dep:'cp', lbl:'Blepharoplastik / Entropium', lr:false,
-txt:`OP: Blepharoplastik / Entropiumkorrektur bds. AB lokal: Gentamycin Augentropfen.
+{g:'CP · Ästhetik', dep:'cp', lbl:'Blepharoplastik / Entropiumkorrektur',
+txt:`OP: Blepharoplastik / Entropiumkorrektur (lat. Canthoplastik, tarsale Retraktorensuspension) bds. in Intubationsnarkose. AB periop.: Gentamycin Augentropfen.
 Proc:
-• Kühl-Packs: 3 Tage konsequent
-• Uhrglas-Schutz: 1 Woche nachts bds.
-• Gentamycin AT 5× tägl. je 3 Tropfen für 1 weitere Woche
+• Kühl-Packs auf Augenlider: 3 Tage konsequent
+• Uhrglas-Schutzbrille: 1 weitere Woche nachts bds.
+• Gentamycin AT: 5× tägl. je 3 Tropfen für 1 weitere Woche
 • Fäden ex: 14. Tag`},
 
-{g:'CP · Ästhetik', dep:'cp', lbl:'CRPS – Akutschmerztherapie', lr:false,
-txt:`Diagnose: CRPS Typ I/II (M. Sudeck) re/li.
-Maßnahmen: Stellatumblockaden ___×. Plexuskatheter (Naropin). DMSO-Salbe mehrmals tägl.
-Prednisolon 100mg 1-0-0 → 1 Woche → 20mg/Woche ausschleichen.
-Gabapentin 100mg 1-1-1 bis max. 1800mg/d. Amineurin 10mg 0-0-1.
+{g:'CP · Ästhetik', dep:'cp', lbl:'Narbenkorrektur Gesicht',
+txt:`Proc nach Narbenkorrektur Gesicht:
+• Kühlung konsequent 48h Tag und Nacht (mind. 3 Kühl-Packs abwechselnd)
+• Kopftieflagerung 48h STRENGSTENS VERBOTEN (z.B. Schuhe binden)
+• Kein Gewicht heben (Koffer, Kind) für 48h
+• Schlafen mit OKH-Lagerung 1 Nacht
+• Duschen erst ab Tag 5! Stirn nicht manipulieren!
+• Pflasterwechsel und Fadenzug durch uns
+• Nach Fadenentfernung: 3× tägl. rückfettende Creme massieren für 1 Monat
+• Dann 2 weitere Monate: 1× tägl. Silikongel mit LSF (z.B. BabScar Care, Asclepios)
+• Endgültiges Ergebnis erst nach 6 Monaten sichtbar`},
+
+{g:'CP · Ästhetik', dep:'cp', lbl:'Oberschenkelstraffung + Liposuction',
+txt:`OP: Oberschenkelstraffung bds. + angleichende Liposuction. AB: Cefuroxim 1,5g i.v. Clexane 40mg s.c. bis Vollmobilisation.
+Proc:
+• Langes Sitzen und Abspreizen der Beine vermeiden. Toilettensitzerhöhung empfohlen.
+• Kompressionskleidung: 6 Wochen konsequent Tag und Nacht
+• Belastung und längeres Gehen ab Woche 4 | Abduschen ab Woche 2
+• Nahtmaterial resorbierbar – Fadenenden am 12. Tag kürzen
+• Narbenpflege: Bepanthen einmassieren 3× tägl. 2 Monate
+• WV nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530`},
+
+{g:'CP · Ästhetik', dep:'cp', lbl:'CRPS – Akutschmerztherapie stationär',
+txt:`Diagnose: CRPS Typ I/II (M. Sudeck) re/li. Schmerztherapeut mitbetreut.
+Maßnahmen: Stellatumblockaden ___×. Axillärer Naropin-Plexuskatheter. DMSO-Salbe mehrmals tägl.
+Prednisolon 100mg 1-0-0 für 1 Woche → 20mg/Woche ausschleichen.
+Gabapentin 100mg 1-1-1 (langsam bis max. 1800mg/d steigern). Amineurin 10mg 0-0-1.
 CO2-Bäder, Lymphdrainage, Spiegeltherapie, Ergotherapie, TENS.
-Proc: Gabapentin ambulant fortführen. Neurophysio in 3 Monaten.`},
+Proc: Gabapentin ambulant fortführen. Neurophysiologische Kontrolle in 3 Monaten.`},
 
-// ══ CP OP-BERICHTE ═══════════════════════════
-{g:'CP · OP-Berichte', dep:'cp', lbl:'Standard-Einleitung', lr:false,
-txt:`Die druckstellenfreie Patientenlagerung wird vom Operateur kontrolliert. Einsicht in die schriftliche Patientenaufklärung. Verifizierung der Seite. Steriles Abwaschen und Abdecken nach Richtlinien des Hauses. Team Time Out. Single-Shot-Antibiotikaprophylaxe. Anlage pneumatischer Oberarmblutsperre 320 mmHg.`},
+// ── CP · OP-Berichte ─────────────────────────────────────────────────
+{g:'CP · OP-Berichte', dep:'cp', lbl:'Standard-Einleitung OP-Bericht',
+txt:`Die druckstellenfreie Patientenlagerung wird vom Operateur kontrolliert. Einsicht in die schriftliche Patientenaufklärung. Verifizierung der Seite. Steriles Abwaschen und Abdecken des Operationsfeldes nach Richtlinien des Hauses. Team Time Out. Single-Shot-Antibiotikaprophylaxe vor Anlage der Blutsperre nach Ausschluss Allergie. Anlage einer pneumatischen Oberarmblutsperre in der Einstellung 320 mmHg.`},
 
-{g:'CP · OP-Berichte', dep:'cp', lbl:'Beckenkamm – Spongiosaentnahme', lr:false,
-txt:`Inzision 10er Messer, 2cm dorsal SIAS. Präparation bis Knochen. Beckenkamm dargestellt. Deckelförmig nach cranial gestielter Kortikalisdeckel mit oszillierender Säge. Entnahme ~3–4qcm Spongiosa. Sulmycin-Schwamm + 12er Drainage. Schichtweiser Verschluss: 0er Vicryl CT1 Fasziennaht, Monocryl 2-0 subcutan, Hautnaht.`},
+{g:'CP · OP-Berichte', dep:'cp', lbl:'Beckenkamm – Spongiosaentnahme',
+txt:`Inzision mit 10er Messer am Becken, 2cm dorsal der SIAS. Präparation bis zum Knochen. Beckenkamm dargestellt. Deckelförmig nach cranial gestielter Kortikalisdeckel mit oszillierender Säge eröffnet. Entnahme ca. 3–4qcm Spongiosa mit scharfem Löffel. Einlage Sulmycin-Schwamm 10×10cm. Einlage 12er Drainage. Schichtweiser Verschluss: 0er Vicryl CT1 Fasziennaht, Monocryl 2-0 subcutan, Hautnaht.`},
 
-{g:'CP · OP-Berichte', dep:'cp', lbl:'CTS – n. McKinnon', lr:false,
-txt:`~3–4cm longitudinale Inzision parallel Linea vitalis (n. McKinnon). Subcutis bipolar koaguliert. Adson-Spreizer. Scharfe Spaltung Palmaraponeurose + Retinaculum flexorum mit 15er Skalpell. N. medianus dargestellt – gefäßinjiziert (Kompressionszeichen). Spaltung bis Unterarmfaszie. Nerv frei. Ramus muscularis geschont. Drainage. Wundverschluss 4-0 Ethilon. Verband. Schiene.`},
+{g:'CP · OP-Berichte', dep:'cp', lbl:'CTS n. McKinnon – OP-Bericht',
+txt:`Ca. 3–4cm longitudinale Inzision parallel zur Linea vitalis (n. McKinnon). Subcutis bipolar koaguliert. Adson-Wundspreizer. Scharfe Spaltung der Palmaraponeurose und des Retinaculum flexorum mit 15er Skalpell. N. medianus dargestellt – zeigt sich gefäßinjiziert als Zeichen der Kompression. Spaltung nach proximal bis zur Unterarmfaszie. Nerv völlig frei. Ramus muscularis dargestellt und geschont. Einlage Drainage. Wundverschluss 4-0 Ethilon. Steriler Verband. Schiene.`},
 
-{g:'CP · OP-Berichte', dep:'cp', lbl:'Dupuytren – Y-V n. Dellon', lr:false,
-txt:`Markierung Stränge + Y-V-Muster n. Dellon (Methylenblau). Inzision und Lappenbildung. Palmaraponeurose von proximal nach distal abgelöst unter Schonung GNB D3-4 + D4-5. Spiralband stumpf. Beugesehnen + Ringbänder intakt. Vollständige Strangentfernung. Blutsperre eröffnet. Y-V-Plastiken vervollständigt. Redondrainage. Wundverschluss 4-0/5-0 Ethilon. Gipsschiene.`},
+{g:'CP · OP-Berichte', dep:'cp', lbl:'Dupuytren – Fasziektomie Y-V n. Dellon',
+txt:`Markierung Dupuytren-Stränge und Y-V-Inzisionsmuster n. Dellon (Methylenblau). Inzision und Lappenbildung. Palmaraponeurose von proximal nach distal abgelöst unter Schonung interdigitaler GNB D3-4 und D4-5. Spiralband stumpf abpräpariert. Beugesehnen und Ringbänder intakt. Vollständige Strangentfernung. Blutsperre eröffnet. Y-V-Plastiken vervollständigt. Redondrainage. Wundverschluss 4-0/5-0 Ethilon. Steriler Verband. Gipsschiene.`},
 
-{g:'CP · OP-Berichte', dep:'cp', lbl:'Flexorensehne – n. Adelaide / Zechner', lr:false,
-txt:`Narbe ausgeschnitten. Schnitt prox.+dist. erweitert. GNB dargestellt. FDP D___ durchtrennt, Stumpf in Hohlhand. Mosquito → hervorgeholt. Kernnaht n. Adelaide / n. Zechner mit 3-0 Prolene. Überwendlungsnaht 5-0 PDS. Spülung. Drainage. Wundverschluss 4-0 Ethilon. Gipsschiene.`},
+{g:'CP · OP-Berichte', dep:'cp', lbl:'Flexorensehne – n. Adelaide / Zechner',
+txt:`Narbe ausgeschnitten. Schnitt proximal und distal erweitert. GNB dargestellt und geschont. FDP D___ durchtrennt, proximaler Stumpf in Hohlhand disloziert. Mit Mosquito-Klemme hervorgeholt. Kernnaht n. Adelaide / n. Zechner mit 3-0 Prolene. Adaptierende Überwendlungsnaht 5-0 PDS. Spülung. Einlage Drainage. Wundverschluss 4-0 Ethilon. Steriler Verband. Gipsschiene.`},
 
-{g:'CP · OP-Berichte', dep:'cp', lbl:'Abdominoplastik + WARP', lr:false,
-txt:`Rückenlage. Markierungen Methylenblau. Quere Inzision Unterbauchfalte 10er Skalpell. Adipocutaner Lappen auf vordere Rektusfaszie. Umbilicus verschont. Präparation bis Rippenbogen + Proc. xiphoideus. WARP mit 2er Vicryl. Patientin 40° aufgesetzt. Neoumbilicus-Inzision (invertiertes V). Dermolipektomie. Ausspülung. Blutstillung. 2× 14er Redondrainagen. Schichtweiser Verschluss: 2-0 Vicryl, 2-0/3-0/4-0 Monocryl. Kompressionsmieder.`},
+{g:'CP · OP-Berichte', dep:'cp', lbl:'Abdominoplastik + WARP – OP-Bericht',
+txt:`Rückenlage. Markierungen mit Methylenblau nachgezogen. Quere Inzision Unterbauchfalte mit 10er Skalpell. Adipocutaner Lappen auf die vordere Rektusfaszie präpariert. Umbilicus mit Stiel zunächst verschont. Präparation bis Rippenbogen und Proc. xiphoideus. WARP (Weite Abdominale Rectus Plicatur) mit 2er Vicryl. Patientin auf 40° aufgesetzt. Neoumbilicus bestimmt, invertiertes V inzidiert. Subcutangewebe mit Metzenbaum-Schere ausgedünnt. Umbilicus mit 2-0 PDS an Bauchwand fixiert. Dermolipektomie. Ausspülung. Minutiöse Blutstillung. 2× 14er Redondrainagen. Schichtweiser Verschluss: 2-0 Vicryl, 2-0/3-0/4-0 Monocryl. Steriler Verband. Kompressionsmieder.`},
 
-{g:'CP · OP-Berichte', dep:'cp', lbl:'Mammaimplantat – Dual Plane', lr:false,
-txt:`Inzisionen bilateral ~4–5cm lateral der Mittellinie. Präparation auf Pectoralis-Faszie. Dual Plane n. Tebbets: M. pectoralis auf Höhe Areola durchtrennt. Submuskuläre Tasche bds. Sizer: re ___cc, li ___cc. Taschenspülung Octenisept, Handschuhwechsel. Keller-Funnel-Einbringung. Patientin aufgesetzt. Submammarfalte 2-0 Monocryl mehrschichtig rekonstruiert. Drainagen. Verband.`},
+{g:'CP · OP-Berichte', dep:'cp', lbl:'Mammaimplantat – Dual Plane OP-Bericht',
+txt:`Inzisionen bilateral ca. 4–5cm lateral der Mittellinie. Präparation auf Pectoralis-Faszie. Dual Plane n. Tebbets: M. pectoralis auf Höhe Areola durchtrennt. Submuskuläre Tasche bds. mit Monopolare gebildet. Sizer: re ___cc, li ___cc – zufriedenstellendes Ergebnis. Taschen mit Octenisept gespült, Handschuhwechsel. Keller-Funnel-Einbringung der Implantate. Patientin aufgesetzt. Submammarfalte mit 2-0 Monocryl mehrschichtig rekonstruiert. Drainagen eingelegt. Steriler Verband.`},
 
-{g:'CP · OP-Berichte', dep:'cp', lbl:'Arthroskopie HG – Befund + Shaver', lr:false,
-txt:`Extensionsvorrichtung, Traktion 6kg, Blutleere 320mmHg. Portale 3-4 und 6R. Befund:
-– Fossa scaphoidea/lunata: intakt
+{g:'CP · OP-Berichte', dep:'cp', lbl:'Arthroskopie HG – Befund + Shaver',
+txt:`Extensionsvorrichtung, Traktion 6kg, Blutleere 320mmHg. Portale 3-4 und 6R. Trokar und Optik im 3-4-Portal. Befund radiokarpal:
+– Fossa scaphoidea / Fossa lunata: intakte Gelenkfläche
 – Radialer Recessus: Synovialitis, Gefäßinjektion
-– SL-Band + Watson: kein Anhalt Dissoziation
-– TFCC / Recessus ulnaris: Synovialitis, pos. Trampolineffekt, degenerative Discusläsion
-Shaver 3,0mm: radikales Debridement. Elektrothermische Synovialektomie + Denervierung.
-Spülung. Wundverschluss 5-0 Ethilon. Lipotalon 10mg. Naropin 7,5mg. Gipsschiene.`},
+– SL-Band + Watson: kein Anhalt für SL-Dissoziation
+– Recessus ulnaris / TFCC: Synovialitis, pos. Trampolineffekt, degenerative Discusläsion
+– Gelenkfläche Triquetrum: Läsion ___
+Mit Shaver 3,0mm: radikales Debridement aller pathologischen Strukturen. Elektrothermische Synovialektomie + Denervierung. Ausgiebige Spülung. Wundverschluss 5-0 Ethilon. Lipotalon 10mg. Naropin 7,5mg. Steriler Verband. Gipsschiene.`},
 
-];
+]; // end ITEMS
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
-let dep='all', query='';
-const kiHist=[];
-let kiOpen=false;
+// ══════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════
+let dep = 'all', query = '', kiOpen = false;
+const kiHistory = [];
 
-// ─── UTILS ───────────────────────────────────────────────────────────────────
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function hl(t,q){
-  if(!q)return esc(t);
-  return esc(t).replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),m=>'<mark>'+m+'</mark>');
+// ══════════════════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════════════════
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function hl(text, q) {
+  if (!q) return esc(text);
+  return esc(text).replace(
+    new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi'),
+    m => '<mark>' + m + '</mark>'
+  );
 }
 
-function copyText(text,btn){
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.classList.add('done');btn.textContent='✓ Kopiert';
-    setTimeout(()=>{btn.classList.remove('done');btn.textContent='Kopieren';},1500);
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.classList.add('ok');
+    btn.textContent = '✓ Kopiert';
+    setTimeout(() => { btn.classList.remove('ok'); btn.textContent = orig; }, 1600);
   });
 }
-function lrCopy(text,side,btn){
-  const t=text.replace(/re\/li/g,side).replace(/rechts\/links/gi,side==='re'?'rechts':'links');
-  navigator.clipboard.writeText(t).then(()=>{
-    const o=btn.textContent;btn.textContent='✓';setTimeout(()=>btn.textContent=o,1200);
+
+function lrCopy(text, side, btn) {
+  const t = text.replace(/re\/li/g, side).replace(/rechts\/links/gi, side==='re'?'rechts':'links');
+  navigator.clipboard.writeText(t).then(() => {
+    const o = btn.textContent; btn.textContent = '✓';
+    setTimeout(() => btn.textContent = o, 1200);
   });
 }
 
-// ─── NAV ─────────────────────────────────────────────────────────────────────
-function buildNav(){
-  const nav=document.getElementById('snav');nav.innerHTML='';
-  const gs={};
-  D.forEach(item=>{if(!gs[item.g])gs[item.g]=[];gs[item.g].push(item);});
-  Object.keys(gs).forEach(g=>{
-    const gl=document.createElement('div');gl.className='sg';gl.textContent=g;nav.appendChild(gl);
-    gs[g].forEach(item=>{
-      const b=document.createElement('button');
-      b.className='si '+(item.dep==='cp'?'cp':item.dep==='cu'?'cu':'');
-      b.textContent=item.lbl;
-      b.onclick=()=>{
-        // scroll to card by finding matching element
-        const cards=document.querySelectorAll('.card,.mlcard');
-        cards.forEach(c=>{if(c.dataset.lbl===item.lbl) c.scrollIntoView({behavior:'smooth',block:'center'});});
-        document.querySelectorAll('.si').forEach(x=>x.classList.remove('on'));
-        b.classList.add('on');
-      };
-      nav.appendChild(b);
+// ══════════════════════════════════════════════════════
+//  NAV
+// ══════════════════════════════════════════════════════
+function buildNav() {
+  const nav = document.getElementById('sb-nav');
+  const gs = {};
+  ITEMS.forEach(it => { if (!gs[it.g]) gs[it.g] = []; gs[it.g].push(it); });
+  let html = '';
+  Object.keys(gs).forEach(g => {
+    html += `<div class="nav-grp">${esc(g)}</div>`;
+    gs[g].forEach(it => {
+      const cls = it.dep === 'cp' ? 'cp-style' : it.dep === 'cu' ? 'cu-style' : '';
+      html += `<button class="nav-btn ${cls}" data-lbl="${esc(it.lbl)}" onclick="scrollToCard('${esc(it.lbl)}')">${esc(it.lbl)}</button>`;
     });
   });
+  nav.innerHTML = html;
 }
 
-function navFilter(v){
-  const q=v.toLowerCase();
-  document.querySelectorAll('.si').forEach(b=>{b.style.display=!q||b.textContent.toLowerCase().includes(q)?'':'none';});
+function filterNav(v) {
+  const q = v.toLowerCase();
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.style.display = !q || b.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
 }
 
-// ─── DEP / SEARCH ────────────────────────────────────────────────────────────
-function setDep(d){
-  dep=d;
-  document.getElementById('ba').className='dtab'+(d==='all'?' all':'');
-  document.getElementById('bp').className='dtab'+(d==='cp'?' cp':'');
-  document.getElementById('bu').className='dtab'+(d==='cu'?' cu':'');
+function scrollToCard(lbl) {
+  const el = document.querySelector(`[data-card="${CSS.escape(lbl)}"]`);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('on', b.dataset.lbl === lbl);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+//  DEP + SEARCH
+// ══════════════════════════════════════════════════════
+function setDep(d) {
+  dep = d;
+  document.getElementById('btn-all').className = 'dep-btn' + (d==='all' ? ' active-all' : '');
+  document.getElementById('btn-cp').className  = 'dep-btn' + (d==='cp'  ? ' active-cp'  : '');
+  document.getElementById('btn-cu').className  = 'dep-btn' + (d==='cu'  ? ' active-cu'  : '');
   render();
 }
-function doSearch(v){query=v.trim();render();}
 
-// ─── RENDER ──────────────────────────────────────────────────────────────────
-function render(){
-  const area=document.getElementById('content');
-  area.innerHTML='';
-  const q=query.toLowerCase();
-  let vis=0, lastG='';
+function doSearch(v) { query = v.trim(); render(); }
 
-  const filtered=D.filter(item=>{
-    if(dep!=='all'&&item.dep!==dep)return false;
-    if(!q)return true;
-    return item.txt.toLowerCase().includes(q)||item.lbl.toLowerCase().includes(q);
+// ══════════════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════════════
+function render() {
+  const area = document.getElementById('content');
+  const q = query.toLowerCase();
+
+  const filtered = ITEMS.filter(it => {
+    if (dep !== 'all' && it.dep !== dep) return false;
+    if (!q) return true;
+    return it.txt.toLowerCase().includes(q) || it.lbl.toLowerCase().includes(q);
   });
 
-  if(filtered.length===0){
-    const e=document.createElement('div');e.className='empty';e.textContent='Keine Bausteine gefunden.';area.appendChild(e);
-    document.getElementById('rcnt').textContent='0 Treffer';return;
+  if (!filtered.length) {
+    area.innerHTML = '<div class="no-results">Keine Bausteine gefunden.</div>';
+    document.getElementById('counter').textContent = '0 Treffer';
+    return;
   }
 
-  filtered.forEach(item=>{
-    // Group header
-    if(item.g!==lastG){
-      const gh=document.createElement('div');gh.className='sec-title';gh.textContent=item.g;area.appendChild(gh);
-      lastG=item.g;
-    }
-    vis++;
+  let html = '';
+  let lastG = '';
 
-    // ML card
-    if(item.ml){
-      const mc=document.createElement('div');mc.className='mlcard';mc.dataset.lbl=item.lbl;
-      const tagTxt=item.dep==='cp'?'Plastische':item.dep==='cu'?'Unfall':'Info';
-      mc.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="tag">${tagTxt}</span><span style="font-size:11px;font-weight:600;color:#7a6000;letter-spacing:.05em;text-transform:uppercase">${esc(item.lbl)}</span></div><div class="mltxt">${hl(item.txt,query)}</div>`;
-      area.appendChild(mc);return;
+  filtered.forEach(it => {
+    if (it.g !== lastG) {
+      html += `<div class="grp-label">${esc(it.g)}</div>`;
+      lastG = it.g;
     }
 
-    const card=document.createElement('div');card.className='card';card.dataset.lbl=item.lbl;
-
-    // Head
-    const head=document.createElement('div');head.className='card-head';
-    const tagClass=item.dep==='cp'?'tcp':item.dep==='cu'?'tcu':'';
-    const tagTxt=item.dep==='cp'?'Plastische':item.dep==='cu'?'Unfall':'';
-    head.innerHTML=`<span class="tag ${tagClass}">${tagTxt}</span><span class="clbl">${esc(item.lbl)}</span>`;
-    card.appendChild(head);
-
-    // Text
-    const txt=document.createElement('div');txt.className='ctxt';txt.innerHTML=hl(item.txt,query);
-    card.appendChild(txt);
-
-    // Footer
-    const foot=document.createElement('div');foot.className='card-foot';
-    if(item.lr){
-      const row=document.createElement('div');row.className='lr-btns'||'';row.style.cssText='display:flex;gap:5px;flex-wrap:wrap';
-      [{s:'re',c:'lrbtn lre'},{s:'li',c:'lrbtn lrl'},{s:'bds.',c:'lrbtn lrb'}].forEach(({s,c})=>{
-        const b=document.createElement('button');b.className=c;b.textContent=s.toUpperCase();
-        b.onclick=()=>lrCopy(item.txt,s,b);foot.appendChild(b);
-      });
+    if (it.ml) {
+      html += `
+        <div class="ml-card" data-card="${esc(it.lbl)}">
+          <div class="ml-head">⚖ Medicolegal / Rechtlicher Hinweis</div>
+          <div class="ml-body">${hl(it.txt, query)}</div>
+        </div>`;
+      return;
     }
-    const cb=document.createElement('button');cb.className='cbtn';cb.textContent='Kopieren';
-    cb.onclick=()=>copyText(item.txt,cb);
-    foot.appendChild(cb);
-    // click card also copies
-    txt.onclick=()=>copyText(item.txt,cb);
-    card.appendChild(foot);
-    area.appendChild(card);
+
+    const tagClass = it.dep === 'cp' ? 'tag-cp' : 'tag-cu';
+    const tagText  = it.dep === 'cp' ? 'Plastische' : 'Unfall';
+
+    let lrBtns = '';
+    if (it.lr) {
+      lrBtns = `
+        <button class="btn-lr lr-re" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','re',this)">RE</button>
+        <button class="btn-lr lr-li" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','li',this)">LI</button>
+        <button class="btn-lr lr-bds" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','bds.',this)">BDS</button>`;
+    }
+
+    html += `
+      <div class="card" data-card="${esc(it.lbl)}" onclick="copyCardByLbl('${esc(it.lbl)}')">
+        <div class="card-top">
+          <span class="dep-tag ${tagClass}">${tagText}</span>
+          <span class="card-lbl">${esc(it.lbl)}</span>
+        </div>
+        <div class="card-body">${hl(it.txt, query)}</div>
+        <div class="card-foot">
+          ${lrBtns}
+          <button class="btn-copy" id="cb-${esc(it.lbl).replace(/[^a-z0-9]/gi,'_')}" onclick="event.stopPropagation();copyCardByLbl('${esc(it.lbl)}')">Kopieren</button>
+          <span class="card-click-hint">↑ klicken zum Kopieren</span>
+        </div>
+      </div>`;
   });
 
-  document.getElementById('rcnt').textContent=q?`${vis} Treffer`:`${vis} Bausteine`;
+  area.innerHTML = html;
+  document.getElementById('counter').textContent = q ? `${filtered.length} Treffer` : `${filtered.length} Bausteine`;
 }
 
-// ─── KI (Claude) ──────────────────────────────────────────────────────────────
-function toggleKI(){
-  kiOpen=!kiOpen;
-  document.getElementById('ki').classList.toggle('off',!kiOpen);
+// lookup helpers used in inline onclick
+function getItemByLbl(lbl) { return ITEMS.find(it => it.lbl === lbl); }
+
+function copyCardByLbl(lbl) {
+  const it = getItemByLbl(lbl); if (!it) return;
+  const btn = document.getElementById('cb-' + lbl.replace(/[^a-z0-9]/gi,'_'));
+  navigator.clipboard.writeText(it.txt).then(() => {
+    if (btn) { const o=btn.textContent; btn.classList.add('ok'); btn.textContent='✓ Kopiert'; setTimeout(()=>{btn.classList.remove('ok');btn.textContent=o;},1600); }
+  });
 }
 
-function addKIMsg(txt,role){
-  const box=document.getElementById('kimsgs');
-  const m=document.createElement('div');m.className='km k'+role;m.textContent=txt;
-  box.appendChild(m);box.scrollTop=box.scrollHeight;return m;
+function lrCopyByLbl(lbl, side, btn) {
+  const it = getItemByLbl(lbl); if (!it) return;
+  lrCopy(it.txt, side, btn);
 }
 
-async function sendKI(){
-  const inp=document.getElementById('kiinp');
-  const text=inp.value.trim();if(!text)return;
-  inp.value='';
-  addKIMsg(text,'u');
-  kiHist.push({role:'user',content:text});
-  const wait=addKIMsg('…','a');
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:'Du bist ein erfahrener Facharzt in Plastischer, Rekonstruktiver und Ästhetischer Chirurgie und Unfallchirurgie. Du hilfst Dr. Luis Perez (Assistenzarzt CP, Sana Klinikum Hof, unter Prof. Polykandriotis FAU Erlangen-Nürnberg) bei klinischen Fragen, Arztbriefen, OP-Berichten und medizinischer Literatur. Antworte präzise auf Deutsch. Kein langes Präambel.',
-        messages:kiHist
+// ══════════════════════════════════════════════════════
+//  KI — Claude via Anthropic API (no key needed)
+// ══════════════════════════════════════════════════════
+function toggleKI() {
+  kiOpen = !kiOpen;
+  document.getElementById('ki').classList.toggle('closed', !kiOpen);
+}
+
+function addMsg(text, cls) {
+  const box = document.getElementById('ki-msgs');
+  const m = document.createElement('div');
+  m.className = 'ki-m ' + cls;
+  m.textContent = text;
+  box.appendChild(m);
+  box.scrollTop = box.scrollHeight;
+  return m;
+}
+
+async function sendKI() {
+  const inp = document.getElementById('ki-inp');
+  const text = inp.value.trim(); if (!text) return;
+  inp.value = '';
+  addMsg(text, 'ki-u');
+  kiHistory.push({ role: 'user', content: text });
+  const wait = addMsg('…', 'ki-a');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: 'Du bist ein erfahrener Facharzt in Plastischer, Rekonstruktiver und Ästhetischer Chirurgie und Unfallchirurgie. Du hilfst Dr. Luis Perez (Assistenzarzt CP, Sana Klinikum Hof, unter Prof. Polykandriotis FAU Erlangen-Nürnberg) bei klinischen Fragen, Arztbriefen, OP-Berichten und medizinischer Literatur. Antworte präzise auf Deutsch. Kein langes Präambel.',
+        messages: kiHistory
       })
     });
-    const d=await r.json();
-    const rep=d.content?.[0]?.text||d.error?.message||'Keine Antwort.';
-    wait.textContent=rep;
-    kiHist.push({role:'assistant',content:rep});
-  }catch(e){wait.textContent='Verbindungsfehler: '+e.message;}
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || data.error?.message || 'Keine Antwort.';
+    wait.textContent = reply;
+    kiHistory.push({ role: 'assistant', content: reply });
+  } catch(e) {
+    wait.textContent = 'Verbindungsfehler: ' + e.message;
+  }
 }
 
-document.getElementById('kiinp').addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendKI();}
+document.getElementById('ki-inp').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendKI(); }
 });
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════
 buildNav();
 render();
 </script>
