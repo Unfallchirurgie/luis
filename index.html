@@ -173,7 +173,7 @@ body { overflow: hidden; }
   <div id="ki-head">
     <div>
       <div id="ki-title">Llama 3 · KI-Assistent</div>
-      <div id="ki-sub">Kostenlos · Anamnese · Befund · Diagnose</div>
+      <div id="ki-sub">Groq · Lokale Bausteine · RAG light</div>
     </div>
     <button id="ki-x" onclick="toggleKI()">✕</button>
   </div>
@@ -184,7 +184,7 @@ body { overflow: hidden; }
     <div class="setup-desc">
       Gehe zu <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> →
       kostenloses Konto erstellen → <b>Create API Key</b> → Key kopieren (gsk_…) → hier einfügen.<br>
-      <span style="color:#2a7a2a;font-weight:600">✓ Kostenlos · Der Key bleibt nur in deinem Browser gespeichert.</span>
+      <span style="color:#2a7a2a;font-weight:600">✓ Kostenlos · Der Key bleibt nur in deinem Browser gespeichert und muss nicht jedes Mal neu eingegeben werden.</span>
     </div>
     <div class="setup-row">
       <input id="ki-key" type="password" placeholder="gsk_… hier einfügen und OK klicken">
@@ -201,20 +201,21 @@ body { overflow: hidden; }
     <button class="qa-btn cp-qa" onclick="quickAction('brief-cp')">📄 Arztbrief CP</button>
     <button class="qa-btn cu-qa" onclick="quickAction('brief-cu')">📄 Arztbrief CU</button>
     <button class="qa-btn" onclick="quickAction('freitext')">💬 Freie Frage</button>
+    <button class="qa-btn" onclick="resetKey()">🔑 Key ändern</button>
   </div>
 
   <!-- INPUT FORM -->
   <div id="ki-form" class="hidden">
     <textarea id="ki-inp" placeholder="Symptome, Befunde oder Frage eingeben…"></textarea>
     <div id="ki-send-row">
-      <span id="ki-hint">Enter = senden · Shift+Enter = neue Zeile · Groq (kostenlos)</span>
+      <span id="ki-hint">Enter = senden · Shift+Enter = neue Zeile · nutzt lokale Bausteine + Groq</span>
       <button id="ki-send" onclick="sendKI()">Senden ↑</button>
     </div>
   </div>
 
   <!-- MESSAGES -->
   <div id="ki-msgs">
-    <div class="ki-m ki-s">Kostenloser KI-Assistent (Llama 3 via Groq).<br>Groq-Key eingeben → Anamnese, Befund, Diagnose, Arztbrief.</div>
+    <div class="ki-m ki-s">KI-Assistent mit Llama 3 via Groq.<br>Groq-Key einmal eingeben → danach nutzt der Chat deine lokalen Bausteine als Kontext.</div>
   </div>
 </div>
 
@@ -931,49 +932,40 @@ function lrCopyByLbl(lbl, side, btn) {
 }
 
 // ══════════════════════════════════════════════════════
-//  KI — Groq API (Llama 3, kostenlos)
+//  KI — Groq API + lokales RAG über ITEMS
 // ══════════════════════════════════════════════════════
 function toggleKI() {
   kiOpen = !kiOpen;
   document.getElementById('ki').classList.toggle('closed', !kiOpen);
 }
 
-function addMsg(text, cls) {
-  const box = document.getElementById('ki-msgs');
-  const m = document.createElement('div');
-  m.className = 'ki-m ' + cls;
-  m.textContent = text;
-  box.appendChild(m);
-  box.scrollTop = box.scrollHeight;
-  return m;
-}
-
-// ══════════════════════════════════════════════════════
-//  KI — GPT-4o via OpenAI API
-// ══════════════════════════════════════════════════════
-let oaiKey = localStorage.getItem('oai_key') || '';
+// Groq-Key wird EINMAL im Browser gespeichert.
+// Er wird nicht fest in den GitHub-Code geschrieben.
+let groqKey = localStorage.getItem('groq_key') || '';
 let currentMode = 'freitext';
 const kiHistory = [];
 
-const SYSTEM_PROMPT = `Du bist ein erfahrener Facharzt in Plastischer, Rekonstruktiver und Ästhetischer Chirurgie und Unfallchirurgie. Du hilfst Dr. Luis Perez (Assistenzarzt Plastische Chirurgie, Sana Klinikum Hof, unter Prof. Dr. Polykandriotis, FAU Erlangen-Nürnberg) im klinischen Alltag.
+const SYSTEM_PROMPT = `Du bist ein erfahrener klinischer Schreibassistent für Plastische, Rekonstruktive und Ästhetische Chirurgie sowie Unfallchirurgie.
+Du hilfst Dr. Luis Perez im klinischen Alltag beim Formulieren von Anamnesen, Befunden, Diagnosen, Arztbriefen, OP-Berichten und Procedere-Texten.
 
-Du kannst folgende Aufgaben übernehmen:
-1. ANAMNESE: Aus kurzen Stichworten eine vollständige deutsche Anamnese (Hauptbeschwerde, Anamnese, VE, Medikamente, Allergien, Sozialanamnese) formulieren.
-2. BEFUND: Aus kurzen Befunddaten einen vollständigen strukturierten Untersuchungsbefund formulieren (Inspektion, Palpation, Funktion, Neurologie, Bildgebung).
-3. DIAGNOSE: Aus Anamnese und Befund eine differenzierte Diagnose mit Differentialdiagnosen und Therapieempfehlung erstellen.
-4. ARZTBRIEF CP: Vollständigen Arztbrief für Plastische Chirurgie (Sana Klinikum Hof) erstellen.
-5. ARZTBRIEF CU: Vollständigen Arztbrief für Unfallchirurgie erstellen.
-6. FREIE FRAGE: Beliebige klinische Fragen beantworten.
-
-Antworte immer auf Deutsch. Klinisch präzise. Nutze deutsche medizinische Fachsprache. Kein langes Präambel — direkt mit dem Inhalt beginnen.`;
+WICHTIG:
+- Antworte immer auf Deutsch.
+- Nutze primär den bereitgestellten lokalen Kontext aus der Baustein-Bibliothek der Website.
+- Wenn der lokale Kontext passt, orientiere dich eng an Formulierungen, Stil, Struktur und Procedere aus diesen Bausteinen.
+- Wenn der lokale Kontext nicht ausreicht, sage kurz, dass kein exakt passender Baustein gefunden wurde, und ergänze mit allgemeinem medizinischem Wissen.
+- Formuliere klinisch präzise, kompakt und dokumentationsgeeignet.
+- Keine langen Vorreden.
+- Keine erfundenen patientenidentifizierenden Daten.
+- Bei realen Patientendaten: nur anonymisierte Angaben verwenden.
+- Der Output ist ein Dokumentationsvorschlag und ersetzt keine ärztliche Entscheidung.`;
 
 const MODE_PROMPTS = {
   anamnese: 'Erstelle eine vollständige deutsche Anamnese aus folgenden Stichworten. Gliedere in: Hauptbeschwerde, Aktuelle Anamnese, Vorerkrankungen/Voroperationen, Medikamente, Allergien, Sozialanamnese, Familienanamnese:\n\n',
   'befund-cp': 'Erstelle einen vollständigen Untersuchungsbefund für Plastische Chirurgie / Handchirurgie aus folgenden Angaben. Gliedere in: Inspektion, Palpation, Beweglichkeit/Funktion, Neurologie/DMS, Bildgebung, Zusammenfassung:\n\n',
   'befund-cu': 'Erstelle einen vollständigen Untersuchungsbefund für Unfallchirurgie / Notaufnahme aus folgenden Angaben. Gliedere in: Allgemeinzustand, Inspektion, Palpation, Beweglichkeit, Neurologie/DMS, Spezielle Tests, Bildgebung, Diagnose:\n\n',
   diagnose: 'Erstelle eine strukturierte Diagnose mit Differentialdiagnosen und Therapieempfehlung aus folgenden klinischen Angaben:\n\n',
-  'brief-cp': 'Erstelle einen vollständigen Arztbrief für Plastische Chirurgie (Sana Klinikum Hof, Prof. Dr. Polykandriotis) mit folgenden Angaben. Enthält: Diagnose, Anamnese, Befund, Therapie, Prozedere:\n\n',
-  'brief-cu': 'Erstelle einen vollständigen Arztbrief für Unfallchirurgie / Notaufnahme (Sana Klinikum Hof) mit folgenden Angaben:\n\n',
+  'brief-cp': 'Erstelle einen vollständigen Arztbrief für Plastische Chirurgie mit folgenden Angaben. Enthält: Diagnose, Anamnese, Befund, Therapie, Verlauf, Prozedere und Empfehlungen:\n\n',
+  'brief-cu': 'Erstelle einen vollständigen Arztbrief für Unfallchirurgie / Notaufnahme mit folgenden Angaben. Enthält: Diagnose, Anamnese, Befund, Bildgebung, Therapie, Prozedere und Empfehlungen:\n\n',
   freitext: ''
 };
 
@@ -982,21 +974,66 @@ const MODE_PLACEHOLDERS = {
   'befund-cp': 'Befunddaten eingeben, z.B.:\nD2 re: Schwellung MCP, DS +, Beugesehne intakt, 2-PD 6mm, DMS regelrecht, Rö kein Frakturnachweis…',
   'befund-cu': 'Befunddaten eingeben, z.B.:\nOSG re: Supinationstrauma, Schwellung lateral, DS LFTA +, Ottawa neg, Rö kein Fraktur…',
   diagnose: 'Klinische Angaben eingeben, z.B.:\n65J w, Schmerzen Daumen CMC I re, Anlaufschmerz, Schwellung Sattelgelenk, Kraftverlust, Rö: Gelenkspaltverschmälerung CMC I…',
-  'brief-cp': 'Patient/OP/Befunde eingeben, z.B.:\n55J m, Dupuytren D4 re, Fasziektomie gestern, komplikationslos, Entlassung heute, Kleinert-Schema…',
+  'brief-cp': 'Patient/OP/Befunde eingeben, z.B.:\n55J m, Dupuytren D4 re, Fasziektomie gestern, komplikationslos, Entlassung heute…',
   'brief-cu': 'Patient/Befunde/Proc eingeben, z.B.:\n32J m, OSG-Distorsion li, Ottawa neg, Rö kein Fraktur, AirCast, Ibuprofen, ambulant entlassen…',
   freitext: 'Frage oder Auftrag eingeben…'
 };
 
-function saveKey() {
-  const v = document.getElementById('ki-key').value.trim();
-  if (!v) { addMsg('Bitte API-Key eingeben.', 'ki-s'); return; }
-  oaiKey = v;
-  localStorage.setItem('oai_key', v);
+function addMsg(text, cls) {
+  const box = document.getElementById('ki-msgs');
+  const m = document.createElement('div');
+  m.className = 'ki-m ' + cls;
+  m.textContent = text;
+
+  if (cls === 'ki-a') {
+    const cb = document.createElement('button');
+    cb.className = 'ki-copy-btn';
+    cb.textContent = '📋 Kopieren';
+    cb.onclick = () => {
+      navigator.clipboard.writeText(text).then(() => {
+        cb.textContent = '✓ Kopiert';
+        setTimeout(() => cb.textContent = '📋 Kopieren', 1500);
+      });
+    };
+    m.appendChild(cb);
+  }
+
+  box.appendChild(m);
+  box.scrollTop = box.scrollHeight;
+  return m;
+}
+
+function showKiReady() {
   document.getElementById('ki-setup').classList.add('hidden');
   document.getElementById('ki-actions').classList.remove('hidden');
   document.getElementById('ki-form').classList.remove('hidden');
+}
+
+function saveKey() {
+  const v = document.getElementById('ki-key').value.trim();
+  if (!v) {
+    addMsg('Bitte Groq API-Key eingeben.', 'ki-s');
+    return;
+  }
+  if (!v.startsWith('gsk_')) {
+    addMsg('Hinweis: Ein Groq-Key beginnt normalerweise mit gsk_. Bitte prüfe den Key.', 'ki-s');
+  }
+  groqKey = v;
+  localStorage.setItem('groq_key', v);
+  showKiReady();
   document.getElementById('ki-msgs').innerHTML = '';
-  addMsg('API-Key gespeichert ✓ — Wähle einen Modus oder stelle eine freie Frage.', 'ki-s');
+  addMsg('Groq API-Key gespeichert ✓ — Er bleibt in diesem Browser gespeichert. Die Antworten nutzen jetzt deine Baustein-Bibliothek als lokalen Kontext.', 'ki-s');
+}
+
+function resetKey() {
+  localStorage.removeItem('groq_key');
+  groqKey = '';
+  document.getElementById('ki-key').value = '';
+  document.getElementById('ki-setup').classList.remove('hidden');
+  document.getElementById('ki-actions').classList.add('hidden');
+  document.getElementById('ki-form').classList.add('hidden');
+  document.getElementById('ki-msgs').innerHTML = '';
+  addMsg('Groq API-Key gelöscht. Bitte neuen Key eingeben.', 'ki-s');
 }
 
 function quickAction(mode) {
@@ -1011,100 +1048,183 @@ function quickAction(mode) {
     freitext: '💬 Freie Frage'
   };
   document.querySelectorAll('.qa-btn').forEach(b => b.style.fontWeight = '500');
-  event.target.style.fontWeight = '700';
+  if (event && event.target) event.target.style.fontWeight = '700';
   const inp = document.getElementById('ki-inp');
   inp.placeholder = MODE_PLACEHOLDERS[mode] || 'Eingabe…';
   inp.focus();
   addMsg('Modus: ' + labels[mode] + ' — Daten eingeben und senden.', 'ki-s');
 }
 
-function addMsg(text, cls) {
-  const box = document.getElementById('ki-msgs');
-  const m = document.createElement('div');
-  m.className = 'ki-m ' + cls;
-  m.textContent = text;
-  if (cls === 'ki-a') {
-    const cb = document.createElement('button');
-    cb.className = 'ki-copy-btn';
-    cb.textContent = '📋 Kopieren';
-    cb.onclick = () => {
-      navigator.clipboard.writeText(text).then(() => { cb.textContent = '✓ Kopiert'; setTimeout(() => cb.textContent = '📋 Kopieren', 1500); });
-    };
-    m.appendChild(cb);
+// Einfache lokale Suche über deine ITEMS-Bibliothek.
+// Das ist ein günstiges RAG light: kein Server, keine Datenbank, keine Zusatzkosten.
+function normalizeText(s) {
+  return String(s || '')
+    .toLowerCase()
+    .replace(/[ä]/g, 'ae')
+    .replace(/[ö]/g, 'oe')
+    .replace(/[ü]/g, 'ue')
+    .replace(/[ß]/g, 'ss')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function tokenize(s) {
+  const stop = new Set(['der','die','das','und','oder','mit','ohne','bei','aus','dem','den','des','ein','eine','einer','eines','zu','zur','zum','im','in','am','an','auf','fuer','von','nach','ist','sind','bitte','erstelle','schreibe','arztbrief','befund','diagnose']);
+  return normalizeText(s).split(/\s+/).filter(w => w.length > 2 && !stop.has(w));
+}
+
+function scoreItem(item, userText) {
+  const hay = normalizeText([item.g, item.lbl, item.txt].join(' '));
+  const words = tokenize(userText);
+  let score = 0;
+
+  words.forEach(w => {
+    if (hay.includes(w)) score += 2;
+    if (normalizeText(item.lbl).includes(w)) score += 4;
+    if (normalizeText(item.g).includes(w)) score += 3;
+  });
+
+  // Kleine Bonusregeln für typische klinische Abkürzungen und Themen
+  const q = normalizeText(userText);
+  const lbl = normalizeText(item.lbl + ' ' + item.g + ' ' + item.txt);
+  const synonyms = [
+    ['cts', ['karpaltunnel','medianus','mckinnon']],
+    ['karpaltunnel', ['cts','medianus','mckinnon']],
+    ['skaphoid', ['scaphoid','tabatiere']],
+    ['scaphoid', ['skaphoid','tabatiere']],
+    ['dupuytren', ['fasziektomie','dellon']],
+    ['osg', ['sprunggelenk','distorsion','supination']],
+    ['sht', ['schaedel','kopf','gcs']],
+    ['lappen', ['lappenplastik','spalthaut','mesh','freier']],
+    ['mamma', ['implantat','augmentation','dual','plane']],
+    ['rhizarthrose', ['cmc','trapeziektomie','lundborg']],
+    ['ulnaris', ['sulcus','nervus']],
+    ['radius', ['handgelenk','hg']],
+    ['crps', ['sudeck','schmerz']]
+  ];
+
+  synonyms.forEach(([key, vals]) => {
+    if (q.includes(key)) vals.forEach(v => { if (lbl.includes(v)) score += 5; });
+    vals.forEach(v => { if (q.includes(v) && lbl.includes(key)) score += 5; });
+  });
+
+  // Modus-Bonus
+  if (currentMode.includes('cp') && item.dep === 'cp') score += 2;
+  if (currentMode.includes('cu') && item.dep === 'cu') score += 2;
+  if (currentMode.includes('brief') && normalizeText(item.g).includes('arztbrief')) score += 4;
+  if (currentMode.includes('befund') && normalizeText(item.g).includes('befund')) score += 4;
+
+  return score;
+}
+
+function getRelevantItems(userText, maxItems = 6) {
+  return ITEMS
+    .map(item => ({ item, score: scoreItem(item, userText) }))
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, maxItems)
+    .map(x => x.item);
+}
+
+function buildLocalContext(userText) {
+  const relevant = getRelevantItems(userText, 6);
+  if (!relevant.length) {
+    return 'Kein exakt passender Baustein aus der lokalen Website-Bibliothek gefunden.';
   }
-  box.appendChild(m);
-  box.scrollTop = box.scrollHeight;
-  return m;
+  return relevant.map((it, idx) => {
+    return `BAUSTEIN ${idx + 1}\nKategorie: ${it.g}\nTitel: ${it.lbl}\nText:\n${it.txt}`;
+  }).join('\n\n---\n\n');
 }
 
 async function sendKI() {
   const inp = document.getElementById('ki-inp');
   const text = inp.value.trim();
   if (!text) return;
-  if (!oaiKey) {
-    addMsg('Bitte zuerst API-Key eingeben und auf ✓ Speichern klicken.', 'ki-s');
+
+  if (!groqKey) {
+    addMsg('Bitte zuerst Groq API-Key eingeben und auf ✓ OK klicken.', 'ki-s');
     return;
   }
-  inp.value = '';
 
+  inp.value = '';
   const prefix = MODE_PROMPTS[currentMode] || '';
-  const fullText = prefix + text;
+  const fullUserTask = prefix + text;
+  const localContext = buildLocalContext(fullUserTask);
 
   addMsg(text, 'ki-u');
-  kiHistory.push({ role: 'user', content: fullText });
 
   const waitEl = document.createElement('div');
   waitEl.className = 'ki-m ki-a';
-  waitEl.innerHTML = '<span style="color:#bbb">GPT-4o denkt…</span>';
+  waitEl.innerHTML = '<span style="color:#bbb">Llama 3 sucht in deinen Bausteinen und formuliert…</span>';
   document.getElementById('ki-msgs').appendChild(waitEl);
   document.getElementById('ki-msgs').scrollTop = 99999;
+
+  const userMessage = `AUFGABE / EINGABE DES NUTZERS:\n${fullUserTask}\n\nLOKALER KONTEXT AUS DER WEBSITE-BAUSTEIN-BIBLIOTHEK:\n${localContext}\n\nBitte erstelle daraus die bestmögliche klinische Antwort. Wenn passende Bausteine vorhanden sind, nutze deren Struktur und Formulierungsstil. Wenn sinnvoll, fülle fehlende Details mit Platzhaltern wie ___ auf.`;
+
+  const recentHistory = kiHistory.slice(-6);
 
   try {
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + oaiKey
+        'Authorization': 'Bearer ' + groqKey
       },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
-        max_tokens: 1500,
+        temperature: 0.25,
+        max_tokens: 1800,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
-          ...kiHistory
+          ...recentHistory,
+          { role: 'user', content: userMessage }
         ]
       })
     });
+
     const data = await res.json();
-    if (data.error) {
-      waitEl.textContent = '⚠ Fehler: ' + data.error.message;
+
+    if (!res.ok || data.error) {
+      waitEl.textContent = '⚠ Groq-Fehler: ' + (data.error?.message || res.status + ' ' + res.statusText);
       return;
     }
-    const reply = data.choices?.[0]?.message?.content || 'Keine Antwort.';
+
+    const reply = data.choices?.[0]?.message?.content || 'Keine Antwort erhalten.';
     waitEl.textContent = reply;
+
     const cb = document.createElement('button');
     cb.className = 'ki-copy-btn';
     cb.textContent = '📋 Kopieren';
     cb.onclick = () => {
-      navigator.clipboard.writeText(reply).then(() => { cb.textContent = '✓ Kopiert'; setTimeout(() => cb.textContent = '📋 Kopieren', 1500); });
+      navigator.clipboard.writeText(reply).then(() => {
+        cb.textContent = '✓ Kopiert';
+        setTimeout(() => cb.textContent = '📋 Kopieren', 1500);
+      });
     };
     waitEl.appendChild(cb);
-    document.getElementById('ki-msgs').scrollTop = 99999;
+
+    kiHistory.push({ role: 'user', content: fullUserTask });
     kiHistory.push({ role: 'assistant', content: reply });
+    if (kiHistory.length > 12) kiHistory.splice(0, kiHistory.length - 12);
+
+    document.getElementById('ki-msgs').scrollTop = 99999;
   } catch(e) {
     waitEl.textContent = 'Verbindungsfehler: ' + e.message;
   }
 }
 
 // init key state
-if (oaiKey) {
-  document.getElementById('ki-setup').classList.add('hidden');
-  document.getElementById('ki-actions').classList.remove('hidden');
-  document.getElementById('ki-form').classList.remove('hidden');
+if (groqKey) {
+  showKiReady();
+  document.getElementById('ki-msgs').innerHTML = '';
+  addMsg('Groq API-Key bereits gespeichert ✓ — Der Assistent nutzt deine lokale Baustein-Bibliothek als Kontext.', 'ki-s');
 }
 
 document.getElementById('ki-inp').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendKI(); }
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendKI();
+  }
 });
 
 // ══════════════════════════════════════════════════════
