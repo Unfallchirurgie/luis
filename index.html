@@ -83,26 +83,57 @@ body { overflow: hidden; }
 .ml-body { font-size: 12.5px; color: #5a4a00; line-height: 1.7; }
 
 /* KI PANEL */
-#ki { width: 380px; flex-shrink: 0; background: #fff; border-left: 2px solid #e8e0d0; display: flex; flex-direction: column; overflow: hidden; }
+#ki { width: 460px; flex-shrink: 0; background: #fff; border-left: 2px solid #e8e0d0; display: flex; flex-direction: column; overflow: hidden; }
 #ki.closed { display: none; }
-#ki-head { background: #161008; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
-#ki-title { font-size: 15px; color: #c8a048; font-weight: 400; }
+#ki-head { background: #161008; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+#ki-title { font-size: 14px; color: #c8a048; font-weight: 500; }
 #ki-sub { font-size: 9px; color: #555; letter-spacing: .2em; text-transform: uppercase; margin-top: 2px; }
 #ki-x { background: none; border: none; color: #555; font-size: 20px; cursor: pointer; line-height: 1; }
 #ki-x:hover { color: #fff; }
+
+/* KI SETUP */
+#ki-setup { padding: 16px; display: flex; flex-direction: column; gap: 10px; background: #fffdf5; border-bottom: 2px solid #d4b800; flex-shrink: 0; }
+#ki-setup.hidden { display: none; }
+.setup-title { font-size: 13px; font-weight: 700; color: #1a1208; display: flex; align-items: center; gap: 6px; }
+.setup-desc { font-size: 11.5px; color: #5a4a20; line-height: 1.65; background: #fff; border: 1px solid #e8ddb0; border-radius: 6px; padding: 9px 11px; }
+.setup-desc a { color: #a07010; font-weight: 600; }
+.setup-row { display: flex; gap: 7px; }
+#ki-key { flex: 1; background: #fff; border: 2px solid #c8a048; border-radius: 7px; font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 9px 11px; outline: none; color: #1a1208; transition: border-color .12s; }
+#ki-key:focus { border-color: #a07010; box-shadow: 0 0 0 3px rgba(160,112,16,.12); }
+#ki-key::placeholder { color: #bbb; }
+#ki-save { background: #1a1208; border: none; border-radius: 7px; color: #c8a048; font-family: inherit; font-size: 13px; font-weight: 700; padding: 9px 16px; cursor: pointer; white-space: nowrap; transition: background .1s; }
+#ki-save:hover { background: #333; }
+
+/* QUICK ACTIONS */
+#ki-actions { display: flex; gap: 6px; padding: 10px 12px; background: #f8f5f0; border-bottom: 1.5px solid #e8e0d0; flex-wrap: wrap; flex-shrink: 0; }
+#ki-actions.hidden { display: none; }
+.qa-btn { background: #fff; border: 1.5px solid #d0c8b0; border-radius: 6px; font-family: inherit; font-size: 11px; font-weight: 500; color: #5a4020; padding: 5px 10px; cursor: pointer; transition: all .1s; white-space: nowrap; }
+.qa-btn:hover { background: #f0e8d8; border-color: #a07838; color: #1a1208; }
+.qa-btn.cp-qa { color: #1a3a60; border-color: #90b8d8; }
+.qa-btn.cp-qa:hover { background: #ddeef8; }
+.qa-btn.cu-qa { color: #5a2008; border-color: #d0a080; }
+.qa-btn.cu-qa:hover { background: #faebd8; }
+
+/* INPUT AREA */
+#ki-form { padding: 10px 12px; background: #fff; border-bottom: 1.5px solid #e8e0d0; flex-shrink: 0; }
+#ki-form.hidden { display: none; }
+#ki-inp { width: 100%; background: #f4f2ee; border: 1.5px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 12.5px; padding: 9px 12px; outline: none; resize: none; min-height: 52px; max-height: 100px; color: #1a1208; line-height: 1.55; display: block; }
+#ki-inp:focus { border-color: #a07838; background: #fff; }
+#ki-inp::placeholder { color: #bbb; }
+#ki-send-row { display: flex; justify-content: space-between; align-items: center; margin-top: 7px; }
+#ki-send { background: #161008; border: none; border-radius: 7px; color: #c8a048; font-family: inherit; font-size: 12px; font-weight: 600; padding: 7px 18px; cursor: pointer; }
+#ki-send:hover { background: #333; }
+#ki-hint { font-size: 10px; color: #bbb; }
+
+/* MESSAGES */
 #ki-msgs { flex: 1; overflow-y: auto; padding: 14px; background: #f8f5f0; display: flex; flex-direction: column; gap: 10px; }
 #ki-msgs::-webkit-scrollbar { width: 3px; }
-.ki-m { padding: 10px 14px; border-radius: 10px; font-size: 13px; line-height: 1.6; max-width: 94%; }
-.ki-u { background: #161008; color: #f5ead8; align-self: flex-end; border-radius: 10px 10px 3px 10px; }
-.ki-a { background: #fff; border: 1.5px solid #e8e0d0; color: #1a1208; align-self: flex-start; border-radius: 10px 10px 10px 3px; white-space: pre-wrap; }
-.ki-s { background: rgba(160,120,56,.1); border: 1.5px solid #e8e0d0; color: #8a7858; align-self: center; font-size: 11px; text-align: center; padding: 6px 14px; border-radius: 20px; }
-#ki-foot { padding: 14px; border-top: 1.5px solid #e8e0d0; background: #fff; }
-#ki-inp { width: 100%; background: #f4f2ee; border: 1.5px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 13px; padding: 10px 13px; outline: none; resize: none; min-height: 44px; max-height: 88px; color: #1a1208; line-height: 1.5; }
-#ki-inp:focus { border-color: #a07838; background: #fff; }
-#ki-row { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; }
-#ki-send { background: #161008; border: none; border-radius: 8px; color: #c8a048; font-family: inherit; font-size: 13px; font-weight: 600; padding: 8px 20px; cursor: pointer; }
-#ki-send:hover { background: #2a2010; }
-#ki-pow { font-size: 10px; color: #bbb; }
+.ki-m { padding: 10px 14px; border-radius: 10px; font-size: 12.5px; line-height: 1.65; max-width: 96%; }
+.ki-u { background: #161008; color: #f5ead8; align-self: flex-end; border-radius: 10px 10px 3px 10px; font-size: 12px; }
+.ki-a { background: #fff; border: 1.5px solid #e8e0d0; color: #1a1208; align-self: flex-start; border-radius: 10px 10px 10px 3px; white-space: pre-wrap; width: 100%; }
+.ki-s { background: rgba(160,120,56,.1); border: 1.5px solid #e8e0d0; color: #8a7858; align-self: center; font-size: 11px; text-align: center; padding: 5px 14px; border-radius: 20px; }
+.ki-copy-btn { display: block; margin-top: 8px; background: #f0e8d8; border: 1px solid #d0c0a0; border-radius: 5px; font-family: inherit; font-size: 10px; color: #5a4020; padding: 4px 10px; cursor: pointer; }
+.ki-copy-btn:hover { background: #e0d0b8; }
 .no-results { text-align: center; padding: 80px; color: #bbb; font-size: 14px; }
 </style>
 </head>
@@ -132,7 +163,7 @@ body { overflow: hidden; }
       <input type="text" id="main-search" placeholder="Baustein suchen…" oninput="doSearch(this.value)">
     </div>
     <span id="counter"></span>
-    <button id="ki-btn" onclick="toggleKI()">✦ Claude KI</button>
+    <button id="ki-btn" onclick="toggleKI()">✦ KI-Assistent</button>
   </div>
   <div id="content"></div>
 </div>
@@ -141,20 +172,49 @@ body { overflow: hidden; }
 <div id="ki" class="closed">
   <div id="ki-head">
     <div>
-      <div id="ki-title">Claude · KI-Assistent</div>
-      <div id="ki-sub">Plastische &amp; Unfallchirurgie</div>
+      <div id="ki-title">Llama 3 · KI-Assistent</div>
+      <div id="ki-sub">Kostenlos · Anamnese · Befund · Diagnose</div>
     </div>
     <button id="ki-x" onclick="toggleKI()">✕</button>
   </div>
-  <div id="ki-msgs">
-    <div class="ki-m ki-s">Medizinischer Assistent powered by Claude.<br>Fragen zu Chirurgie, Briefen, OP-Berichten, Literatur.</div>
+
+  <!-- KEY SETUP -->
+  <div id="ki-setup">
+    <div class="setup-title">🔑 Groq API-Key eingeben</div>
+    <div class="setup-desc">
+      Gehe zu <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> →
+      kostenloses Konto erstellen → <b>Create API Key</b> → Key kopieren (gsk_…) → hier einfügen.<br>
+      <span style="color:#2a7a2a;font-weight:600">✓ Kostenlos · Der Key bleibt nur in deinem Browser gespeichert.</span>
+    </div>
+    <div class="setup-row">
+      <input id="ki-key" type="password" placeholder="gsk_… hier einfügen und OK klicken">
+      <button id="ki-save" onclick="saveKey()">✓ OK</button>
+    </div>
   </div>
-  <div id="ki-foot">
-    <textarea id="ki-inp" placeholder="Frage eingeben… (Enter = senden, Shift+Enter = Zeilenumbruch)"></textarea>
-    <div id="ki-row">
-      <span id="ki-pow">Claude (Anthropic)</span>
+
+  <!-- QUICK ACTION BUTTONS -->
+  <div id="ki-actions" class="hidden">
+    <button class="qa-btn" onclick="quickAction('anamnese')">📋 Anamnese</button>
+    <button class="qa-btn cp-qa" onclick="quickAction('befund-cp')">🤚 Befund Hand/CP</button>
+    <button class="qa-btn cu-qa" onclick="quickAction('befund-cu')">🦴 Befund Unfall</button>
+    <button class="qa-btn" onclick="quickAction('diagnose')">🔍 Diagnose</button>
+    <button class="qa-btn cp-qa" onclick="quickAction('brief-cp')">📄 Arztbrief CP</button>
+    <button class="qa-btn cu-qa" onclick="quickAction('brief-cu')">📄 Arztbrief CU</button>
+    <button class="qa-btn" onclick="quickAction('freitext')">💬 Freie Frage</button>
+  </div>
+
+  <!-- INPUT FORM -->
+  <div id="ki-form" class="hidden">
+    <textarea id="ki-inp" placeholder="Symptome, Befunde oder Frage eingeben…"></textarea>
+    <div id="ki-send-row">
+      <span id="ki-hint">Enter = senden · Shift+Enter = neue Zeile · Groq (kostenlos)</span>
       <button id="ki-send" onclick="sendKI()">Senden ↑</button>
     </div>
+  </div>
+
+  <!-- MESSAGES -->
+  <div id="ki-msgs">
+    <div class="ki-m ki-s">Kostenloser KI-Assistent (Llama 3 via Groq).<br>Groq-Key eingeben → Anamnese, Befund, Diagnose, Arztbrief.</div>
   </div>
 </div>
 
@@ -710,7 +770,6 @@ Mit Shaver 3,0mm: radikales Debridement aller pathologischen Strukturen. Elektro
 //  STATE
 // ══════════════════════════════════════════════════════
 let dep = 'all', query = '', kiOpen = false;
-const kiHistory = [];
 
 // ══════════════════════════════════════════════════════
 //  UTILS
@@ -872,7 +931,7 @@ function lrCopyByLbl(lbl, side, btn) {
 }
 
 // ══════════════════════════════════════════════════════
-//  KI — Claude via Anthropic API (no key needed)
+//  KI — Groq API (Llama 3, kostenlos)
 // ══════════════════════════════════════════════════════
 function toggleKI() {
   kiOpen = !kiOpen;
@@ -889,31 +948,159 @@ function addMsg(text, cls) {
   return m;
 }
 
+// ══════════════════════════════════════════════════════
+//  KI — GPT-4o via OpenAI API
+// ══════════════════════════════════════════════════════
+let oaiKey = localStorage.getItem('oai_key') || '';
+let currentMode = 'freitext';
+const kiHistory = [];
+
+const SYSTEM_PROMPT = `Du bist ein erfahrener Facharzt in Plastischer, Rekonstruktiver und Ästhetischer Chirurgie und Unfallchirurgie. Du hilfst Dr. Luis Perez (Assistenzarzt Plastische Chirurgie, Sana Klinikum Hof, unter Prof. Dr. Polykandriotis, FAU Erlangen-Nürnberg) im klinischen Alltag.
+
+Du kannst folgende Aufgaben übernehmen:
+1. ANAMNESE: Aus kurzen Stichworten eine vollständige deutsche Anamnese (Hauptbeschwerde, Anamnese, VE, Medikamente, Allergien, Sozialanamnese) formulieren.
+2. BEFUND: Aus kurzen Befunddaten einen vollständigen strukturierten Untersuchungsbefund formulieren (Inspektion, Palpation, Funktion, Neurologie, Bildgebung).
+3. DIAGNOSE: Aus Anamnese und Befund eine differenzierte Diagnose mit Differentialdiagnosen und Therapieempfehlung erstellen.
+4. ARZTBRIEF CP: Vollständigen Arztbrief für Plastische Chirurgie (Sana Klinikum Hof) erstellen.
+5. ARZTBRIEF CU: Vollständigen Arztbrief für Unfallchirurgie erstellen.
+6. FREIE FRAGE: Beliebige klinische Fragen beantworten.
+
+Antworte immer auf Deutsch. Klinisch präzise. Nutze deutsche medizinische Fachsprache. Kein langes Präambel — direkt mit dem Inhalt beginnen.`;
+
+const MODE_PROMPTS = {
+  anamnese: 'Erstelle eine vollständige deutsche Anamnese aus folgenden Stichworten. Gliedere in: Hauptbeschwerde, Aktuelle Anamnese, Vorerkrankungen/Voroperationen, Medikamente, Allergien, Sozialanamnese, Familienanamnese:\n\n',
+  'befund-cp': 'Erstelle einen vollständigen Untersuchungsbefund für Plastische Chirurgie / Handchirurgie aus folgenden Angaben. Gliedere in: Inspektion, Palpation, Beweglichkeit/Funktion, Neurologie/DMS, Bildgebung, Zusammenfassung:\n\n',
+  'befund-cu': 'Erstelle einen vollständigen Untersuchungsbefund für Unfallchirurgie / Notaufnahme aus folgenden Angaben. Gliedere in: Allgemeinzustand, Inspektion, Palpation, Beweglichkeit, Neurologie/DMS, Spezielle Tests, Bildgebung, Diagnose:\n\n',
+  diagnose: 'Erstelle eine strukturierte Diagnose mit Differentialdiagnosen und Therapieempfehlung aus folgenden klinischen Angaben:\n\n',
+  'brief-cp': 'Erstelle einen vollständigen Arztbrief für Plastische Chirurgie (Sana Klinikum Hof, Prof. Dr. Polykandriotis) mit folgenden Angaben. Enthält: Diagnose, Anamnese, Befund, Therapie, Prozedere:\n\n',
+  'brief-cu': 'Erstelle einen vollständigen Arztbrief für Unfallchirurgie / Notaufnahme (Sana Klinikum Hof) mit folgenden Angaben:\n\n',
+  freitext: ''
+};
+
+const MODE_PLACEHOLDERS = {
+  anamnese: 'Stichwörter eingeben, z.B.:\n45J m, seit 3 Wo Schmerzen D2 re, Sturz, Schwellung, kein Vortrauma, HT bekannt…',
+  'befund-cp': 'Befunddaten eingeben, z.B.:\nD2 re: Schwellung MCP, DS +, Beugesehne intakt, 2-PD 6mm, DMS regelrecht, Rö kein Frakturnachweis…',
+  'befund-cu': 'Befunddaten eingeben, z.B.:\nOSG re: Supinationstrauma, Schwellung lateral, DS LFTA +, Ottawa neg, Rö kein Fraktur…',
+  diagnose: 'Klinische Angaben eingeben, z.B.:\n65J w, Schmerzen Daumen CMC I re, Anlaufschmerz, Schwellung Sattelgelenk, Kraftverlust, Rö: Gelenkspaltverschmälerung CMC I…',
+  'brief-cp': 'Patient/OP/Befunde eingeben, z.B.:\n55J m, Dupuytren D4 re, Fasziektomie gestern, komplikationslos, Entlassung heute, Kleinert-Schema…',
+  'brief-cu': 'Patient/Befunde/Proc eingeben, z.B.:\n32J m, OSG-Distorsion li, Ottawa neg, Rö kein Fraktur, AirCast, Ibuprofen, ambulant entlassen…',
+  freitext: 'Frage oder Auftrag eingeben…'
+};
+
+function saveKey() {
+  const v = document.getElementById('ki-key').value.trim();
+  if (!v) { addMsg('Bitte API-Key eingeben.', 'ki-s'); return; }
+  oaiKey = v;
+  localStorage.setItem('oai_key', v);
+  document.getElementById('ki-setup').classList.add('hidden');
+  document.getElementById('ki-actions').classList.remove('hidden');
+  document.getElementById('ki-form').classList.remove('hidden');
+  document.getElementById('ki-msgs').innerHTML = '';
+  addMsg('API-Key gespeichert ✓ — Wähle einen Modus oder stelle eine freie Frage.', 'ki-s');
+}
+
+function quickAction(mode) {
+  currentMode = mode;
+  const labels = {
+    anamnese: '📋 Anamnese erstellen',
+    'befund-cp': '🤚 Befund Plastische Chirurgie',
+    'befund-cu': '🦴 Befund Unfallchirurgie',
+    diagnose: '🔍 Diagnose + DD + Therapie',
+    'brief-cp': '📄 Arztbrief Plastische',
+    'brief-cu': '📄 Arztbrief Unfall',
+    freitext: '💬 Freie Frage'
+  };
+  document.querySelectorAll('.qa-btn').forEach(b => b.style.fontWeight = '500');
+  event.target.style.fontWeight = '700';
+  const inp = document.getElementById('ki-inp');
+  inp.placeholder = MODE_PLACEHOLDERS[mode] || 'Eingabe…';
+  inp.focus();
+  addMsg('Modus: ' + labels[mode] + ' — Daten eingeben und senden.', 'ki-s');
+}
+
+function addMsg(text, cls) {
+  const box = document.getElementById('ki-msgs');
+  const m = document.createElement('div');
+  m.className = 'ki-m ' + cls;
+  m.textContent = text;
+  if (cls === 'ki-a') {
+    const cb = document.createElement('button');
+    cb.className = 'ki-copy-btn';
+    cb.textContent = '📋 Kopieren';
+    cb.onclick = () => {
+      navigator.clipboard.writeText(text).then(() => { cb.textContent = '✓ Kopiert'; setTimeout(() => cb.textContent = '📋 Kopieren', 1500); });
+    };
+    m.appendChild(cb);
+  }
+  box.appendChild(m);
+  box.scrollTop = box.scrollHeight;
+  return m;
+}
+
 async function sendKI() {
   const inp = document.getElementById('ki-inp');
-  const text = inp.value.trim(); if (!text) return;
+  const text = inp.value.trim();
+  if (!text) return;
+  if (!oaiKey) {
+    addMsg('Bitte zuerst API-Key eingeben und auf ✓ Speichern klicken.', 'ki-s');
+    return;
+  }
   inp.value = '';
+
+  const prefix = MODE_PROMPTS[currentMode] || '';
+  const fullText = prefix + text;
+
   addMsg(text, 'ki-u');
-  kiHistory.push({ role: 'user', content: text });
-  const wait = addMsg('…', 'ki-a');
+  kiHistory.push({ role: 'user', content: fullText });
+
+  const waitEl = document.createElement('div');
+  waitEl.className = 'ki-m ki-a';
+  waitEl.innerHTML = '<span style="color:#bbb">GPT-4o denkt…</span>';
+  document.getElementById('ki-msgs').appendChild(waitEl);
+  document.getElementById('ki-msgs').scrollTop = 99999;
+
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + oaiKey
+      },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: 'Du bist ein erfahrener Facharzt in Plastischer, Rekonstruktiver und Ästhetischer Chirurgie und Unfallchirurgie. Du hilfst Dr. Luis Perez (Assistenzarzt CP, Sana Klinikum Hof, unter Prof. Polykandriotis FAU Erlangen-Nürnberg) bei klinischen Fragen, Arztbriefen, OP-Berichten und medizinischer Literatur. Antworte präzise auf Deutsch. Kein langes Präambel.',
-        messages: kiHistory
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 1500,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          ...kiHistory
+        ]
       })
     });
     const data = await res.json();
-    const reply = data.content?.[0]?.text || data.error?.message || 'Keine Antwort.';
-    wait.textContent = reply;
+    if (data.error) {
+      waitEl.textContent = '⚠ Fehler: ' + data.error.message;
+      return;
+    }
+    const reply = data.choices?.[0]?.message?.content || 'Keine Antwort.';
+    waitEl.textContent = reply;
+    const cb = document.createElement('button');
+    cb.className = 'ki-copy-btn';
+    cb.textContent = '📋 Kopieren';
+    cb.onclick = () => {
+      navigator.clipboard.writeText(reply).then(() => { cb.textContent = '✓ Kopiert'; setTimeout(() => cb.textContent = '📋 Kopieren', 1500); });
+    };
+    waitEl.appendChild(cb);
+    document.getElementById('ki-msgs').scrollTop = 99999;
     kiHistory.push({ role: 'assistant', content: reply });
   } catch(e) {
-    wait.textContent = 'Verbindungsfehler: ' + e.message;
+    waitEl.textContent = 'Verbindungsfehler: ' + e.message;
   }
+}
+
+// init key state
+if (oaiKey) {
+  document.getElementById('ki-setup').classList.add('hidden');
+  document.getElementById('ki-actions').classList.remove('hidden');
+  document.getElementById('ki-form').classList.remove('hidden');
 }
 
 document.getElementById('ki-inp').addEventListener('keydown', e => {
