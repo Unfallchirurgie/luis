@@ -890,40 +890,48 @@ function copyText(text, btn) {
 const cardState = {};
 
 function applyLaterality(t, side) {
-  if (side === 're')   return t.replace(/rechts\s*\/\s*links/gi, 'rechts').replace(/\bre\s*\/\s*li\b/g, 're');
-  if (side === 'li')   return t.replace(/rechts\s*\/\s*links/gi, 'links').replace(/\bre\s*\/\s*li\b/g, 'li');
-  if (side === 'bds')  return t.replace(/rechts\s*\/\s*links/gi, 'beidseits').replace(/\bre\s*\/\s*li\b/g, 'bds.');
+  if (side === 're') {
+    t = t.replace(/rechts\s*\/\s*links/gi, 'rechts');
+    t = t.replace(/\bre\s*\/\s*li\b/g, 're');
+    return t;
+  }
+  if (side === 'li') {
+    t = t.replace(/rechts\s*\/\s*links/gi, 'links');
+    t = t.replace(/\bre\s*\/\s*li\b/g, 'li');
+    return t;
+  }
+  if (side === 'bds') {
+    t = t.replace(/rechts\s*\/\s*links/gi, 'beidseits');
+    t = t.replace(/\bre\s*\/\s*li\b/g, 'bds.');
+    return t;
+  }
   return t;
 }
 
 function applyGender(t, gender) {
   if (gender === 'herr') {
-    return t
-      .replace(/der Patient(?:in)?\s*\/\s*die Patientin/g, 'der Patient')
-      .replace(/die Patientin\s*\/\s*der Patient/g, 'der Patient')
-      .replace(/Patientin\s*\/\s*Patient/g, 'Patient')
-      .replace(/Patient\s*\/\s*die Patientin/g, 'Patient')
-      .replace(/\bPatientin\b/g, 'Patient')
-      .replace(/\bdie Patientin\b/g, 'der Patient')
-      .replace(/Herrn\s*\/\s*Frau\b/g, 'Herrn')
-      .replace(/Herr\s*\/\s*Frau\b/g, 'Herrn')
-      .replace(/\bwelche\s*\/\s*welcher\b/g, 'welcher')
-      .replace(/\bsie\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'er')
-      .replace(/\bSie\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'Er');
+    t = t.replace(/[Dd]ie Patientin\s*\/\s*[Dd]er Patient/g, 'der Patient');
+    t = t.replace(/[Dd]er Patient\s*\/\s*[Dd]ie Patientin/g, 'der Patient');
+    t = t.replace(/\bPatientin\b/g, 'Patient');
+    t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welcher');
+    t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welcher');
+    t = t.replace(/\bHerr[n]?\s*\/\s*Frau\b/g, 'Herrn');
+    t = t.replace(/\bFrau\s*\/\s*Herr[n]?\b/g, 'Herrn');
+    t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Er');
+    t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'er');
+    return t;
   }
   if (gender === 'frau') {
-    return t
-      .replace(/der Patient(?:in)?\s*\/\s*die Patientin/g, 'die Patientin')
-      .replace(/die Patientin\s*\/\s*der Patient/g, 'die Patientin')
-      .replace(/Patientin\s*\/\s*Patient/g, 'Patientin')
-      .replace(/Patient\s*\/\s*die Patientin/g, 'Patientin')
-      .replace(/\bPatient\b(?!in)/g, 'Patientin')
-      .replace(/\bder Patient\b/g, 'die Patientin')
-      .replace(/Herrn\s*\/\s*Frau\b/g, 'Frau')
-      .replace(/Herr\s*\/\s*Frau\b/g, 'Frau')
-      .replace(/\bwelche\s*\/\s*welcher\b/g, 'welche')
-      .replace(/\ber\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'sie')
-      .replace(/\bEr\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'Sie');
+    t = t.replace(/[Dd]ie Patientin\s*\/\s*[Dd]er Patient/g, 'die Patientin');
+    t = t.replace(/[Dd]er Patient\s*\/\s*[Dd]ie Patientin/g, 'die Patientin');
+    t = t.replace(/\bPatient\b(?!in)/g, 'Patientin');
+    t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welche');
+    t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welche');
+    t = t.replace(/\bHerr[n]?\s*\/\s*Frau\b/g, 'Frau');
+    t = t.replace(/\bFrau\s*\/\s*Herr[n]?\b/g, 'Frau');
+    t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Sie');
+    t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'sie');
+    return t;
   }
   return t;
 }
