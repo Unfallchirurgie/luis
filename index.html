@@ -56,6 +56,7 @@ body { overflow: hidden; }
 
 .grp-label { font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: #a09070; border-bottom: 2px solid #e0d8c8; padding-bottom: 8px; margin-top: 28px; margin-bottom: 14px; }
 .grp-label:first-child { margin-top: 0; }
+.grp-label.ref-label { color: #ccc; border-bottom-color: #ede8e0; font-size: 9px; letter-spacing:.15em; }
 
 /* CARD */
 .card { background: #fff; border: 1.5px solid #e8e0d0; border-radius: 10px; margin-bottom: 12px; overflow: hidden; transition: border-color .12s, box-shadow .12s; }
@@ -76,6 +77,8 @@ body { overflow: hidden; }
 .lr-li { color: #5a2008; border-color: #d0a080; } .lr-li:hover { background: #faebd8; }
 .lr-bds { color: #666; border-color: #ccc; font-size: 10px; } .lr-bds:hover { background: #f4f2ee; }
 .card-click-hint { font-size: 10px; color: #ccc; margin-left: auto; font-style: italic; }
+.card.ref-card { background: #faf9f6; border-color: #ede8e0; opacity: .75; }
+.card.ref-card:hover { opacity: 1; }
 
 /* ML CARD */
 .ml-card { background: #fffce8; border: 1.5px solid #d4b800; border-radius: 10px; padding: 13px 16px; margin-bottom: 12px; }
@@ -225,244 +228,288 @@ body { overflow: hidden; }
 // ══════════════════════════════════════════════════════════════════════
 const ITEMS = [
 
+
 // ══════════════════════════════════════════════════════════════════
-//  CU · NOTAUFNAHME – ALLE FÄLLE  (copy-paste, kein ___)
-//  Stil: Diagnose → Anamnese → Befund → Procedere (ohne Überschriften)
+//  CU · NOTAUFNAHME — ALLE FÄLLE
+//  Buttons: RE/LI + HERR/FRAU kombinierbar
+//  Befund: keine Neutral-Null-Zahlen, klinische Beschreibung
+//  Proc = Empfehlungen für zu Hause
 // ══════════════════════════════════════════════════════════════════
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'OSG-Distorsion lateral – ambulant',
-txt:`Distorsionstrauma des oberen Sprunggelenks, Grad II, Teilriss Lig. fibulotalare anterius.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'OSG-Distorsion lateral – ambulant',
+txt:`Distorsionstrauma des oberen Sprunggelenks rechts / links.
 
-Die Patientin / der Patient stellte sich nach Supinationstrauma des Sprunggelenks in unserer Notaufnahme vor. Anamnestisch kam es beim Treppensteigen / Laufen zu einem Umknicktrauma mit sofort einsetzenden Schmerzen und Schwellung lateral am Sprunggelenk.
+Die Patientin / der Patient stellte sich nach Supinationstrauma des Sprunggelenks rechts / links in unserer Notaufnahme vor. Beim Treppensteigen / Laufen umgeknickt, sofort einsetzende Schmerzen und Schwellung lateral.
 
-Klinisch Schwellung und Hämatomverfärbung über dem lateralen Malleolus. Druckschmerz über dem Lig. fibulotalare anterius. Kein Druckschmerz Basis Metatarsale V, kein Druckschmerz Malleolus medialis, kein Druckschmerz proximale Fibula. Ottawa-Ankle-Rule negativ. Gehfähig. Periphere Durchblutung, Motorik und Sensibilität intakt. Röntgen OSG in 2 Ebenen: Kein Nachweis einer frischen knöchernen Verletzung.
+Anamnese, körperliche Untersuchung, Röntgen, Verband, Beratung.
 
-Proc: Versorgung mit AirCast-Walker für 4–6 Wochen. Kühlung und Hochlagerung. Analgesie mit Ibuprofen 600mg 1-1-1 p.o. + Pantoprazol 40mg 1-0-0. Thromboseprophylaxe: Clexane 0,4ml s.c. 1×tägl. für Dauer der Immobilisierung. Physiotherapie mit propriozeptivem Training ab Beschwerdelinderung. Wiedervorstellung bei fehlender Besserung. BG-Sprechstunde Tel. 09281 982730.`},
+Schwellung und Hämatomverfärbung über dem lateralen Malleolus. Druckschmerz über dem Lig. fibulotalare anterius. Kein Druckschmerz Basis Metatarsale V, kein Druckschmerz Malleolus medialis, kein Druckschmerz proximale Fibula. Ottawa-Ankle-Rule negativ. Gehfähig. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen OSG in 2 Ebenen rechts / links: Kein Frakturnachweis.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Radiusfraktur – WV morgen, OP-Planung + CT',
-txt:`Distale Radiusfraktur mit dorsaler Dislokation.
+Proc: Schonung und Hochlagerung. AirCast-Walker für 4–6 Wochen. Kühlung in den ersten 48h. Analgesie bei Bedarf mit Ibuprofen 600mg 1-1-1 zum Essen. Thromboseprophylaxe mit Clexane 0,4ml s.c. 1× tägl. für Dauer der Immobilisierung. Wiedervorstellung bei fehlender Besserung beim niedergelassenen Orthopäden oder Orthopädin. Bei starker Zunahme der Beschwerden oder Neurologie jederzeit Wiedervorstellung in unserer Notaufnahme möglich.`},
 
-Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand mit sofort einsetzenden Schmerzen und Schwellung im Bereich des distalen Unterarms vor. Keine Voroperationen an der betroffenen Extremität.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Radiusfraktur – WV morgen Aufnahmezentrum, OP-Planung + CT',
+txt:`Distale Radiusfraktur mit Dislokation rechts / links.
 
-Klinisch typische Bajonett-Fehlstellung mit Schwellung und Druckschmerz distal radiusseitig. Handgelenkbeweglichkeit eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits. Röntgen Handgelenk in 2 Ebenen: Distale Radiusfraktur mit dorsaler Angulation. Kein Hinweis auf Begleitverletzung des distalen Radioulnargelenks.
+Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand rechts / links mit sofort einsetzenden Schmerzen und Schwellung im Handgelenksbereich vor.
 
-Kurzzeitanalgesie und dorsale Unterarmgipsschiene wurden angelegt. Verträglichkeit gut.
+Anamnese, körperliche Untersuchung, Röntgen, Gipsschiene, Analgesie, Beratung.
 
-Proc: Stationäre Aufnahme zur operativen Versorgung morgen. Nüchtern ab 22:00 Uhr. CT Handgelenk zur präoperativen Planung morgen früh im Aufnahmezentrum. Thromboseprophylaxe: Clexane 0,4ml s.c. 1×tägl. Schmerztherapie: Novalgin 1g i.v. bei Bedarf. Arm hochlagern. Aufklärungsgespräch OP durch Diensthabenden erfolgt, Einverständniserklärung liegt vor.`},
+Typische Bajonett-Fehlstellung mit Schwellung und Druckschmerz distal radiusseitig. Handgelenkbeweglichkeit eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.
+Röntgen Handgelenk in 2 Ebenen rechts / links: Distale Radiusfraktur mit dorsaler Angulation und Dislokation.
+Dorsale Unterarmgipsschiene angelegt, Analgesie verabreicht.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Schenkelhalsfraktur – stationär, OP morgen',
-txt:`Medialer Schenkelhalsfraktur, Garden III, mit Dislokation.
+Proc: Morgen um 09:00 Uhr im Aufnahmezentrum Sana Klinikum Hof zur OP-Planung vorstellen. CT Handgelenk rechts / links wird dort veranlasst. Nüchtern ab 22:00 Uhr. Arm hochlagern und kühlen. Analgesie bei Bedarf. Gipsschiene nicht entfernen.`},
 
-Die Patientin / der Patient stellte sich nach häuslichem Sturz mit Schmerzen in der Hüfte und Gehunfähigkeit vor. Bekannte Vorerkrankungen: arterielle Hypertonie, Osteoporose. Dauermedikation wurde erfragt und dokumentiert.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Schenkelhalsfraktur – stationär, OP morgen',
+txt:`Medialer Schenkelhalsfraktur rechts / links mit Dislokation.
 
-Klinisch verkürzte und außenrotierte untere Extremität. Leisten- und Trochanterdruckschmerz. Aktive Hüftbeweglichkeit stark eingeschränkt und schmerzhaft. Periphere Durchblutung, Motorik und Sensibilität intakt. Hautmantel intakt, keine offene Verletzung.
-Röntgen Becken ap + Hüfte axial: Medialer Schenkelhalsfraktur, Garden III. Kein Hinweis auf pertrochantäre Ausdehnung.
+Die Patientin / der Patient stellte sich nach häuslichem Sturz mit Schmerzen in der Hüfte rechts / links und Gehunfähigkeit vor. Vorerkrankungen: arterielle Hypertonie, Osteoporose. Dauermedikation dokumentiert.
 
-Proc: Stationäre Aufnahme zur operativen Versorgung morgen. Nüchtern ab 22:00 Uhr. Präoperatives Labor, EKG und Röntgen-Thorax wurden veranlasst. Clexane 0,4ml s.c. 1×tägl. Lagerung in Schaumstoffschiene. Analgesie: Novalgin 1g i.v. bei Bedarf. Aufklärungsgespräch erfolgt, Einverständnis liegt vor. Anästhesiologisches Konsil angefordert. Geriatrie-Mitbehandlung empfohlen.`},
+Anamnese, körperliche Untersuchung, Röntgen, Analgesie, Lagerung, Beratung, Anästhesiologe informiert, Geriatrie-Mitbehandlung empfohlen.
+
+Verkürzte und außenrotierte untere Extremität rechts / links. Leisten- und Trochanterdruckschmerz. Hüftbeweglichkeit stark eingeschränkt und schmerzhaft. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen Becken ap + Hüfte axial rechts / links: Medialer Schenkelhalsfraktur mit Dislokation.
+
+Proc: Stationäre Aufnahme zur operativen Versorgung morgen. Nüchtern ab 22:00 Uhr. Lagerung in Schaumstoffschiene, Analgesie und Thromboseprophylaxe. Präoperatives Labor, EKG, Röntgen-Thorax veranlasst. Aufklärungsgespräch erfolgt, Einverständnis liegt vor.`},
 
 {g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Immobilisierende Lumbalgie – stationär',
 txt:`Akute immobilisierende Lumbalgie ohne radikuläre Symptomatik.
 
-Die Patientin / der Patient stellte sich mit akut einsetzenden Schmerzen im Lendenbereich vor, die beim Heben einer Last aufgetreten seien. Keine Ausstrahlung in die Beine. Keine Blasen- oder Mastdarmstörung. Keine Beinlähmung. Gehfähig, jedoch stark schmerzhaft eingeschränkt.
+Die Patientin / der Patient stellte sich mit akut einsetzenden Schmerzen im Lendenbereich vor, die beim Heben einer Last aufgetreten seien. Keine Ausstrahlung. Keine Blasen- oder Mastdarmstörung. Stark schmerzhaft eingeschränkt gehfähig.
 
-LWS: Klopfschmerz im Bereich LWK 4/5 paravertebral. Starker paravertebraler Hartspann beidseits. Lasègue beidseits negativ. Kraftprüfung Knie-/Zehenstrecker und Hüftbeuger 5/5 beidseits. Sensibilität intakt beidseits. ASR/PSR seitengleich auslösbar. Keine Blasen- oder Mastdarmstörung.
-Röntgen LWS 2 Ebenen: Kein Frakturnachweis. Degenerative Veränderungen.
+Anamnese, körperliche Untersuchung, Röntgen, Analgesie, Beratung.
 
-Proc: Stationäre Aufnahme zur i.v.-Schmerztherapie und Mobilisation. Novalgin 1g i.v. 4×tägl. Diclofenac 75mg i.v. 1×tägl. + Pantoprazol. Amitriptylin 10mg 0-0-1. Physiotherapie und manuelle Therapie. Mobilisation mit Unterstützung. Thromboseprophylaxe: Clexane 0,4ml s.c. 1×tägl. Bei Progredienz oder Neurologie: MRT LWS. Entlassung bei ausreichender Mobilisation.`},
+LWS: Klopfschmerz LWK 4/5 paravertebral. Starker Hartspann beidseits. Lasègue beidseits negativ. Kraft, Sensibilität und Reflexe regelrecht beidseits. Keine Blasen- oder Mastdarmstörung.
+Röntgen LWS: Kein Frakturnachweis, degenerative Veränderungen.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Knieprellung / Kniegelenkerguss',
-txt:`Knieprellung mit Kniegelenkerguss nach Sturz.
+Proc: Stationäre Aufnahme zur i.v.-Schmerztherapie und Mobilisation. Novalgin 1g i.v. 4× tägl. Diclofenac 75mg i.v. 1× tägl. + Pantoprazol. Amitriptylin 10mg 0-0-1. Physiotherapie. Thromboseprophylaxe: Clexane 0,4ml s.c. 1× tägl. Bei Progredienz oder Neurologie: MRT LWS.`},
 
-Die Patientin / der Patient stellte sich nach Sturz mit direktem Anprall auf das Knie vor. Sofortige Schmerzen und Schwellung. Gehfähig.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Knieprellung / Kniegelenkerguss',
+txt:`Knieprellung mit Kniegelenkerguss rechts / links nach Sturz.
 
-Klinisch Schwellung und Erguss des Kniegelenks. Ballottement positiv. Druckschmerz über dem medialen Gelenkspalt. Lachman negativ. Schublade anterior und posterior negativ. Valgusstress und Varusstress negativ. McMurray negativ. Beweglichkeit: Extension/Flexion 0/0/100°. Periphere Durchblutung, Motorik und Sensibilität intakt.
-Röntgen Knie in 3 Ebenen: Kein Frakturnachweis. Kniegelenkerguss.
+Die Patientin / der Patient stellte sich nach Sturz mit direktem Anprall auf das Knie rechts / links vor. Schmerzen und Schwellung. Gehfähig.
 
-Proc: Kühlung und Hochlagerung. Analgesie: Ibuprofen 600mg 1-1-1 p.o. + Pantoprazol. Kniestabilisator. Entlastung für 2 Wochen. MRT Knie bei anhaltenden Beschwerden oder klinischem Verdacht auf Bandverletzung oder Meniskusschaden. Wiedervorstellung in unserer Sprechstunde in 5–7 Tagen.`},
+Anamnese, körperliche Untersuchung, Röntgen, Beratung.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Klavikulafraktur – konservativ',
-txt:`Klavikulafraktur, mittleres Drittel, ohne relevante Dislokation.
+Schwellung und Erguss des Kniegelenks rechts / links. Ballottement positiv. Druckschmerz medialer Gelenkspalt. Bandstabilität regelrecht. Beweglichkeit schmerzhaft eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen Knie rechts / links in 3 Ebenen: Kein Frakturnachweis. Kniegelenkerguss.
 
-Die Patientin / der Patient stellte sich nach Sturz auf die Schulter mit Schmerzen und Schwellung über der Klavikula vor. Kein Hinweis auf Gefäß- oder Nervenverletzung.
+Proc: Schonung, Kühlung und Hochlagerung in den ersten 48h. Analgesie bei Bedarf mit Ibuprofen 600mg 1-1-1. Kniestabilisator. Thromboseprophylaxe: Clexane 0,4ml s.c. 1× tägl. Wiedervorstellung beim niedergelassenen Orthopäden oder Orthopädin in 5–7 Tagen. MRT Knie bei anhaltenden Beschwerden empfohlen. Bei starker Zunahme der Schmerzen Wiedervorstellung in der Notaufnahme.`},
 
-Klinisch Druckschmerz über der Klavikula im mittleren Drittel, minimale Stufenbildung. Schultergelenk klinisch orientierend intakt. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.
-Röntgen Schulter ap: Klavikulafraktur mittleres Drittel ohne relevante Dislokation.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Klavikulafraktur – konservativ',
+txt:`Klavikulafraktur rechts / links, mittleres Drittel, ohne relevante Dislokation.
 
-Proc: Gilchrist-Verband für 4–6 Wochen. Schonung und Kühlung. Analgesie: Ibuprofen 600mg 1-1-1. Röntgenkontrolle in 2 Wochen in unserer Sprechstunde. Fahruntüchtigkeit bis auf weiteres.`},
+Die Patientin / der Patient stellte sich nach Sturz auf die Schulter rechts / links mit Schmerzen und Schwellung über der Klavikula vor. Kein Hinweis auf Gefäß- oder Nervenverletzung.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Distale Radiusfraktur ohne Dislokation',
+Anamnese, körperliche Untersuchung, Röntgen, Verband, Beratung.
+
+Druckschmerz über der Klavikula rechts / links, minimale Stufenbildung. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.
+Röntgen Schulter ap rechts / links: Klavikulafraktur mittleres Drittel ohne relevante Dislokation.
+
+Proc: Gilchrist-Verband für 4–6 Wochen. Schonung und Kühlung. Analgesie bei Bedarf mit Ibuprofen 600mg 1-1-1. Röntgenkontrolle in 2 Wochen beim niedergelassenen Orthopäden oder Orthopädin. Bei Dislokation oder starker Zunahme der Schmerzen Wiedervorstellung in der Notaufnahme.`},
+
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Handgelenkdistorsion / Radiusfraktur ohne Dislokation',
 txt:`Nicht dislozierte distale Radiusfraktur rechts / links.
 
-Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand mit Schmerzen und Schwellung im Handgelenksbereich vor.
+Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand rechts / links mit Schmerzen und Schwellung im Handgelenksbereich vor.
 
-Klinisch Schwellung und Druckschmerz distal radiusseitig, keine Fehlstellung. Handgelenkbeweglichkeit schmerzhaft eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Anamnese, körperliche Untersuchung, Röntgen, Gipsschiene, Beratung.
+
+Schwellung und Druckschmerz distal radiusseitig rechts / links, keine Fehlstellung. Handgelenkbeweglichkeit schmerzhaft eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt.
 Röntgen Handgelenk in 2 Ebenen rechts / links: Nicht dislozierte distale Radiusfraktur.
+Dorsale Unterarmgipsschiene angelegt.
 
-Proc: Dorsale Unterarmgipsschiene für 4 Wochen. Kühlung und Hochlagerung. Analgesie: Ibuprofen 600mg 1-1-1 + Pantoprazol. Röntgenkontrolle in 2 Wochen in unserer Sprechstunde zur Stellungskontrolle.`},
+Proc: Schonung, Kühlung und Hochlagerung. Gipsschiene für 4 Wochen. Analgesie bei Bedarf mit Ibuprofen 600mg 1-1-1. Röntgenkontrolle in 2 Wochen im Sana Gesundheitszentrum, Kreuzsteinstraße 30, Hof. Bei Schmerzzunahme oder Taubheitsgefühl sofortige Wiedervorstellung.`},
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Schnittwunde Hand – Versorgung ambulant',
-txt:`Traumatische Schnittwunde, ca. 2 cm, palmar, Finger D2, glattrandig.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Schnittwunde Hand – Versorgung ambulant',
+txt:`Traumatische Schnittwunde palmar D2 rechts / links, ca. 2 cm, glattrandig.
 
-Die Patientin / der Patient stellte sich nach Schnittverletzung mit einem Messer vor. Kein relevanter Blutverlust mehr. Tetanusschutz wurde aufgefrischt (Tetanol 0,5ml i.m. rechter Deltamuskel).
+Die Patientin / der Patient stellte sich nach Schnittverletzung mit einem Messer vor. Kein relevanter Blutverlust mehr. Tetanusschutz aktuell / aufgefrischt (Tetanol 0,5ml i.m. rechter Deltamuskel).
 
-Klinisch glattrandige ca. 2 cm lange Schnittwunde palmar D2, Subkutis einsehbar, keine Kontinuitätsunterbrechung der Beugesehnen. Beugen gegen Widerstand möglich. Strecksehne intakt. Keine knöcherne Verletzung. Periphere Durchblutung, Motorik und Sensibilität intakt. 2-Punktdiskriminierung beidseits regelrecht.
+Anamnese, körperliche Untersuchung, Wundversorgung, Beratung.
 
-Proc: Desinfektion mit Octenisept, Wundrandadaptation mit Ethilon 4-0 Einzelknopfnähten in Lokalanästhesie, steriler Verband. Schonung, Kühlung, Hochlagerung. Analgesie: Ibuprofen 600mg 1-1-1. Fadenzug in 10 Tagen beim Hausarzt. Wiedervorstellung sofort bei Infektzeichen.`},
+Glattrandige ca. 2 cm Schnittwunde palmar D2 rechts / links. Beugesehnen FDP und FDS intakt, Beugen gegen Widerstand möglich. Strecksehne intakt. Keine knöcherne Verletzung. Periphere Durchblutung, Motorik und Sensibilität intakt. 2-Punktdiskriminierung beidseits regelrecht.
+Desinfektion mit Octenisept, Wundversorgung mit Ethilon 4-0 Einzelknopfnähten in Lokalanästhesie, steriler Verband.
+
+Proc: Schonung und Hochlagerung. Verband alle 3–4 Tage beim Hausarzt oder bei der Hausärztin wechseln. Fadenzug in 10–14 Tagen. Wiedervorstellung sofort bei Infektzeichen (Rötung, Schwellung, Sekret, Fieber). Bei Taubheitsgefühl oder eingeschränkter Beugung Wiedervorstellung in der Notaufnahme.`},
 
 {g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Ellenbogenkontusion / V.a. Radiusköpfchenfraktur',
 txt:`Verdacht auf okkulte Radiusköpfchenfraktur rechts / links.
 
-Die Patientin / der Patient stellte sich nach Sturz auf den ausgestreckten Arm mit Schmerzen und eingeschränkter Beweglichkeit im Bereich des lateralen Ellenbogens vor.
+Die Patientin / der Patient stellte sich nach Sturz auf den ausgestreckten Arm rechts / links mit Schmerzen lateral am Ellenbogen vor.
 
-Klinisch Druckschmerz über dem Radiusköpfchen. Beweglichkeit: Extension/Flexion 0/0/130°, Pronation/Supination 80/0/80°. Bandstabilität regelrecht. Periphere Durchblutung, Motorik und Sensibilität intakt.
-Röntgen Ellenbogen rechts / links in 2 Ebenen: Kein sicherer Nachweis einer frischen dislozierten Fraktur oder Luxation. Geringer Gelenkerguss nicht sicher auszuschließen. Zystische Aufhellung im Bereich des distalen Humerus, am ehesten chronisch-benigne imponierend. Bei entsprechendem klinischen Druckschmerz okkulte Radiusköpfchenfraktur nicht sicher auszuschließen.
+Anamnese, körperliche Untersuchung, Röntgen, Beratung.
 
-Proc: Unterarmgipsschiene für 2 Wochen. Kühlung. Analgesie: Ibuprofen 600mg 1-1-1. Röntgenkontrolle in 7–10 Tagen. Bei anhaltenden Beschwerden MRT Ellenbogen.`},
+Druckschmerz über dem Radiusköpfchen rechts / links. Beweglichkeit schmerzhaft eingeschränkt, Extension und Supination besonders betroffen. Bandstabilität regelrecht. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen Ellenbogen rechts / links in 2 Ebenen: Kein sicherer Nachweis einer frischen dislozierten Fraktur oder Luxation. Geringer Gelenkerguss. Zystische Aufhellung im Bereich des distalen Humerus, am ehesten chronisch-benigne. Bei klinischem Druckschmerz okkulte Radiusköpfchenfraktur nicht sicher auszuschließen.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'SHT I° – ambulant entlassen',
-txt:`Schädel-Hirn-Trauma Grad I° / Schädelkontusion.
+Proc: Schonung und Kühlung. Unterarmgipsschiene für 2 Wochen. Analgesie bei Bedarf mit Ibuprofen 600mg 1-1-1. Röntgenkontrolle in 7–10 Tagen beim niedergelassenen Orthopäden oder Orthopädin. Bei anhaltenden Beschwerden MRT Ellenbogen empfohlen.`},
 
-Die Patientin / der Patient stellte sich nach Sturz mit Anprall des Kopfes vor. Anamnestisch keine Bewusstlosigkeit, keine Amnesie. Leichte Kopfschmerzen. Kein Erbrechen. Keine Antikoagulation.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'SHT I° Erwachsener – ambulant',
+txt:`Schädel-Hirn-Trauma Grad I°.
 
-GCS 15 bei Aufnahme und bei Entlassung. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Meningismus. HWS freibeweglich. Hämatom frontal links. Hirnnerven orientierend unauffällig. Neurologie intakt. Tetanusschutz aktuell.
-CCT nicht indiziert (Ottawa Head CT Rule negativ, keine Antikoagulation, Alter unter 65 Jahre).
+Die Patientin / der Patient stellte sich nach Sturz mit Anprall des Kopfes vor. Keine Bewusstlosigkeit, keine Amnesie. Leichte Kopfschmerzen. Kein Erbrechen. Keine Antikoagulation.
 
-Proc: Ambulante Entlassung nach Beobachtungszeit. Häusliche Überwachung: alle 2 Stunden Ansprechbarkeit prüfen für 24h. Paracetamol 500mg bei Bedarf (kein NSAR erste 24h). Kein Autofahren 24h. SHT-Merkblatt ausgehändigt und erläutert. Alarmzeichen sofort → 112: erneutes Erbrechen, starke Kopfschmerzen, Krampfanfall, Bewusstseinstrübung, Pupillenasymmetrie.`},
+Anamnese, körperliche Untersuchung, Beobachtung, Beratung.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Weber C + distale Tibiafraktur – stationär',
-txt:`Weber-C-Fraktur mit distaler Tibiabeteiligung und Syndesmosenverletzung.
+GCS 15 bei Aufnahme und Entlassung. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Meningismus. HWS freibeweglich. Hämatom frontal. Neurologie intakt. Tetanusschutz aktuell.
+CCT nicht indiziert (Ottawa Head CT Rule negativ).
 
-Die Patientin / der Patient stellte sich nach Drehtrauma des Sprunggelenks mit erheblicher Schwellung, Hämatom und Gehunfähigkeit vor.
+Proc: Häusliche Überwachung: alle 2h Ansprechbarkeit prüfen für 24h. Paracetamol 500mg bei Bedarf (kein NSAR erste 24h). Kein Autofahren 24h. SHT-Merkblatt ausgehändigt. Alarmzeichen sofort Notaufnahme: erneutes Erbrechen, starke Kopfschmerzen, Krampfanfall, Bewusstseinstrübung, Pupillenasymmetrie.`},
 
-Klinisch ausgeprägte Schwellung und Druckschmerz am lateralen Malleolus oberhalb des Syndesmosenniveaus. Druckschmerz distale Tibia. Syndesmosen-Druckschmerz positiv. Nicht gehfähig. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.
-Röntgen OSG in 2 Ebenen und Unterschenkel: Weber-C-Fraktur mit 3mm Dislokation, distale Tibiafraktur, kein Talusvorschub in Stressaufnahme.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'OSG Weber C + Tibiafraktur – stationär',
+txt:`Weber-C-Fraktur rechts / links mit distaler Tibiabeteiligung und Syndesmosenverletzung.
 
-Dorsale Unterschenkelgipsschiene und Kurzzeitanalgesie wurden angelegt.
+Die Patientin / der Patient stellte sich nach Drehtrauma des Sprunggelenks rechts / links mit erheblicher Schwellung und Gehunfähigkeit vor.
 
-Proc: Stationäre Aufnahme zur operativen Versorgung. Nüchtern ab 22:00 Uhr. Thromboseprophylaxe: Clexane 0,4ml s.c. 1×tägl. Analgesie: Novalgin 1g i.v. bei Bedarf. Bein hochlagern auf Schaumstoffschiene. CT OSG zur präoperativen Planung. Aufklärung erfolgt, Einverständnis liegt vor.`},
+Anamnese, körperliche Untersuchung, Röntgen, Gipsschiene, Analgesie, Beratung.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Schulter-Luxation – Reposition',
+Ausgeprägte Schwellung und Druckschmerz am lateralen Malleolus rechts / links oberhalb des Syndesmosenniveaus. Druckschmerz distale Tibia. Syndesmosen-Druckschmerz positiv. Nicht gehfähig. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.
+Röntgen OSG in 2 Ebenen rechts / links + Unterschenkel: Weber-C-Fraktur mit Dislokation, distale Tibiafraktur.
+Dorsale Unterschenkelgipsschiene angelegt, Analgesie verabreicht.
+
+Proc: Stationäre Aufnahme zur operativen Versorgung. Nüchtern ab 22:00 Uhr. Bein hochlagern. Thromboseprophylaxe und Analgesie. CT OSG zur präoperativen Planung. Aufklärung erfolgt, Einverständnis liegt vor.`},
+
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Schulter-Luxation anterior – Reposition',
 txt:`Anteriore Schultergelenkluxation rechts / links. Zustand nach geschlossener Reposition.
 
 Die Patientin / der Patient stellte sich nach Sturz auf den ausgestreckten Arm mit federnder Fixation und Schmerzen im Schulterbereich vor.
 
-Klinisch Stufenbildung infraklavikulär. Humeruskopf nach ventral disloziert. Aktive Abduktion nicht möglich. Axillarissensibilität orientierend intakt. A. radialis palpabel.
-Röntgen Schulter ap + axial: Anteriore Schultergelenkluxation ohne Frakturnachweis. Nach Reposition unter i.v.-Analgesie und Relaxierung: regelrechte Gelenkkonfiguration.
-Röntgen Schulter nach Reposition: Regelrechte Reposition, kein Frakturnachweis.
+Anamnese, körperliche Untersuchung, Röntgen, Reposition, Röntgenkontrolle, Verband, Beratung.
 
-Proc: Gilchrist-Verband für 3 Wochen. Analgesie: Ibuprofen 600mg 1-1-1. MRT Schulter rechts / links elektiv zur Beurteilung Bankart-Läsion / Rotatorenmanschette. Wiedervorstellung in unserer Sprechstunde in 2 Wochen.`},
+Stufenbildung infraklavikulär rechts / links. Humeruskopf nach ventral disloziert. Aktive Abduktion nicht möglich. Axillarissensibilität orientierend intakt. A. radialis palpabel beidseits.
+Röntgen Schulter ap + axial rechts / links: Anteriore Schultergelenkluxation ohne Frakturnachweis. Geschlossene Reposition unter i.v.-Analgesie und Muskelrelaxierung. Röntgen nach Reposition: Regelrechte Reposition, kein Frakturnachweis.
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Handgelenksdistorsion / Skaphoid-V.a.',
-txt:`Handgelenksdistorsion rechts / links, Ausschluss Skaphoidfraktur.
+Proc: Gilchrist-Verband für 3 Wochen. Schonung. Analgesie bei Bedarf. MRT Schulter rechts / links elektiv zur Beurteilung Bankart-Läsion empfohlen. Wiedervorstellung beim niedergelassenen Orthopäden oder Orthopädin in 2 Wochen.`},
 
-Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand mit Schmerzen im Handgelenksbereich vor.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Handgelenk Skaphoid-Verdacht',
+txt:`Handgelenksdistorsion rechts / links, Skaphoidfraktur nicht sicher auszuschließen.
 
-Klinisch Schwellung dorsalradial. Druckschmerz Tabatière rechts / links positiv. Druckschmerz über dem Tuberculum scaphoideum positiv. Faustschluss möglich. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand rechts / links mit Schmerzen im Handgelenksbereich vor.
+
+Anamnese, körperliche Untersuchung, Röntgen, Gipsschiene, Beratung.
+
+Druckschmerz Tabatière rechts / links. Druckschmerz Tuberculum scaphoideum. Faustschluss eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt.
 Röntgen Handgelenk in 2 Ebenen rechts / links: Kein Frakturnachweis.
 Cave: Negativer Röntgenbefund schließt eine Skaphoidfraktur nicht aus.
+Handgelenkgipsschiene mit Daumeneinschluss angelegt.
 
-Proc: Handgelenkgipsschiene mit Daumeneinschluss für 10 Tage. Kühlung und Hochlagerung. Analgesie: Ibuprofen 600mg 1-1-1. MRT Handgelenk rechts / links zur definitiven Frakturausschluss wenn Beschwerden persistieren. Wiedervorstellung in 10 Tagen in unserer Sprechstunde.`},
+Proc: Gipsschiene für 10–14 Tage. Schonung und Hochlagerung. Analgesie bei Bedarf. Wiedervorstellung in 10 Tagen zur Röntgenkontrolle im Sana Gesundheitszentrum, Kreuzsteinstraße 30, Hof. Bei anhaltenden Beschwerden MRT Handgelenk.`},
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Pertrochantäre Femurfraktur – OP morgen',
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Pertrochantäre Femurfraktur – stationär',
 txt:`Pertrochantäre Femurfraktur rechts / links.
 
-Die Patientin / der Patient stellte sich nach häuslichem Sturz mit Schmerzen in der Hüfte und Gehunfähigkeit vor. Bekannte Vorerkrankungen und Dauermedikation wurden erfragt.
+Die Patientin / der Patient stellte sich nach häuslichem Sturz mit Schmerzen in der Hüfte rechts / links und Gehunfähigkeit vor. Vorerkrankungen und Dauermedikation dokumentiert.
 
-Klinisch verkürzte und außenrotierte untere Extremität rechts / links. Trochanterdruckschmerz. Aktive Hüftbeweglichkeit nicht möglich. Periphere Durchblutung, Motorik und Sensibilität intakt.
-Röntgen Becken ap + Hüfte axial rechts / links: Pertrochantäre Femurfraktur mit Dislokation.
+Anamnese, körperliche Untersuchung, Röntgen, Analgesie, Lagerung, Beratung, Anästhesiologe informiert.
 
-Proc: Stationäre Aufnahme zur operativen Versorgung morgen (Gammanagel / PFNA). Nüchtern ab 22:00 Uhr. Präoperatives Labor, EKG, Röntgen-Thorax veranlasst. Clexane 0,4ml s.c. 1×tägl. Schaumstoffschiene. Analgesie: Novalgin 1g i.v. bei Bedarf. Aufklärungsgespräch erfolgt, Einverständnis liegt vor. Anästhesiologisches Konsil angefordert.`},
+Verkürzte und außenrotierte untere Extremität rechts / links. Trochanterdruckschmerz. Hüftbeweglichkeit nicht möglich. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen Becken ap + Hüfte axial rechts / links: Pertrochantäre Femurfraktur.
+
+Proc: Stationäre Aufnahme zur operativen Versorgung morgen (Gammanagel). Nüchtern ab 22:00 Uhr. Präoperatives Labor, EKG, Röntgen-Thorax veranlasst. Clexane 0,4ml s.c. 1× tägl. Schaumstoffschiene, Analgesie. Aufklärung erfolgt.`},
+
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Subkapitale Humerusfraktur – konservativ / stationär',
+txt:`Subkapitale Humerusfraktur rechts / links, 2-Fragment, ohne relevante Dislokation.
+
+Die Patientin / der Patient stellte sich nach Sturz auf die Schulter rechts / links mit Schmerzen und eingeschränkter Schulterbeweglichkeit vor.
+
+Anamnese, körperliche Untersuchung, Röntgen, Verband, Beratung.
+
+Hämatom und Schwellung über dem Humeruskopf rechts / links. Druckschmerz. Schulterbeweglichkeit eingeschränkt. Axillarissensibilität intakt. A. radialis palpabel beidseits.
+Röntgen Schulter ap + axial rechts / links: 2-Fragment-Humeruskopffraktur ohne relevante Dislokation.
+
+Proc: Gilchrist-Verband für 3 Wochen. Schonung, Kühlung. Analgesie bei Bedarf mit Ibuprofen 600mg 1-1-1. Röntgenkontrolle in 2 Wochen im Sana Gesundheitszentrum, Kreuzsteinstraße 30, Hof. Ab Woche 3 schmerzadaptierte Physiotherapie. Bei Dislokation oder Zunahme der Schmerzen morgen Vorstellung im Aufnahmezentrum zur OP-Planung.`},
+
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Rippenfraktur einzeln – ambulant',
+txt:`Rippenfraktur Rippe 5 rechts / links ohne Pneumothorax, ambulante Therapie.
+
+Die Patientin / der Patient stellte sich nach Sturz mit atemabhängigen Schmerzen lateral-thorakal rechts / links vor.
+
+Anamnese, körperliche Untersuchung, Röntgen, Beratung.
+
+Druckschmerz über Rippe 5 rechts / links. Atemexkursion schmerzhaft eingeschränkt. Keine Dyspnoe. SpO2 97%. Auskultation beidseits Vesikuläratmen.
+Röntgen Thorax: Rippenfraktur Rippe 5 rechts / links ohne Dislokation. Kein Pneumothorax, kein Hämatothorax.
+
+Proc: Analgesie: Ibuprofen 600mg 1-1-1 + Pantoprazol. Atemgymnastik, tiefe Atemzüge trotz Schmerzen. Thromboseprophylaxe: Clexane 0,4ml s.c. 1× tägl. für 10 Tage. Kein Sport für 6 Wochen. Wiedervorstellung bei Zunahme der Dyspnoe, Fieber oder starken Schmerzen in der Notaufnahme.`},
+
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Rippenserienfraktur – stationär IMC/ITS',
+txt:`Rippenserienfraktur beidseits / rechts / links, Rippen 4–7, ohne Pneumothorax.
+
+Die Patientin / der Patient stellte sich nach Sturz / Verkehrsunfall mit atemabhängigen Schmerzen und eingeschränkter Atemexkursion vor.
+
+Anamnese, körperliche Untersuchung, CT-Thorax, Sono-FAST, Analgesie, Beratung, Thoraxchirurg informiert.
+
+Druckschmerz Rippen 4–7 lateral. Schmerzhafte Atemexkursion. SpO2 95% unter Raumluft.
+CT-Thorax: Serienfraktur Rippen 4–7, kein Pneumothorax, kein relevanter Hämatothorax.
+Sono-FAST: Keine freie Flüssigkeit.
+
+Proc: Stationäre Aufnahme zur Überwachung auf IMC / ITS. Schonung, Triflow, Atemgymnastik. Novalgin 1g i.v. 3× tägl. Oxygesic akut bei Bedarf. Heparin täglich. Thoraxchirurgisches Konsil angefordert. Engmaschige Überwachung SpO2 und Atemfrequenz.`},
+
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'ACG-Sprengung Tossy II/III',
+txt:`Schultereckgelenkssprengung rechts / links, Tossy III.
+
+Die Patientin / der Patient stellte sich nach Sturz auf die Schulter rechts / links mit Schmerzen und Hochstand der Klavikula vor.
+
+Anamnese, körperliche Untersuchung, Röntgen, Verband, Beratung.
+
+Stufenbildung und Druckschmerz über dem Akromioklavikulargelenk rechts / links. Klaviertastenphänomen positiv. Schulterbeweglichkeit schmerzhaft eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen Schulter ap + Tossy-Aufnahme beidseits: ACG-Sprengung Tossy III, Hochstand der lateralen Klavikula.
+
+Proc: Gilchrist-Verband für 3 Wochen. Schonung, Kühlung, Analgesie. Vorstellung im Sana Gesundheitszentrum, Kreuzsteinstraße 30, Hof in 5–7 Tagen zur Besprechung OP-Indikation. Bei starken Schmerzen Wiedervorstellung in der Notaufnahme.`},
 
 {g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Kniescheibenfraktur – stationär',
 txt:`Patellafraktur rechts / links mit Dislokation.
 
-Die Patientin / der Patient stellte sich nach direktem Anprall auf das Knie mit starken Schmerzen und Gehunfähigkeit vor.
+Die Patientin / der Patient stellte sich nach direktem Anprall auf das Knie rechts / links mit starken Schmerzen und Gehunfähigkeit vor.
 
-Klinisch tastbarer Spalt über der Patella. Druckschmerz. Aktive Kniestreckung nicht möglich. Kniegelenkerguss. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Anamnese, körperliche Untersuchung, Röntgen, Gipsschiene, Analgesie, Beratung.
+
+Tastbarer Spalt über der Patella rechts / links. Aktive Kniestreckung nicht möglich. Kniegelenkerguss. Periphere Durchblutung, Motorik und Sensibilität intakt.
 Röntgen Knie rechts / links in 3 Ebenen: Patellafraktur mit Dislokation.
-
 Kniegelenkgipsschiene angelegt.
 
-Proc: Stationäre Aufnahme zur operativen Versorgung (Zuggurtungsosteosynthese). Nüchtern ab 22:00 Uhr. Clexane 0,4ml s.c. 1×tägl. Analgesie: Novalgin 1g i.v. bei Bedarf. Aufklärung erfolgt, Einverständnis liegt vor.`},
+Proc: Stationäre Aufnahme zur operativen Versorgung. Nüchtern ab 22:00 Uhr. Clexane 0,4ml s.c. 1× tägl. Analgesie, Hochlagerung. Aufklärung erfolgt, Einverständnis liegt vor.`},
 
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Tibia / Fibula Schaftfraktur – stationär',
-txt:`Geschlossene Tibia- und Fibulafraktur rechts / links.
+{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Fingergelenk-Luxation PIP – Reposition',
+txt:`Dorsale Luxation PIP-Gelenk D___ rechts / links. Zustand nach geschlossener Reposition.
 
-Die Patientin / der Patient stellte sich nach Sturz / Verkehrsunfall mit Schmerzen und Fehlstellung im Unterschenkel vor.
+Die Patientin / der Patient stellte sich nach Ballsportverletzung mit Fehlstellung und Schmerzen am Finger vor.
 
-Klinisch Fehlstellung und Schwellung am Unterschenkel rechts / links. Kein Kompartmentsyndrom klinisch. Periphere Durchblutung, Motorik und Sensibilität intakt.
-Röntgen Unterschenkel in 2 Ebenen rechts / links: Schaftfraktur Tibia und Fibula.
+Anamnese, körperliche Untersuchung, Röntgen, Reposition, Röntgenkontrolle, Beratung.
 
-Dorsale Unterschenkelgipsschiene angelegt.
+Dorsale Dislokation des Mittelglieds mit federnder Fixation. Nach Reposition in Fingerleitungsanästhesie: Stabiles Gelenk. Seitenbandzug stabil. Strecksehne intakt. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen vor und nach Reposition: Regelrechte Gelenkkongruenz, kein Frakturnachweis.
 
-Proc: Stationäre Aufnahme zur operativen Versorgung (Marknagelung Tibia). Nüchtern ab 22:00 Uhr. Engmaschige klinische Überwachung auf Kompartmentsyndrom! Clexane 0,4ml s.c. 1×tägl. Analgesie: Novalgin 1g i.v. bei Bedarf. Aufklärung erfolgt, Einverständnis liegt vor.`},
-
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'ACG-Sprengung – Tossy II/III',
-txt:`Schultereckgelenkssprengung rechts / links, Tossy II / III.
-
-Die Patientin / der Patient stellte sich nach Sturz auf die Schulter mit Schmerzen und Hochstand der Klavikula vor.
-
-Klinisch Tastbare Stufenbildung und Druckschmerz über dem Akromioklavikulargelenk. Klaviertastenphänomen positiv. Aktive Abduktion bis 90° möglich mit Schmerzangabe. Periphere Durchblutung, Motorik und Sensibilität intakt.
-Röntgen Schulter ap + Tossy-Aufnahme beidseits: ACG-Sprengung Tossy III, Hochstand der lateralen Klavikula um Klavikulabreite.
-
-Proc: Gilchrist-Verband für 3 Wochen. Analgesie: Ibuprofen 600mg 1-1-1. Vorstellung in unserer Sprechstunde in 5–7 Tagen zur Besprechung OP-Indikation bei Tossy III. Fahruntüchtigkeit vorübergehend.`},
-
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Humeruskopffraktur – konservativ',
-txt:`Humeruskopffraktur rechts / links, 2-Fragment, ohne relevante Dislokation, konservative Therapie.
-
-Die Patientin / der Patient stellte sich nach Sturz auf die Schulter mit Schmerzen und eingeschränkter Schulterbeweglichkeit vor.
-
-Klinisch Hämatom und Schwellung über dem Humeruskopf. Druckschmerz. Aktive Abduktion bis 30°. Axilarissensibilität intakt. A. radialis palpabel beidseits.
-Röntgen Schulter ap + axial rechts / links: 2-Fragment-Humeruskopffraktur ohne relevante Dislokation.
-
-Proc: Gilchrist-Verband für 3 Wochen. Analgesie: Ibuprofen 600mg 1-1-1. Röntgenkontrolle in 2 Wochen in unserer Sprechstunde. Ab Woche 3 schmerzadaptierte Physiotherapie.`},
-
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Fingergelenk-Luxation – Reposition',
-txt:`Dorsale Luxation PIP-Gelenk D___, rechts / links. Zustand nach geschlossener Reposition.
-
-Die Patientin / der Patient stellte sich nach Ballsportverletzung mit Fehlstellung und starken Schmerzen am Finger vor.
-
-Klinisch dorsale Dislokation des Mittelglieds mit federnder Fixation. Nach Reposition in Fingerleitungsanästhesie: Stabiles Gelenk. Seitenbandzug stabil. Strecksehne intakt. Periphere Durchblutung, Motorik und Sensibilität intakt.
-Röntgen Finger rechts / links: Regelrechte Gelenkkongruenz nach Reposition, kein Frakturnachweis.
-
-Proc: Buddy-Taping mit Nachbarzehe für 4–6 Wochen. Analgesie: Ibuprofen 600mg 1-1-1. Bewegungsübungen ab sofort möglich. Wiedervorstellung bei erneuter Instabilität.`},
-
-{g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lr:true, lbl:'Rippenfraktur – ambulant',
-txt:`Rippenfraktur Rippe 5, rechts / links, ohne Pneumothorax, ambulante Therapie.
-
-Die Patientin / der Patient stellte sich nach Sturz / direktem Anprall auf den Thorax mit atemabhängigen Schmerzen lateral-thorakal vor.
-
-Klinisch Druckschmerz über Rippe 5 rechts / links. Atemexkursion schmerzhaft eingeschränkt. Keine Dyspnoe. SpO2 97%. Auskultation: Vesikuläratmen beidseits.
-Röntgen Thorax: Rippenfraktur Rippe 5 rechts / links ohne Dislokation. Kein Pneumothorax, kein Hämatothorax.
-
-Proc: Schmerzadaptierte Analgesie: Ibuprofen 600mg 1-1-1 + Pantoprazol. Atemgymnastik und tiefe Atemzüge. Thromboseprophylaxe: Clexane 0,4ml s.c. 1×tägl. für 10 Tage. Keine sportliche Aktivität für 6 Wochen. Wiedervorstellung bei Zunahme der Dyspnoe oder Fieber.`},
+Proc: Buddy-Taping mit Nachbarzehe für 4–6 Wochen. Schonung. Analgesie bei Bedarf. Bewegungsübungen ab sofort möglich. Wiedervorstellung beim niedergelassenen Orthopäden oder Orthopädin bei Instabilität.`},
 
 {g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Verbrennung / Verbrühung – Erstversorgung',
-txt:`Verbrennung Grad II, ca. 3% KOF, Unterarm beidseits, durch heißes Wasser.
+txt:`Verbrennung Grad IIa, ca. 3% KOF, Unterarm, durch Verbrühung.
 
 Die Patientin / der Patient stellte sich nach Verbrühung durch heißes Wasser mit Schmerzen und Blasenbildung am Unterarm vor. Kein Inhalationstrauma.
 
-Klinisch Rötung und Blasenbildung am Unterarm beidseits, ca. 3% der Körperoberfläche betreffend. Sensibilität im Verbrennungsgebiet erhalten. Kein Hinweis auf Verbrennung Grad III.
+Anamnese, körperliche Untersuchung, Wundversorgung, Beratung.
 
-Erstversorgung: Kühlung mit lauwarmem Wasser für 10 Minuten erfolgt. Blasen intakt belassen. Wundversorgung mit Suprathel / Mepitel. Steriler Verband. Tetanusschutz: aktuell.
+Rötung und Blasenbildung Unterarm, ca. 3% der Körperoberfläche. Sensibilität im Verbrennungsgebiet erhalten. Kein Hinweis auf Verbrennung Grad IIb oder III.
+Blasenabtragung durchgeführt. Wundversorgung mit Suprathel / Mepitel, steriler Verband. Tetanusschutz aktuell / aufgefrischt.
 
-Proc: Ambulante Weiterbehandlung. Erster Verbandswechsel in unserer Sprechstunde in 3 Tagen. Verband bitte trocken und sauber halten. Analgesie: Ibuprofen 600mg 1-1-1. Wiedervorstellung sofort bei Fieber oder zunehmenden Schmerzen.`},
+Proc: Erster Verbandswechsel NUR durch uns in der Sprechstunde in 3 Tagen. Verband bitte sauber und trocken halten. Analgesie: Ibuprofen 600mg 1-1-1. Wiedervorstellung sofort bei Fieber über 38°C oder starker Zunahme der Schmerzen.`},
 
 {g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Verlagerungsbrief an andere Klinik',
 txt:`Sehr geehrte Kolleginnen und Kollegen,
 
-wir berichten über die oben genannte Patientin / den oben genannten Patienten, welche / welcher in unserer Notaufnahme notfallmäßig vorstellig wurde. In der Primärdiagnostik wurde folgende Verletzung festgestellt: Distale Radiusfraktur mit erheblicher Dislokation.
+wir berichten über die oben genannte Patientin / den oben genannten Patienten, welche / welcher in unserer Notaufnahme vorstellig wurde. In der Primärdiagnostik zeigte sich eine distale Radiusfraktur mit erheblicher Dislokation, für die eine operative Versorgung indiziert ist.
 
-Aufgrund fehlender operativer Kapazität in unserem Hause sehen wir uns leider gezwungen, die Patientin / den Patienten zur weiteren operativen Versorgung an Ihr Haus zu verlegen. Eine Erstversorgung mit dorsaler Unterarmgipsschiene, Analgesie und Thromboseprophylaxe wurde durch uns durchgeführt. Aktuelle Bildgebung und Laborwerte wurden mitgegeben.
+Aufgrund fehlender operativer Kapazität in unserem Hause bitten wir herzlich um Übernahme zur weiteren operativen Versorgung. Eine Erstversorgung mit dorsaler Unterarmgipsschiene, Analgesie und Thromboseprophylaxe wurde durch uns durchgeführt. Aktuelle Bildgebung und Laborbefunde wurden mitgegeben.
 
-Wir bedanken uns herzlich für die rasche und unkomplizierte Übernahme und verbleiben mit freundlichen kollegialen Grüßen.
+Wir danken herzlich für die rasche und unkomplizierte Übernahme und verbleiben mit freundlichen kollegialen Grüßen.
 
 Dr. med. Luis Perez, Sana Klinikum Hof, Plastische und Unfallchirurgie`},
 
 {g:'CU · Notaufnahme – Häufige Fälle', dep:'cu', lbl:'Übernahmebrief von externer Klinik',
 txt:`Sehr geehrte Kolleginnen und Kollegen,
 
-wir bedanken uns herzlich für die freundliche Zuweisung und die rasche und unkomplizierte Überweisung. Die Patientin / der Patient wurde in unserer Klinik aufgenommen und wird zur geplanten operativen Versorgung vorbereitet.
+wir bedanken uns herzlich für die freundliche Zuweisung und die rasche unkomplizierte Überweisung. Die Patientin / der Patient wurde in unserer Klinik aufgenommen und wird zur geplanten operativen Versorgung vorbereitet.
 
 Diagnose: Distale Radiusfraktur mit Dislokation.
 Erstversorgung extern: Dorsale Unterarmgipsschiene, Analgesie, Thromboseprophylaxe.
@@ -478,108 +525,138 @@ Dr. med. Luis Perez, Sana Klinikum Hof`},
 // ══════════════════════════════════════════════════════════════════
 
 {g:'CU · Station – Briefe', dep:'cu', lbl:'Stationäre Aufnahme – Einleitung',
-txt:`Die Patientin / der Patient stellte sich notfallmäßig in unserer Notaufnahme vor. In der initialen Diagnostik zeigte sich eine distale Radiusfraktur mit Dislokation. Bei bestehender Operationsindikation nahmen wir die Patientin / den Patienten zur operativen Versorgung und weiteren Behandlung stationär auf.`},
+txt:`Die Patientin / der Patient stellte sich notfallmäßig in unserer Notaufnahme vor. In der initialen Diagnostik zeigte sich eine distale Radiusfraktur mit Dislokation. Bei gegebener Operationsindikation nahmen wir die Patientin / den Patienten zur operativen Versorgung stationär auf.`},
 
 {g:'CU · Station – Briefe', dep:'cu', lbl:'Operativer Verlauf – komplikationslos',
-txt:`Nach unauffälliger präoperativer Vorbereitung und Aufklärung führten wir den o.g. Eingriff durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam intentionem. Die postoperative röntgenologische Kontrolle zeigte eine regelrechte Reposition der Frakturfragmente bei korrekter Lage des Osteosynthesematerials.`},
+txt:`Nach unauffälliger präoperativer Vorbereitung und Aufklärung führten wir den o.g. Eingriff durch. Der intra- und postoperative Verlauf gestaltete sich komplikationslos. Die Wundheilung verlief per primam intentionem. Die postoperative röntgenologische Kontrolle zeigte eine regelrechte Reposition bei korrekter Materiallage.`},
 
 {g:'CU · Station – Briefe', dep:'cu', lbl:'Mobilisation und Physiotherapie',
 txt:`Unter Anleitung der Physiotherapeuten erfolgte die Mobilisation. Die Patientin / der Patient wurde unter Entlastung mittels Unterarmgehstützen auf Stationsebene mobilisiert. Schmerztherapie p.o. sowie Thromboembolieprophylaxe wurden verabreicht.`},
 
 {g:'CU · Station – Briefe', dep:'cu', lbl:'Entlassung – Standard',
-txt:`Wir entließen die Patientin / den Patienten bei subjektivem Wohlbefinden und reizlosen Wundverhältnissen in die weitere ambulante Nachsorge. Fadenentfernung bitte am 10.–12. postoperativen Tag. Röntgenkontrolle und Mobilisationsfreigabe in unserer Sprechstunde in 6 Wochen. Medikamentenliste wurde mitgegeben. Bei Besonderheiten bitten wir jederzeit um Rücksprache.`},
+txt:`Wir entließen die Patientin / den Patienten bei subjektivem Wohlbefinden und reizlosen Wundverhältnissen in die weitere ambulante Nachsorge. Fadenentfernung bitte am 10.–12. postoperativen Tag. Röntgenkontrolle und Mobilisationsfreigabe in 6 Wochen im Sana Gesundheitszentrum, Kreuzsteinstraße 30, Hof. Medikamentenliste wurde mitgegeben. Bei Besonderheiten jederzeit Wiedervorstellung möglich.`},
 
 {g:'CU · Station – Briefe', dep:'cu', lbl:'Entlassungsmedikation – Standard',
 txt:`Entlassungsmedikation:
 Ibuprofen 600mg 1-1-1 p.o. zum Essen bei Bedarf für 7 Tage.
 Pantoprazol 40mg 1-0-0 p.o. für 7 Tage.
-Clexane 0,4ml s.c. 1×tägl. bis Vollmobilisation.
-Weitere Dauermedikation wie vor Aufnahme.`},
+Clexane 0,4ml s.c. 1× tägl. bis Vollmobilisation.
+Weitere Dauermedikation wie vor Aufnahme fortführen.`},
 
 
 // ══════════════════════════════════════════════════════════════════
-//  CU · BEFUNDE cranio-caudal  (klinisch ausgefüllt, kein ___)
+//  CU · BEFUNDE  (klinisch preformuliert, keine Zahlen NNM)
 // ══════════════════════════════════════════════════════════════════
 
 {g:'CU · Befund cranio-caudal', dep:'cu', ml:true, lbl:'⚖ Medicolegal – Kinder / NAI',
 txt:`Kinder: Alter, Gewicht, Impfstatus und Begleitung dokumentieren. NAI aktiv ausschließen — Verletzungsmuster mit Unfallmechanismus abgleichen. NICE/PECARN-Kriterien für CT-Indikation dokumentieren.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lbl:'SHT Kind – unauffällig',
-txt:`Waches, kooperatives Kind in gutem Allgemeinzustand, altersentsprechend ansprechbar. GCS 15. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Liquor, kein Blut aus Nase oder Ohren. Keine Bewusstlosigkeit, keine Amnesie. Keine Kopfschmerzen, kein Erbrechen. Kleines Hämatom frontal rechts. HWS freibeweglich, kein Druckschmerz. CCT nicht indiziert, PECARN-Kriterien negativ. Keine Hinweise auf nicht-akzidentelle Verletzung. Tetanusschutz aktuell.`},
+txt:`Waches, kooperatives Kind in gutem Allgemeinzustand, altersentsprechend ansprechbar. GCS 15. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Liquor, kein Blut aus Nase oder Ohren. Keine Bewusstlosigkeit, keine Amnesie. Keine Kopfschmerzen, kein Erbrechen. Kleines Hämatom frontal. HWS freibeweglich, kein Druckschmerz. PECARN-Kriterien negativ. Keine Hinweise auf nicht-akzidentelle Verletzung. Tetanusschutz aktuell.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lbl:'SHT I° Erwachsener',
 txt:`Wacher, orientierter Patient in gutem Allgemeinzustand. GCS 15. Keine Bewusstlosigkeit, keine Amnesie. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Liquor, kein Blut. Keine Kopfschmerzen, kein Erbrechen. Kleines Hämatom frontoparietal. HWS freibeweglich. Keine fokal-neurologischen Ausfälle. Tetanusschutz aktuell.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Sturz Älterer – vollständig',
-txt:`Wache, orientierte Patientin / wacher, orientierter Patient in reduziertem Allgemeinzustand. GCS 15. Antikoagulation mit Marcumar, zuletzt gestern. Hämatom frontal links. Kein Krepitus, keine Stufenbildung. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Liquor. HWS: Klopfschmerz C5. Kein Querschnitt. Thorax, Abdomen und Becken klinisch unauffällig. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.`},
+txt:`Wache, orientierte Patientin in reduziertem Allgemeinzustand. GCS 15. Antikoagulation mit Marcumar. Hämatom frontal links. Kein Krepitus, keine Stufenbildung. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Liquor. HWS: Klopfschmerz C5 paravertebral. Kein Querschnitt. Thorax, Abdomen und Becken klinisch unauffällig. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lbl:'HWS – vollständig',
-txt:`HWS: Flexion/Extension 40/0/50°, Rotation rechts/links 60°/60°, Lateralflexion rechts/links 30°/30°. Kein Klopfschmerz C1–C7. Kein paravertebraler Druckschmerz. Kein Hartspann. Kein Lhermitte. Keine Ausstrahlung. Sensibilität C5–C8 intakt beidseits. Muskeleigenreflexe seitengleich auslösbar. Ottawa-C-Spine-Rule negativ.`},
+txt:`HWS: Flexion und Extension endgradig schmerzhaft eingeschränkt. Rotation beidseits endgradig eingeschränkt. Lateralflexion frei. Kein Klopfschmerz C1–C7. Kein paravertebraler Druckschmerz. Kein Hartspann. Kein Lhermitte. Keine Ausstrahlung. Sensibilität C5–C8 intakt beidseits. Muskeleigenreflexe seitengleich auslösbar. Ottawa-C-Spine-Rule negativ.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'HWS-Distorsion – Auffahrunfall (QTF)',
-txt:`Auffahrunfall als Fahrer. Gurt angelegt. Airbag ausgelöst. GCS 15, keine Bewusstlosigkeit, keine Amnesie. HWS schmerzhaft eingeschränkt, kein Midline-Druckschmerz, Ottawa-Rule negativ, keine Neurologie. Schulter, Thorax, WS, Becken und Extremitäten klinisch unauffällig. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits. Röntgen HWS in 3 Ebenen: Kein Frakturnachweis.`},
+{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'HWS-Distorsion – Auffahrunfall',
+txt:`Auffahrunfall als Fahrer. Gurt angelegt. Airbag ausgelöst. GCS 15, keine Bewusstlosigkeit, keine Amnesie. HWS schmerzhaft eingeschränkt, kein Midline-Druckschmerz, Ottawa-Rule negativ, keine Neurologie. Schulter, Thorax, WS, Becken und Extremitäten klinisch unauffällig. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Schulter',
-txt:`Schulter rechts / links: Keine Stufenbildung ACG oder SCG. Druckschmerz ACG gering. Kein Druckschmerz Klavikula, kein Druckschmerz Humeruskopf. Beweglichkeit: Anteversion/Retroversion 160/0/40°, Abduktion 160°, Innenrotation/Außenrotation 70/0/60°. Jobe negativ. Neer negativ. Hawkins negativ. Drop-Arm negativ. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
+txt:`Schulter rechts / links: Keine Stufenbildung ACG oder SCG. Kein Druckschmerz ACG, kein Druckschmerz Klavikula, kein Druckschmerz Humeruskopf. Beweglichkeit in allen Ebenen schmerzhaft eingeschränkt. Jobe negativ. Neer negativ. Hawkins negativ. Drop-Arm negativ. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Ellenbogen',
-txt:`Ellenbogen rechts / links: Geringe Schwellung lateral. Druckschmerz über dem Radiusköpfchen. Kein Druckschmerz Epikondylus lateralis, kein Druckschmerz Olecranon. Beweglichkeit: Extension/Flexion 0/0/130°, Pronation/Supination 80/0/80°. Bandstabilität regelrecht. Kein tastbarer Erguss. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
+txt:`Ellenbogen rechts / links: Geringe Schwellung lateral. Druckschmerz über dem Radiusköpfchen. Kein Druckschmerz Epikondylus medialis, kein Druckschmerz Olecranon. Beweglichkeit schmerzhaft eingeschränkt, Extension und Supination besonders betroffen. Bandstabilität regelrecht. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Handgelenk',
-txt:`Handgelenk rechts / links: Schwellung dorsalradial. Druckschmerz dorsalradial und über dem Processus styloideus radii. Tabatière: kein Druckschmerz. SL-Spalt: kein Druckschmerz. Beweglichkeit: Dorsalflexion/Palmarflexion 50/0/50°, Radial/Ulnarduktion 20/0/30°, Pronation/Supination 80/0/80°. DRUJ stabil. Watson negativ. Griffstärke seitengleich. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
+txt:`Handgelenk rechts / links: Schwellung dorsalradial. Druckschmerz über dem Processus styloideus radii. Tabatière: kein Druckschmerz. SL-Spalt: kein Druckschmerz. Beweglichkeit schmerzhaft eingeschränkt. DRUJ stabil. Watson negativ. Griffstärke seitengleich. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Skaphoid-Verdacht',
-txt:`Handgelenk rechts / links: Druckschmerz Tabatière positiv. Druckschmerz Tuberculum scaphoideum positiv. Druckschmerz SL-Spalt gering. Faustschluss eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt. Röntgen Handgelenk: Kein Frakturnachweis.
+txt:`Handgelenk rechts / links: Druckschmerz Tabatière positiv. Druckschmerz Tuberculum scaphoideum positiv. SL-Spalt: kein Druckschmerz. Faustschluss eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt.
+Röntgen Handgelenk rechts / links: Kein Frakturnachweis.
 Cave: Negativer Röntgenbefund schließt eine Skaphoidfraktur nicht aus — MRT oder CT indiziert.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Hand – Kurzstatus',
-txt:`Hand rechts / links: Schwellung dorsal D2/D3. Kein Hämatom. Keine Wunden. Keine Fehlstellung. Extension/Flexion vollständig. Faustschluss vollständig möglich. Kein Rotationsfehler der Finger. Kein Druckschmerz Tabatière. Kein Druckschmerz SL-Spalt. Beugen und Strecken aller Finger gegen Kraft möglich. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.`},
+txt:`Hand rechts / links: Schwellung dorsal D2/D3. Kein Hämatom. Keine Wunden. Keine Fehlstellung. Faustschluss vollständig möglich. Kein Rotationsfehler der Finger. Kein Druckschmerz Tabatière. Kein Druckschmerz SL-Spalt. Beugen und Strecken aller Finger gegen Kraft möglich. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Finger – einzeln',
-txt:`Finger D2 rechts / links: Schwellung Grundglied. Druckschmerz Grundglied. Keine Achsabweichung, kein Rotationsfehler. FDP intakt, Beugen gegen Widerstand möglich. Strecksehne intakt. Seitenbandzug stabil medial und lateral. 2-Punktdiskriminierung 5mm beidseits. Kapillarperfusion unter 2 Sekunden. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
+txt:`D2 rechts / links: Schwellung Grundglied. Druckschmerz Grundglied. Keine Achsabweichung, kein Rotationsfehler. FDP intakt, Beugen gegen Widerstand möglich. FDS intakt. Strecksehne intakt. Seitenbandzug stabil medial und lateral. 2-Punktdiskriminierung regelrecht beidseits. Kapillarperfusion regelrecht. Periphere Durchblutung, Motorik und Sensibilität intakt.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Thorax',
-txt:`Thorax: Symmetrische Atemexkursion, kein Paradoxatmen. Druckschmerz Rippe 5/6 lateral links. Auskultation: Vesikuläratmen beidseits. SpO2 97%. Röntgen Thorax: Kein Pneumothorax, kein Hämatothorax. Rippenfraktur Rippe 5/6 links.`},
-
-{g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Rippenserienfraktur + Therapie',
-txt:`Druckschmerz Rippen 4 bis 7 lateral rechts. Schmerzhafte Atemexkursion, SpO2 95% unter Raumluft. CT-Thorax: Serienfraktur Rippen 4–7 rechts, kein Pneumothorax, kein relevanter Pleuraerguss. Sono-FAST: keine freie Flüssigkeit.
-Stationäre Aufnahme. Schonung, Triflow, Atemgymnastik. Novalgin 1g i.v. 3×tägl. Oxygesic akut bei Bedarf. Heparin täglich. Thoraxchirurgisches Konsil angefordert.`},
+txt:`Thorax: Symmetrische Atemexkursion, kein Paradoxatmen. Druckschmerz Rippe 5/6 lateral links. Auskultation: Vesikuläratmen beidseits. SpO2 97%. Röntgen Thorax: Kein Pneumothorax, kein Hämatothorax.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lbl:'BWS / LWS – systematisch',
 txt:`BWS: Regelrechte Kyphose. Klopfschmerz BWK 6 paravertebral rechts. Keine Stufenbildung.
-LWS: Klopfschmerz LWK 4/5 paravertebral beidseits. Starker Hartspann. Schober 10/15cm. Lasègue beidseits negativ.
-Kraft: Kniestrecker 5/5 beidseits. Kniebeuger 5/5 beidseits. Fußheber 5/5 beidseits. Fußsenker 5/5 beidseits. Zehenheber 5/5 beidseits.
-Sensibilität: Intakt beidseits. ASR und PSR seitengleich auslösbar. Keine Blasen- oder Mastdarmstörung. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.`},
+LWS: Klopfschmerz LWK 4/5 paravertebral beidseits. Starker Hartspann. Lasègue beidseits negativ.
+Kraft: Kniestrecker, Kniebeuger, Fußheber, Fußsenker, Zehenheber 5/5 beidseits.
+Sensibilität intakt beidseits. ASR und PSR seitengleich auslösbar. Keine Blasen- oder Mastdarmstörung. Periphere Durchblutung, Motorik und Sensibilität intakt beidseits.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lbl:'Becken',
 txt:`Becken: Kompression horizontal und vertikal schmerzfrei. Kein Krepitation. Symphyse regelrecht, kein Druckschmerz. Periphere Durchblutung, Motorik und Sensibilität beider unterer Extremitäten intakt. Röntgen Becken ap: Kein Frakturnachweis.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Hüfte',
-txt:`Hüfte rechts / links: Bein physiologisch gelagert, keine Verkürzung, keine Außenrotation. Kein Druckschmerz Trochanter major. Kein Druckschmerz Leiste. Beweglichkeit: Flexion/Extension 90/0/10°, Innenrotation/Außenrotation 30/0/40°. Kein Stauchungsschmerz der Achse. Periphere Durchblutung, Motorik und Sensibilität intakt. Röntgen Hüfte axial + Becken ap: Kein Frakturnachweis.`},
+txt:`Hüfte rechts / links: Bein physiologisch gelagert, keine Verkürzung, keine Außenrotation. Kein Druckschmerz Trochanter major. Kein Druckschmerz Leiste. Beweglichkeit schmerzhaft eingeschränkt. Kein Stauchungsschmerz der Achse. Periphere Durchblutung, Motorik und Sensibilität intakt. Röntgen Hüfte axial + Becken ap rechts / links: Kein Frakturnachweis.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Knie',
-txt:`Knie rechts / links: Geringe Schwellung. Kein Hämatom. Druckschmerz medialer Gelenkspalt. Ballottement negativ. Lachman negativ. Schublade anterior negativ, posterior negativ. Valgusstress negativ. Varusstress negativ. McMurray negativ. Beweglichkeit: Extension/Flexion 0/0/130°. Periphere Durchblutung, Motorik und Sensibilität intakt. Kraft 5/5. Röntgen Knie rechts / links in 3 Ebenen: Kein Frakturnachweis.`},
+txt:`Knie rechts / links: Geringe Schwellung. Kein Hämatom. Druckschmerz medialer Gelenkspalt. Ballottement negativ. Lachman negativ. Schublade anterior und posterior negativ. Valgusstress negativ. Varusstress negativ. McMurray negativ. Beweglichkeit schmerzhaft endgradig eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt. Kraft 5/5. Röntgen Knie rechts / links in 3 Ebenen: Kein Frakturnachweis.`},
 
-{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'OSG – Distorsion lateral',
-txt:`OSG rechts / links: Schwellung und Hämatomverfärbung lateral. Druckschmerz Lig. fibulotalare anterius positiv. Druckschmerz Lig. calcaneofibulare gering. Kein Druckschmerz Basis Metatarsale V. Kein Druckschmerz Malleolus medialis. Kein Druckschmerz proximale Fibula. Ottawa-Ankle-Rule negativ. Gehfähig. Vordere Schublade negativ. Periphere Durchblutung, Motorik und Sensibilität intakt. Röntgen OSG in 2 Ebenen: Kein Frakturnachweis.`},
+{g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'OSG',
+txt:`OSG rechts / links: Schwellung und Hämatomverfärbung lateral. Druckschmerz Lig. fibulotalare anterius positiv. Druckschmerz Lig. calcaneofibulare gering. Kein Druckschmerz Basis Metatarsale V. Kein Druckschmerz Malleolus medialis. Kein Druckschmerz proximale Fibula. Ottawa-Ankle-Rule negativ. Gehfähig. Vordere Schublade negativ. Periphere Durchblutung, Motorik und Sensibilität intakt. Röntgen OSG in 2 Ebenen rechts / links: Kein Frakturnachweis.`},
 
 {g:'CU · Befund cranio-caudal', dep:'cu', lr:true, lbl:'Zeh – Fraktur / Prellung',
 txt:`Zeh D2 rechts / links: Schwellung und Hämatomverfärbung. Druckschmerz Grundglied. Kein Rotationsfehler. Periphere Durchblutung, Motorik und Sensibilität intakt. Röntgen: Schaftfraktur Grundglied D2 ohne relevante Dislokation.`},
 
-{g:'CU · Schockraum', dep:'cu', ml:true, lbl:'⚖ Medicolegal – ABCDE / Polytrauma',
+{g:'CU · Schockraum', dep:'cu', ml:true, lbl:'⚖ Medicolegal – Polytrauma ABCDE',
 txt:`Polytrauma: Alle Körperregionen dokumentieren — positive UND explizit negative Befunde. Fehlende Dokumentation gilt juristisch als fehlende Untersuchung. Tetanusschutz immer prüfen.`},
 
 {g:'CU · Schockraum', dep:'cu', lbl:'ABCDE Schema – vollständig',
-txt:`A – AIRWAY: Atemweg frei. GCS 15: E4V5M6. Stiffneck präklinisch angelegt.
-B – BREATHING: Symmetrische Atemexkursion. Auskultation beidseits Vesikuläratmen. SpO2 98%.
-C – CIRCULATION: Keine Antikoagulation. Keine äußere Blutungsquelle. Rekapillarisierung: Hand rechts unter 3s, links unter 3s, Fuß rechts unter 3s, links unter 3s. RR 130/80, HF 88/min. FAST: keine freie Flüssigkeit.
-D – DISABILITY: Pupillen isokor, mittelweit, Lichtreaktion prompt beidseits. GCS 15.
-E – EXPOSURE: Komplett entkleidet, Bair Hugger angelegt.
-BODYCHECK: Kopf/HWS unauffällig | Thorax unauffällig | Abdomen weich, kein DS | Becken stabil | WS kein Klopfschmerz | OE beidseits unauffällig | UE beidseits unauffällig.
-Kreislaufstabil, GCS 15, Pupillen isokor, prompte Lichtreaktion beidseits, kein Meningismus, Achsenskelett klinisch unauffällig.`},
+txt:`A – AIRWAY:
+Atemweg: frei / verlegt → ___
+GCS: E___V___M___ = ___
+Stiffneck: Ja / Nein
 
-{g:'CU · Schockraum', dep:'cu', lbl:'FAST-Sonographie – unauffällig',
-txt:`FAST-Sonographie: Kein Nachweis eines Perikardergusses. Kein Nachweis freier Flüssigkeit perihepatisch (Morison-Pouch). Kein Nachweis freier Flüssigkeit perilienal (Koller-Pouch). Kein Nachweis freier Flüssigkeit im kleinen Becken (Douglas-Raum). Kein Hinweis auf frische innere Organverletzung.`},
+B – BREATHING:
+Thorax: symmetrisch / Paradoxatmen → ___
+Auskultation: Vesikuläratmen bds. / Abschwächung → ___
+SpO2: ___%  |  Röntgen: Pneu Ja/Nein | Hämatothorax Ja/Nein
+
+C – CIRCULATION:
+Antikoagulation: keine / ___
+Äußere Blutung: keine / ___
+Rekapillarisierung: re Hand <2s ✓ | li Hand <2s ✓ | re Fuß <2s ✓ | li Fuß <2s ✓
+RR: ___ | HF: ___/min | SpO2: ___%
+FAST: keine freie Fl. / Befund → ___
+
+D – DISABILITY:
+Pupillen: isokor / Anisokorie → ___
+Lichtreaktion: prompt / träge / aufgehoben → ___
+GCS: E___V___M___ = ___
+
+E – EXPOSURE:
+Entkleidet: Ja/Nein | Bair Hugger: Ja/Nein
+
+BODYCHECK:
+Kopf/HWS: unauffällig / → ___
+Thorax: unauffällig / → ___
+Abdomen: weich, kein DS / → ___
+Becken: stabil / → ___
+WS: kein KS / → ___
+OE bds.: unauffällig / → ___
+UE bds.: unauffällig / → ___
+
+Kreislaufstabil, GCS 15, Pupillen isokor, prompte Lichtreaktion bds., kein Meningismus, Achsenskelett klinisch unauffällig.`},
+
+{g:'CU · Schockraum', dep:'cu', lbl:'FAST-Sonographie',
+txt:`FAST-Sonographie:
+Perikarderguss: kein Nachweis.
+Perihepatisch (Morison-Pouch): kein Nachweis.
+Perilienal (Koller-Pouch): kein Nachweis.
+Kleines Becken (Douglas-Raum): kein Nachweis.
+Kein Hinweis auf frische innere Organverletzung.`},
 
 
 // ══════════════════════════════════════════════════════════════════
@@ -591,8 +668,8 @@ txt:`... sich am heutigen Tag in unserer ambulanten Sprechstunde befand.
 
 Nach den üblichen präoperativen Vorbereitungen und Aufklärung über Risiken und Ausmaß der Behandlung, führten wir heute in komplikationsloser Larynxmaskenanästhesie / Fingerleitungsanästhesie / Lokalanästhesie o.g. Eingriff durch. Durchblutung, Motorik und Sensibilität wurden postoperativ kontrolliert und waren regelrecht. Wir konnten die Patientin / den Patienten am gleichen Tag bei stabilen Wundverhältnissen in die ambulante Behandlung entlassen.`},
 
-{g:'CP · Ambulante Briefe (Sprechstunde)', dep:'cp', lbl:'WV-Termin Sana Hof + Unterschrift',
-txt:`Ihr freundliches Einverständnis voraussetzend, haben wir mit der Patientin / dem Patienten einen Wiedervorstellungstermin vereinbart. Sana Klinikum Hof, Sprechstunde Plastische Chirurgie / Unfallchirurgie, Ebene -1, gegenüber IVZ. Tel: 09281/982530.
+{g:'CP · Ambulante Briefe (Sprechstunde)', dep:'cp', lbl:'WV-Termin + Unterschrift',
+txt:`Ihr freundliches Einverständnis voraussetzend, haben wir mit der Patientin / dem Patienten einen Wiedervorstellungstermin vereinbart. Sana Klinikum Hof, Sprechstunde Plastische Chirurgie, Ebene -1, gegenüber IVZ. Tel: 09281/982530.
 Für Rückfragen stehen wir Ihnen jederzeit zur Verfügung.
 
 Mit freundlichen kollegialen Grüßen,
@@ -607,23 +684,23 @@ Die Patientin / der Patient befand sich am heutigen Tag in unserer ambulanten op
 
 Offene chirurgische Dekompression des N. medianus nach McKinnon in komplikationsloser Larynxmaskenanästhesie. Intraoperativ N. medianus gefäßinjiziert als Zeichen der chronischen Kompression. Nerv nach vollständiger Spaltung des Retinaculum flexorum völlig frei. Durchblutung, Motorik und Sensibilität postoperativ regelrecht. Entlassung am gleichen Tag.
 
-Proc: Fäden ex am 14. postoperativen Tag. Handgelenkschiene für 2 Wochen. Frühfunktionelle Beübung ohne Belastung für 3 Wochen. Dann Belastungsaufbau. Narbenpflege: Bepanthen intensiv einmassieren 3× tägl. für 2 Monate. Neurophysiologische Kontrolle in 2 Monaten. Wiedervorstellung in unserer Sprechstunde in 2 Wochen. Tel: 09281/982530.`},
+Proc: Fäden ex am 14. postoperativen Tag. Handgelenkschiene für 2 Wochen. Frühfunktionelle Beübung ohne Belastung für 3 Wochen, dann Belastungsaufbau. Narbenpflege: Bepanthen intensiv 3× tägl. für 2 Monate. Neurophysiologische Kontrolle in 2 Monaten. Wiedervorstellung in 2 Wochen. Tel: 09281/982530.`},
 
 {g:'CP · Ambulante Briefe (Sprechstunde)', dep:'cp', lr:true, lbl:'Dupuytren – ambulant',
-txt:`Dupuytren'sche Kontraktur D4/D5 rechts / links mit Beugekontraktur MCP- und PIP-Gelenk.
+txt:`Dupuytren'sche Kontraktur D4/D5 rechts / links.
 
 Die Patientin / der Patient befand sich am heutigen Tag in unserer ambulanten operativen Therapie.
 
-Fasziektomie mit Y-V-Plastik nach Dellon in komplikationsloser Larynxmaskenanästhesie. Intraoperativ vollständige Strangentfernung. Fingergelenke D4 und D5 passiv vollständig streckbar nach Strangexzision. Interdigitale Gefäß-Nervenbündel dargestellt und geschont. Entlassung am gleichen Tag.
+Fasziektomie mit Y-V-Plastik nach Dellon in komplikationsloser Larynxmaskenanästhesie. Vollständige Strangentfernung. Finger D4 und D5 passiv vollständig streckbar. Interdigitale Gefäß-Nervenbündel dargestellt und geschont. Entlassung am gleichen Tag.
 
-Proc: Arm hochlagern für 48h. Gipsschiene für 7 Tage. Extensionshandschuh FixxGlove Classic D3–D5 dorsal für 5 Wochen nachts. Fäden ex 14. Tag. Frühfunktionelle Beübung ab Woche 2. Narbenpflege: Bepanthen 3× tägl. 2 Monate. Wiedervorstellung in unserer Sprechstunde. Tel: 09281/982530.`},
+Proc: Arm hochlagern für 48h. Gipsschiene für 7 Tage. Extensionshandschuh FixxGlove Classic D3–D5 dorsal für 5 Wochen nachts. Fäden ex 14. Tag. Frühfunktionelle Beübung ab Woche 2. Narbenpflege: Bepanthen 3× tägl. 2 Monate. Wiedervorstellung. Tel: 09281/982530.`},
 
 {g:'CP · Ambulante Briefe (Sprechstunde)', dep:'cp', lr:true, lbl:'Ringbandspaltung A1 / Tendovaginitis',
 txt:`Tendovaginitis stenosans D3 rechts / links. Digitus saltans.
 
 Die Patientin / der Patient befand sich am heutigen Tag in unserer ambulanten operativen Therapie.
 
-Ringbandspaltung A1 in Infiltrationsanästhesie. Intraoperativ nach Spaltung des A1-Ringbandes: Finger vollständig und gleitend streckbar ohne Schnappen. Komplikationsloser Verlauf. Entlassung am gleichen Tag.
+Ringbandspaltung A1 in Infiltrationsanästhesie. Nach Spaltung: Finger vollständig und gleitend streckbar ohne Schnappen. Komplikationsloser Verlauf. Entlassung am gleichen Tag.
 
 Proc: Ab sofort frühfunktionelle Beübung ohne Belastung für 3 Wochen. Fäden ex 14. Tag. Narbenpflege: Bepanthen 3× tägl. Wiedervorstellung bei Beschwerden. Tel: 09281/982530.`},
 
@@ -632,7 +709,7 @@ txt:`Tendovaginitis stenosans de Quervain rechts / links.
 
 Die Patientin / der Patient befand sich am heutigen Tag in unserer ambulanten operativen Therapie.
 
-Spaltung des 1. Strecksehnenfachs mit Tenolyse und Synovialektomie in Lokalanästhesie. Intraoperativ nach Spaltung regelrechtes Gleiten der Sehnen von M. abductor pollicis longus und M. extensor pollicis brevis. Komplikationsloser Verlauf. Entlassung am gleichen Tag.
+Spaltung des 1. Strecksehnenfachs mit Tenolyse und Synovialektomie in Lokalanästhesie. Regelrechtes Gleiten der Sehnen von M. abductor pollicis longus und M. extensor pollicis brevis nach Spaltung. Komplikationsloser Verlauf. Entlassung am gleichen Tag.
 
 Proc: Daumenschiene für 1 Woche. Frühfunktionelle Beübung ohne Belastung für 2 Wochen. Nahtmaterial resorbierbar. Narbenpflege: Bepanthen 3× tägl. Wiedervorstellung bei Beschwerden. Tel: 09281/982530.`},
 
@@ -650,48 +727,47 @@ txt:`Nach den üblichen präoperativen Vorbereitungen und Aufklärung über Risi
 {g:'CP · Stationäre Briefe', dep:'cp', lr:true, lbl:'Flexorensehne – stationär, Kleinert',
 txt:`Durchtrennung der tiefen Beugesehne D2 Zone II rechts / links.
 
-Die Patientin / der Patient wurde nach Schnittverletzung notfallmäßig aufgenommen. Anamnestisch Schnittverletzung mit Glasscherbe, sofortige Aufhebung des Faustschlusses für D2. Stationäre Aufnahme zur operativen Versorgung.
+Die Patientin / der Patient wurde nach Schnittverletzung notfallmäßig aufgenommen. Schnittverletzung mit Glasscherbe, sofortige Aufhebung des Faustschlusses für D2. Stationäre Aufnahme zur operativen Versorgung.
 
-Sehnennaht nach Adelaide/Zechner mit adaptierender Überwendlungsnaht 5-0 PDS in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Ampicillin/Sulbactam 2g/1g i.v. perioperativ. Intraoperativ FDP vollständig durchtrennt, Stumpf in Hohlhand, mit Mosquito-Klemme hervorgeholt. Stabiles Nahtergebnis. Durchblutung, Motorik und Sensibilität postoperativ regelrecht. Entlassung am Folgetag.
+Sehnennaht nach Adelaide/Zechner mit adaptierender Überwendlungsnaht 5-0 PDS in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Ampicillin/Sulbactam 2g/1g i.v. FDP vollständig durchtrennt, Stumpf in Hohlhand, mit Mosquito-Klemme hervorgeholt. Stabiles Nahtergebnis. Durchblutung, Motorik und Sensibilität postoperativ regelrecht. Entlassung am Folgetag.
 
-Proc: Kleinert-Schiene bis Erhalt der angepassten Schiene über das Sanitätshaus (Rezept mitgegeben). Kleinert-Schema für 6 Wochen. Aktive Beübung ohne Belastung weitere 4 Wochen. Belastungsaufbau ab Woche 10–12. Fäden ex 14. Tag. Narbenpflege: Bepanthen 3× tägl. 2 Monate. Wiedervorstellung in 2 Wochen. Tel: 09281/982530.`},
+Proc: Kleinert-Schiene bis Erhalt der angepassten Schiene über Sanitätshaus (Rezept mitgegeben). Kleinert-Schema für 6 Wochen. Aktive Beübung ohne Belastung weitere 4 Wochen. Belastungsaufbau ab Woche 10–12. Fäden ex 14. Tag. Narbenpflege: Bepanthen 3× tägl. 2 Monate. Wiedervorstellung in 2 Wochen. Tel: 09281/982530.`},
 
 {g:'CP · Stationäre Briefe', dep:'cp', lr:true, lbl:'Extensorensehne – stationär, Reverse Kleinert',
 txt:`Durchtrennung der Strecksehne D2 Zone IV rechts / links.
 
-Die Patientin / der Patient wurde nach Schnittverletzung notfallmäßig aufgenommen. Anamnestisch Schnittverletzung dorsal Handrücken mit Aufhebung der Streckung D2. Stationäre Aufnahme zur operativen Versorgung.
+Die Patientin / der Patient wurde nach Schnittverletzung notfallmäßig aufgenommen. Stationäre Aufnahme zur operativen Versorgung.
 
-Extensorennaht in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Ampicillin/Sulbactam 2g/1g i.v. perioperativ. Durchblutung, Motorik und Sensibilität postoperativ regelrecht. Postoperativ dorsale Handgelenkschiene angelegt. Entlassung am Folgetag.
+Extensorennaht in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Ampicillin/Sulbactam 2g/1g i.v. Durchblutung, Motorik und Sensibilität postoperativ regelrecht. Dorsale Handgelenkschiene angelegt. Entlassung am Folgetag.
 
 Proc: Gipsschiene bis Erhalt der Reverse-Kleinert-Schiene (Sanitätshaus, Rezept mitgegeben). Reverse-Kleinert-Schema für 6 Wochen. Aktive Beübung ohne Belastung weitere 4 Wochen. Belastungsaufbau ab Woche 10. Fäden ex 14. Tag. Narbenpflege: Bepanthen 3× tägl. Wiedervorstellung in 2 Wochen. Tel: 09281/982530.`},
 
 {g:'CP · Stationäre Briefe', dep:'cp', lr:true, lbl:'Scaphoidfraktur – stationär',
 txt:`Scaphoidfraktur rechts / links, mittleres Drittel, mit geringer Dislokation.
 
-Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand vor. CT-morphologisch gesicherte Scaphoidfraktur mit geringer Dislokation bei fragilem Heilungspotenzial.
+Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte Hand vor. CT-morphologisch gesicherte Scaphoidfraktur mit geringer Dislokation.
 
-Minimalinvasive Schraubenosteosynthese mit Herbertschraube in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Cefuroxim 1,5g i.v. perioperativ. Intraoperative Durchleuchtungskontrolle: korrekte Schraubenlage, regelrechte Reposition. Komplikationsloser stationärer Verlauf. Entlassung am Folgetag.
+Minimalinvasive Schraubenosteosynthese mit Herbertschraube in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Cefuroxim 1,5g i.v. Intraoperative Durchleuchtungskontrolle: korrekte Schraubenlage und regelrechte Reposition. Entlassung am Folgetag.
 
-Proc: Dorsale Handgelenkschiene für 2 Wochen. Dann zirkulärer Scaphoidgips für weitere 3 Wochen. Aktiv-passive Beübung ohne Belastung bis Woche 10. Belastungsaufbau ab Woche 10. Fäden ex 14. Tag. Narbenpflege: Bepanthen 3× tägl. CT-Kontrolle in Woche 12 zum Nachweis Konsolidierung. Wiedervorstellung in 2 Wochen. Tel: 09281/982530.`},
+Proc: Dorsale Handgelenkschiene für 2 Wochen. Dann zirkulärer Scaphoidgips für weitere 3 Wochen. Aktiv-passive Beübung ohne Belastung bis Woche 10. Belastungsaufbau ab Woche 10. Fäden ex 14. Tag. Narbenpflege: Bepanthen 3× tägl. Wiedervorstellung in 2 Wochen. Tel: 09281/982530.`},
 
 {g:'CP · Stationäre Briefe', dep:'cp', lbl:'Freier Lappen – Lappenkontrollen',
-txt:`Freier mikrochirurgischer Lappenplastik zur Defektdeckung. Komplikationsloser mikrochirurgischer Verlauf. Lappentraining ab Tag 7.
+txt:`Freier mikrochirurgischer Lappenplastik zur Defektdeckung. Komplikationsloser Verlauf. Lappentraining ab Tag 7.
 
-Lappenkontrollen:
-Dopplersignal stündlich kontrollieren. Rekapillarisierung: 1.–3. Tag stündlich, dann alle 2h, dann 1×/Schicht. Lappen blau oder kein Dopplersignal → SOFORT Dr. Polykandriotis: 01728121378.
-Antikoagulation: Heparin 17.000 IE/24h, PTT-gesteuert (Ziel 60) für 3 Tage. Ab Tag 4: Clexane 40mg 1-0-1 überlappend, dann Heparin absetzen. Hb über 9,0 halten. Strickte Hochlagerung für 7 Tage. Kein Belastungsaufbau für 4 Wochen. Kompressionsstrumpf 6 Monate nach Abheilung. Meidung Sonnenexposition 6 Monate. Wiedervorstellung nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530.`},
+Lappenkontrollen: Dopplersignal stündlich. Rekapillarisierung: 1.–3. Tag stündlich, dann alle 2h, dann 1×/Schicht. Lappen blau oder kein Doppler → SOFORT Dr. Polykandriotis: 01728121378.
+Heparin 17.000 IE/24h, PTT-gesteuert (Ziel 60) für 3 Tage. Ab Tag 4: Clexane 40mg 1-0-1, Heparin absetzen. Hb über 9,0 halten. Hochlagerung 7 Tage. Kein Belastungsaufbau 4 Wochen. Kompressionsstrumpf 6 Monate. Meidung Sonne 6 Monate. Wiedervorstellung nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530.`},
 
 {g:'CP · Stationäre Briefe', dep:'cp', lbl:'Abdominoplastik + WARP',
-txt:`Dermatolipektomie Bauch mit Weiter Abdominaler Rectus Plicatur (WARP). Operationsindikation: Bauchwandinsuffizienz und Dermatolipektomie nach Gewichtsreduktion.
+txt:`Dermatolipektomie Bauch mit Weiter Abdominaler Rectus Plicatur (WARP).
 
 Abdominoplastik mit WARP in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Clindamycin 600mg i.v. Thromboseprophylaxe: pneumatische intermittierende Beinkompression perioperativ. 2 Redondrainagen eingelegt. Nahtmaterial resorbierbar. Stationäre Überwachung für 2 Tage. Entlassung in gutem Allgemeinzustand.
 
-Proc: Abduschen ab Woche 2, Pflaster nicht aufweichen. Husten und Bauchpresse für 6 Wochen strikt vermeiden. Kompressionskleidung für 6 Wochen Tag und Nacht. Belastung über 5kg ab Woche 8. Fadenenden am 12. Tag kürzen. Narbenpflege: Bepanthen einmassieren 3× tägl. 2 Monate. Wiedervorstellung nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530.`},
+Proc: Abduschen ab Woche 2, Pflaster nicht aufweichen. Husten und Bauchpresse für 6 Wochen vermeiden. Kompressionskleidung für 6 Wochen Tag und Nacht. Belastung über 5kg ab Woche 8. Fadenenden am 12. Tag kürzen. Narbenpflege: Bepanthen 3× tägl. 2 Monate. Wiedervorstellung nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530.`},
 
 {g:'CP · Stationäre Briefe', dep:'cp', lbl:'Mammaimplantat – Dual Plane',
-txt:`Subpektorale Mammaaugmentationsplastik beidseits, Dual Plane nach Tebbets. Operationsindikation: Involutionsatrophie beidseits auf Wunsch der Patientin.
+txt:`Subpektorale Mammaaugmentationsplastik beidseits, Dual Plane nach Tebbets.
 
-Subpektorale Mammaaugmentation beidseits in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Ampicillin/Sulbactam 2g/1g i.v. Implantate: rechts ___cc, links ___cc. Implantatpass wurde ausgehändigt. Stationäre Überwachung über Nacht. Entlassung am Folgetag in gutem Allgemeinzustand.
+Subpektorale Mammaaugmentation beidseits in komplikationsloser Larynxmaskenanästhesie. Antibiotikatherapie: Ampicillin/Sulbactam 2g/1g i.v. Implantate rechts ___cc, links ___cc. Implantatpass ausgehändigt. Entlassung am Folgetag.
 
 Proc: Kompressionskleidung (Sport-BH) für 6 Wochen Tag und Nacht. Kein schweres Heben über 5kg für 6 Wochen. Armbelastung ab Woche 7. Abduschen möglich, Pflaster nicht aufweichen. Fadenenden am 14. Tag kürzen. Wiedervorstellung nach 3 und 6 Wochen, 3 und 6 Monaten.`},
 
@@ -716,14 +792,15 @@ txt:`Narbe ausgeschnitten. Schnitt proximal und distal erweitert. Gefäß-Nerven
 txt:`Inzision mit 10er Messer, 2cm dorsal der SIAS. Präparation bis zum Knochen. Beckenkamm dargestellt. Deckelförmig nach cranial gestielter Kortikalisdeckel mit oszillierender Säge eröffnet. Entnahme ca. 3–4qcm Spongiosa mit scharfem Löffel. Einlage Sulmycin-Schwamm 10×10cm. Einlage 12er Drainage. Schichtweiser Verschluss: 0er Vicryl CT1 Fasziennaht, Monocryl 2-0 subcutan, Hautnaht.`},
 
 {g:'CP · OP-Berichte', dep:'cp', lbl:'Abdominoplastik + WARP – OP-Bericht',
-txt:`Rückenlage. Markierungen mit Methylenblau nachgezogen. Quere Inzision Unterbauchfalte mit 10er Skalpell. Adipocutaner Lappen auf die vordere Rektusfaszie präpariert. Umbilicus mit Stiel zunächst verschont. Präparation bis Rippenbogen und Proc. xiphoideus. WARP (Weite Abdominale Rectus Plicatur) mit 2er Vicryl. Patientin auf 40° aufgesetzt. Neoumbilicus bestimmt, invertiertes V inzidiert. Subkutangewebe mit Metzenbaum-Schere ausgedünnt. Umbilicus mit 2-0 PDS an Bauchwand fixiert. Dermolipektomie. Ausgiebige Spülung. Minutiöse Blutstillung. 2× 14er Redondrainagen. Schichtweiser Verschluss: 2-0 Vicryl, 2-0/3-0/4-0 Monocryl. Steriler Verband. Kompressionsmieder.`},
+txt:`Rückenlage. Markierungen mit Methylenblau nachgezogen. Quere Inzision Unterbauchfalte mit 10er Skalpell. Adipocutaner Lappen auf die vordere Rektusfaszie präpariert. Umbilicus mit Stiel zunächst verschont. Präparation bis Rippenbogen und Proc. xiphoideus. WARP mit 2er Vicryl. Patientin auf 40° aufgesetzt. Neoumbilicus bestimmt, invertiertes V inzidiert. Subkutangewebe mit Metzenbaum-Schere ausgedünnt. Umbilicus mit 2-0 PDS an Bauchwand fixiert. Dermolipektomie. Ausgiebige Spülung. Minutiöse Blutstillung. 2× 14er Redondrainagen. Schichtweiser Verschluss: 2-0 Vicryl, 2-0/3-0/4-0 Monocryl. Steriler Verband. Kompressionsmieder.`},
 
 {g:'CP · OP-Berichte', dep:'cp', lbl:'Mammaimplantat – Dual Plane OP-Bericht',
 txt:`Inzisionen bilateral ca. 4–5cm lateral der Mittellinie. Präparation auf die Pectoralis-Faszie. Dual Plane nach Tebbets: M. pectoralis major auf Höhe der Areola durchtrennt. Submuskuläre Tasche beidseits mit Monopolar gebildet. Sizer: rechts ___cc, links ___cc, zufriedenstellendes Ergebnis. Taschen mit Octenisept gespült, Handschuhwechsel. Keller-Funnel-Einbringung der endgültigen Implantate. Patientin aufgesetzt. Submammarfalte mit 2-0 Monocryl mehrschichtig rekonstruiert. Drainagen eingelegt. Steriler Verband.`},
 
 {g:'CP · OP-Berichte', dep:'cp', lbl:'Arthroskopie HG – Befund + Shaver',
-txt:`Extensionsvorrichtung, Traktion 6kg, Blutleere 320mmHg. Portale 3-4 und 6R. Trokar und Optik im 3-4-Portal. Befund radiokarpal: Fossa scaphoidea und Fossa lunata mit intakter Gelenkfläche. Radialer Recessus: Synovialitis und Gefäßinjektion. SL-Band und Watson-Test: kein Anhalt für SL-Dissoziation. Recessus ulnaris und TFCC: Synovialitis, positiver Trampolineffekt, degenerative Discusläsion. Gelenkfläche Triquetrum intakt.
-Mit Shaver 3,0mm: radikales Debridement aller pathologischen Strukturen. Elektrothermische Synovialektomie und Denervierung. Ausgiebige Spülung. Wundverschluss 5-0 Ethilon. Lipotalon 10mg, Naropin 7,5mg intraartikulär. Steriler Verband. Gipsschiene.`},
+txt:`Extensionsvorrichtung, Traktion 6kg, Blutleere 320mmHg. Portale 3-4 und 6R.
+Befund: Fossa scaphoidea und Fossa lunata mit intakter Gelenkfläche. Radialer Recessus: Synovialitis und Gefäßinjektion. SL-Band und Watson: kein Anhalt für SL-Dissoziation. TFCC und Recessus ulnaris: Synovialitis, positiver Trampolineffekt, degenerative Discusläsion.
+Shaver 3,0mm: radikales Debridement. Elektrothermische Synovialektomie und Denervierung. Ausgiebige Spülung. Wundverschluss 5-0 Ethilon. Lipotalon 10mg, Naropin 7,5mg intraartikulär. Steriler Verband. Gipsschiene.`},
 
 
 // ══════════════════════════════════════════════════════════════════
@@ -739,15 +816,46 @@ Proc: Kühl-Packs auf Augenlider für 3 Tage konsequent. Uhrglas-Schutzbrille f�
 
 {g:'CP · Ästhetik', dep:'cp', lbl:'Gynäkomastie – PAL + Mastektomie',
 txt:`PAL + subkutane Mastektomie + periareoläre Straffung beidseits. Antibiotikatherapie: Ampicillin/Sulbactam 2g/1g i.v.
-Proc: Kompressionsmieder für 6 Wochen Tag und Nacht. Kein Heben über 5kg für 6 Wochen. Armbelastung ab Woche 7. Abduschen ab Woche 2. Fadenenden am 12. Tag kürzen. Wiedervorstellung nach 3 und 6 Wochen, 3 und 6 Monaten. Tel: 09281/982530.`},
+Proc: Kompressionsmieder für 6 Wochen Tag und Nacht. Kein Heben über 5kg für 6 Wochen. Armbelastung ab Woche 7. Abduschen ab Woche 2. Fadenenden am 12. Tag kürzen. Wiedervorstellung nach 3 und 6 Wochen. Tel: 09281/982530.`},
 
 {g:'CP · Ästhetik', dep:'cp', lbl:'CRPS – Akutschmerztherapie stationär',
 txt:`CRPS Typ I (M. Sudeck). Schmerztherapeut mitbetreut. Stellatumblockaden 3×. Axillärer Naropin-Plexuskatheter. DMSO-Salbe mehrmals tägl. Prednisolon 100mg 1-0-0 für 1 Woche, dann 20mg/Woche ausschleichen. Gabapentin 100mg 1-1-1, langsam bis max. 1800mg/d steigern. Amineurin 10mg 0-0-1. CO2-Bäder, Lymphdrainage, Spiegeltherapie, Ergotherapie, TENS.
 Proc: Gabapentin ambulant fortführen. Neurophysiologische Kontrolle in 3 Monaten.`},
 
-{g:'CP · Ästhetik', dep:'cp', lbl:'Oberschenkelstraffung + Liposuction',
-txt:`Oberschenkelstraffung beidseits mit angleichender Liposuction. Antibiotikatherapie: Cefuroxim 1,5g i.v. Clexane 40mg s.c. bis Vollmobilisation.
-Proc: Langes Sitzen und Abspreizen der Beine vermeiden. Toilettensitzerhöhung empfohlen. Kompressionskleidung für 6 Wochen Tag und Nacht. Belastungsaufbau ab Woche 4. Abduschen ab Woche 2. Fadenenden am 12. Tag kürzen. Narbenpflege: Bepanthen 3× tägl. 2 Monate. Wiedervorstellung nach 3 und 6 Wochen. Tel: 09281/982530.`},
+// ══════════════════════════════════════════════════════════════════
+//  REFERENZ — Neutral-Null-Methode
+// ══════════════════════════════════════════════════════════════════
+
+{g:'Referenz · Neutral-Null-Methode', dep:'cu', lbl:'Neutral-Null-Methode – Erklärung + Beispiele',
+txt:`NEUTRAL-NULL-METHODE
+Schreibweise: Endposition / Null / Gegenposition
+Die Bewegung beginnt bei der anatomischen Nullstellung (Körper gerade stehend, Arme seitlich).
+Das mittlere 0 = Nullstellung (Ausgangspunkt).
+Links = Bewegung in eine Richtung, Rechts = Gegenbewegung.
+
+MERKHILFE: "Wie weit kommt man hin, von wo, wie weit zurück"
+
+BEISPIELE:
+Schulter Abduktion/Adduktion:       160 / 0 / 30°   (160° ab, 30° add)
+Schulter Flex/Extension:             170 / 0 / 40°
+Schulter Innen/Außenrotation:         70 / 0 / 60°
+Ellenbogen Ext/Flex:                  10 / 0 / 140°   (10° Hyperext möglich)
+Ellenbogen Pro/Supination:            80 / 0 / 90°
+HG Dorsalflex/Palmarflex:             60 / 0 / 60°
+HG Radial/Ulnarduktion:               20 / 0 / 35°
+Hüfte Flex/Extension:                130 / 0 / 10°
+Hüfte Innen/Außenrotation:            40 / 0 / 50°
+Knie Ext/Flex:                         5 / 0 / 140°   (5° Hyperext normal)
+OSG Dorsalflex/Plantarflex:           20 / 0 / 50°
+
+NORMWERTE WIRBELSÄULE:
+HWS Flex/Ext: 45/0/45°  |  Rotation: 60/0/60°  |  Latflex: 30/0/30°
+LWS Flex/Ext: 80/0/30°  |  Rotation: 30/0/30°  |  Latflex: 40/0/40°
+
+EINGESCHRÄNKTE BEWEGLICHKEIT BESCHREIBEN:
+Statt "90/0/90°" → "Extension endgradig eingeschränkt"
+Statt "0/0/90°"  → "Extension aufgehoben, Flexion frei"
+Statt "30/0/30°" → "Beweglichkeit in allen Ebenen schmerzhaft eingeschränkt"`},
 
 ]; // end ITEMS
 // ══════════════════════════════════════════════════════
@@ -837,10 +945,12 @@ function buildNav() {
   ITEMS.forEach(it => { if (!gs[it.g]) gs[it.g] = []; gs[it.g].push(it); });
   let html = '';
   Object.keys(gs).forEach(g => {
-    html += `<div class="nav-grp">${esc(g)}</div>`;
+    const isRef = g.startsWith('Referenz');
+    html += `<div class="nav-grp" style="${isRef ? 'color:#2a2818;margin-top:20px;border-top:1px solid #222;padding-top:14px;' : ''}">${esc(g)}</div>`;
     gs[g].forEach(it => {
       const cls = it.dep === 'cp' ? 'cp-style' : it.dep === 'cu' ? 'cu-style' : '';
-      html += `<button class="nav-btn ${cls}" data-lbl="${esc(it.lbl)}" onclick="scrollToCard('${esc(it.lbl)}')">${esc(it.lbl)}</button>`;
+      const refStyle = isRef ? 'style="color:#333;font-size:11px;"' : '';
+      html += `<button class="nav-btn ${cls}" ${refStyle} data-lbl="${esc(it.lbl)}" onclick="scrollToCard('${esc(it.lbl)}')">${esc(it.lbl)}</button>`;
     });
   });
   nav.innerHTML = html;
@@ -898,7 +1008,8 @@ function render() {
 
   filtered.forEach(it => {
     if (it.g !== lastG) {
-      html += `<div class="grp-label">${esc(it.g)}</div>`;
+      const isRef = it.g.startsWith('Referenz');
+      html += `<div class="grp-label${isRef ? ' ref-label' : ''}">${esc(it.g)}</div>`;
       lastG = it.g;
     }
 
@@ -926,7 +1037,7 @@ function render() {
         <button class="btn-lr lr-frau" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','frau',this)">♀ Frau</button>`;
 
     html += `
-      <div class="card" data-card="${esc(it.lbl)}" onclick="copyCardByLbl('${esc(it.lbl)}')">
+      <div class="card${it.g.startsWith('Referenz') ? ' ref-card' : ''}" data-card="${esc(it.lbl)}" onclick="copyCardByLbl('${esc(it.lbl)}')">
         <div class="card-top">
           <span class="dep-tag ${tagClass}">${tagText}</span>
           <span class="card-lbl">${esc(it.lbl)}</span>
