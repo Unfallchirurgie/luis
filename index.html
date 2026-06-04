@@ -885,21 +885,20 @@ function copyText(text, btn) {
   });
 }
 
-function lrCopy(text, side, btn) {
-  let t = text;
+// ── KOMBINATIONS-SYSTEM: Seite + Geschlecht ──────────────────────
+// Jede Karte speichert ihre eigene Auswahl: cardState[lbl] = {side, gender}
+const cardState = {};
 
-  // Laterality
-  if (side === 're') {
-    t = t.replace(/rechts\s*\/\s*links/gi, 'rechts').replace(/re\s*\/\s*li/g, 're');
-  } else if (side === 'li') {
-    t = t.replace(/rechts\s*\/\s*links/gi, 'links').replace(/re\s*\/\s*li/g, 'li');
-  } else if (side === 'bds.') {
-    t = t.replace(/rechts\s*\/\s*links/gi, 'beidseits').replace(/re\s*\/\s*li/g, 'bds.');
-  }
+function applyLaterality(t, side) {
+  if (side === 're')   return t.replace(/rechts\s*\/\s*links/gi, 'rechts').replace(/\bre\s*\/\s*li\b/g, 're');
+  if (side === 'li')   return t.replace(/rechts\s*\/\s*links/gi, 'links').replace(/\bre\s*\/\s*li\b/g, 'li');
+  if (side === 'bds')  return t.replace(/rechts\s*\/\s*links/gi, 'beidseits').replace(/\bre\s*\/\s*li\b/g, 'bds.');
+  return t;
+}
 
-  // Gender: Herr (männlich)
-  if (side === 'herr') {
-    t = t
+function applyGender(t, gender) {
+  if (gender === 'herr') {
+    return t
       .replace(/der Patient(?:in)?\s*\/\s*die Patientin/g, 'der Patient')
       .replace(/die Patientin\s*\/\s*der Patient/g, 'der Patient')
       .replace(/Patientin\s*\/\s*Patient/g, 'Patient')
@@ -912,10 +911,8 @@ function lrCopy(text, side, btn) {
       .replace(/\bsie\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'er')
       .replace(/\bSie\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'Er');
   }
-
-  // Gender: Frau (weiblich)
-  if (side === 'frau') {
-    t = t
+  if (gender === 'frau') {
+    return t
       .replace(/der Patient(?:in)?\s*\/\s*die Patientin/g, 'die Patientin')
       .replace(/die Patientin\s*\/\s*der Patient/g, 'die Patientin')
       .replace(/Patientin\s*\/\s*Patient/g, 'Patientin')
@@ -928,10 +925,69 @@ function lrCopy(text, side, btn) {
       .replace(/\ber\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'sie')
       .replace(/\bEr\b(?=\s+(?:ist|war|wurde|hat|kann|wird|sei|befand|stellte|berichtet))/g, 'Sie');
   }
+  return t;
+}
 
+function buildText(rawText, lbl) {
+  const st = cardState[lbl] || {};
+  let t = rawText;
+  if (st.side)   t = applyLaterality(t, st.side);
+  if (st.gender) t = applyGender(t, st.gender);
+  return t;
+}
+
+function selectSide(lbl, side, btn) {
+  if (!cardState[lbl]) cardState[lbl] = {};
+  // Toggle off if already selected
+  if (cardState[lbl].side === side) {
+    cardState[lbl].side = null;
+  } else {
+    cardState[lbl].side = side;
+  }
+  updateCardButtons(lbl);
+  copyAndFlash(lbl, btn);
+}
+
+function selectGender(lbl, gender, btn) {
+  if (!cardState[lbl]) cardState[lbl] = {};
+  if (cardState[lbl].gender === gender) {
+    cardState[lbl].gender = null;
+  } else {
+    cardState[lbl].gender = gender;
+  }
+  updateCardButtons(lbl);
+  copyAndFlash(lbl, btn);
+}
+
+function updateCardButtons(lbl) {
+  const st = cardState[lbl] || {};
+  const card = document.querySelector('[data-card="' + CSS.escape(lbl) + '"]');
+  if (!card) return;
+  card.querySelectorAll('.btn-lr').forEach(b => {
+    const s = b.dataset.side;
+    const g = b.dataset.gender;
+    if (s) b.classList.toggle('sel-side',   st.side   === s);
+    if (g) b.classList.toggle('sel-gender', st.gender === g);
+  });
+}
+
+function copyAndFlash(lbl, btn) {
+  const it = getItemByLbl(lbl);
+  if (!it) return;
+  const t = buildText(it.txt, lbl);
   navigator.clipboard.writeText(t).then(() => {
     const o = btn.textContent;
     btn.textContent = '✓';
+    setTimeout(() => { btn.textContent = o; }, 1200);
+  });
+}
+
+// Keep lrCopy for backwards compat (not used in new system)
+function lrCopy(text, side, btn) {
+  let t = applyLaterality(text, side);
+  t = applyGender(t, side);
+  navigator.clipboard.writeText(t).then(() => {
+    const o = btn.textContent; btn.textContent = '✓';
     setTimeout(() => btn.textContent = o, 1200);
   });
 }
@@ -1025,16 +1081,19 @@ function render() {
     const tagClass = it.dep === 'cp' ? 'tag-cp' : 'tag-cu';
     const tagText  = it.dep === 'cp' ? 'Plastische' : 'Unfall';
 
+    const lbl_id = esc(it.lbl).replace(/[^a-z0-9]/gi,'_');
     let lrBtns = '';
     if (it.lr) {
       lrBtns = `
-        <button class="btn-lr lr-re" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','re',this)">RE</button>
-        <button class="btn-lr lr-li" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','li',this)">LI</button>
-        <button class="btn-lr lr-bds" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','bds.',this)">BDS</button>`;
+        <button class="btn-lr lr-re" data-side="re" onclick="event.stopPropagation();selectSide('${esc(it.lbl)}','re',this)">RE</button>
+        <button class="btn-lr lr-li" data-side="li" onclick="event.stopPropagation();selectSide('${esc(it.lbl)}','li',this)">LI</button>
+        <button class="btn-lr lr-bds" data-side="bds" onclick="event.stopPropagation();selectSide('${esc(it.lbl)}','bds',this)">BDS</button>
+        <span class="card-foot-sep"></span>`;
     }
     const genderBtns = `
-        <button class="btn-lr lr-herr" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','herr',this)">♂ Herr</button>
-        <button class="btn-lr lr-frau" onclick="event.stopPropagation();lrCopyByLbl('${esc(it.lbl)}','frau',this)">♀ Frau</button>`;
+        <button class="btn-lr lr-herr" data-gender="herr" onclick="event.stopPropagation();selectGender('${esc(it.lbl)}','herr',this)">♂ Herr</button>
+        <button class="btn-lr lr-frau" data-gender="frau" onclick="event.stopPropagation();selectGender('${esc(it.lbl)}','frau',this)">♀ Frau</button>
+        <span class="card-foot-sep"></span>`;
 
     html += `
       <div class="card${it.g.startsWith('Referenz') ? ' ref-card' : ''}" data-card="${esc(it.lbl)}" onclick="copyCardByLbl('${esc(it.lbl)}')">
@@ -1062,7 +1121,8 @@ function getItemByLbl(lbl) { return ITEMS.find(it => it.lbl === lbl); }
 function copyCardByLbl(lbl) {
   const it = getItemByLbl(lbl); if (!it) return;
   const btn = document.getElementById('cb-' + lbl.replace(/[^a-z0-9]/gi,'_'));
-  navigator.clipboard.writeText(it.txt).then(() => {
+  const t = buildText(it.txt, lbl);
+  navigator.clipboard.writeText(t).then(() => {
     if (btn) { const o=btn.textContent; btn.classList.add('ok'); btn.textContent='✓ Kopiert'; setTimeout(()=>{btn.classList.remove('ok');btn.textContent=o;},1600); }
   });
 }
