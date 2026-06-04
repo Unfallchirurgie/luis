@@ -76,6 +76,8 @@ body { overflow: hidden; }
 .lr-re { color: #1a3a60; border-color: #90b8d8; } .lr-re:hover { background: #ddeef8; }
 .lr-li { color: #5a2008; border-color: #d0a080; } .lr-li:hover { background: #faebd8; }
 .lr-bds { color: #666; border-color: #ccc; font-size: 10px; } .lr-bds:hover { background: #f4f2ee; }
+.btn-lr.sel-side, .btn-lr.sel-gender { background: #161008; color: #f5ead8; border-color: #161008; }
+
 .card-click-hint { font-size: 10px; color: #ccc; margin-left: auto; font-style: italic; }
 .card.ref-card { background: #faf9f6; border-color: #ede8e0; opacity: .75; }
 .card.ref-card:hover { opacity: 1; }
@@ -909,28 +911,88 @@ function applyLaterality(t, side) {
 }
 
 function applyGender(t, gender) {
+  // Wichtig: zuerst alle kombinierten Formen ersetzen, danach erst Einzelwörter.
+  // Dadurch werden Fälle wie „die Patientin / den Patienten“ korrekt kopiert.
   if (gender === 'herr') {
-    t = t.replace(/[Dd]ie Patientin\s*\/\s*[Dd]er Patient/g, 'der Patient');
-    t = t.replace(/[Dd]er Patient\s*\/\s*[Dd]ie Patientin/g, 'der Patient');
-    t = t.replace(/\bPatientin\b/g, 'Patient');
-    t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welcher');
-    t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welcher');
-    t = t.replace(/\bHerr[n]?\s*\/\s*Frau\b/g, 'Herrn');
-    t = t.replace(/\bFrau\s*\/\s*Herr[n]?\b/g, 'Herrn');
-    t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Er');
-    t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'er');
+    const rules = [
+      // Patient/in – Nominativ
+      [/\b[Dd]ie Patientin\s*\/\s*der Patient\b/g, 'der Patient'],
+      [/\b[Dd]er Patient\s*\/\s*die Patientin\b/g, 'der Patient'],
+
+      // Patient/in – Akkusativ
+      [/\b[Dd]ie Patientin\s*\/\s*den Patienten\b/g, 'den Patienten'],
+      [/\b[Dd]en Patienten\s*\/\s*die Patientin\b/g, 'den Patienten'],
+
+      // Patient/in – Dativ
+      [/\b[Dd]er Patientin\s*\/\s*dem Patienten\b/g, 'dem Patienten'],
+      [/\b[Dd]em Patienten\s*\/\s*der Patientin\b/g, 'dem Patienten'],
+
+      // Patient/in – Genitiv
+      [/\b[Dd]er Patientin\s*\/\s*des Patienten\b/g, 'des Patienten'],
+      [/\b[Dd]es Patienten\s*\/\s*der Patientin\b/g, 'des Patienten'],
+
+      // Relativpronomen
+      [/\bwelche\s*\/\s*welcher\b/g, 'welcher'],
+      [/\bwelcher\s*\/\s*welche\b/g, 'welcher'],
+      [/\bwelche\s*\/\s*welchen\b/g, 'welchen'],
+      [/\bwelchen\s*\/\s*welche\b/g, 'welchen'],
+      [/\bder\s*\/\s*die\b/g, 'der'],
+      [/\bdie\s*\/\s*der\b/g, 'der'],
+
+      // Herr/Frau
+      [/\bHerrn?\s*\/\s*Frau\b/g, 'Herrn'],
+      [/\bFrau\s*\/\s*Herrn?\b/g, 'Herrn'],
+
+      // Pronomen
+      [/\bEr\s*\/\s*[Ss]ie\b/g, 'Er'],
+      [/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'er'],
+
+      // Einzelwörter als Fallback
+      [/\bPatientin\b/g, 'Patient'],
+      [/\bPatientinnen\b/g, 'Patienten']
+    ];
+    rules.forEach(([a,b]) => t = t.replace(a,b));
     return t;
   }
+
   if (gender === 'frau') {
-    t = t.replace(/[Dd]ie Patientin\s*\/\s*[Dd]er Patient/g, 'die Patientin');
-    t = t.replace(/[Dd]er Patient\s*\/\s*[Dd]ie Patientin/g, 'die Patientin');
-    t = t.replace(/\bPatient\b(?!in)/g, 'Patientin');
-    t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welche');
-    t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welche');
-    t = t.replace(/\bHerr[n]?\s*\/\s*Frau\b/g, 'Frau');
-    t = t.replace(/\bFrau\s*\/\s*Herr[n]?\b/g, 'Frau');
-    t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Sie');
-    t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'sie');
+    const rules = [
+      // Patient/in – Nominativ
+      [/\b[Dd]ie Patientin\s*\/\s*der Patient\b/g, 'die Patientin'],
+      [/\b[Dd]er Patient\s*\/\s*die Patientin\b/g, 'die Patientin'],
+
+      // Patient/in – Akkusativ
+      [/\b[Dd]ie Patientin\s*\/\s*den Patienten\b/g, 'die Patientin'],
+      [/\b[Dd]en Patienten\s*\/\s*die Patientin\b/g, 'die Patientin'],
+
+      // Patient/in – Dativ
+      [/\b[Dd]er Patientin\s*\/\s*dem Patienten\b/g, 'der Patientin'],
+      [/\b[Dd]em Patienten\s*\/\s*der Patientin\b/g, 'der Patientin'],
+
+      // Patient/in – Genitiv
+      [/\b[Dd]er Patientin\s*\/\s*des Patienten\b/g, 'der Patientin'],
+      [/\b[Dd]es Patienten\s*\/\s*der Patientin\b/g, 'der Patientin'],
+
+      // Relativpronomen
+      [/\bwelche\s*\/\s*welcher\b/g, 'welche'],
+      [/\bwelcher\s*\/\s*welche\b/g, 'welche'],
+      [/\bwelche\s*\/\s*welchen\b/g, 'welche'],
+      [/\bwelchen\s*\/\s*welche\b/g, 'welche'],
+      [/\bder\s*\/\s*die\b/g, 'die'],
+      [/\bdie\s*\/\s*der\b/g, 'die'],
+
+      // Herr/Frau
+      [/\bHerrn?\s*\/\s*Frau\b/g, 'Frau'],
+      [/\bFrau\s*\/\s*Herrn?\b/g, 'Frau'],
+
+      // Pronomen
+      [/\bEr\s*\/\s*[Ss]ie\b/g, 'Sie'],
+      [/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'sie'],
+
+      // Einzelwörter als Fallback
+      [/\bPatient\b(?!in|en)/g, 'Patientin']
+    ];
+    rules.forEach(([a,b]) => t = t.replace(a,b));
     return t;
   }
   return t;
@@ -993,7 +1055,7 @@ function copyAndFlash(lbl, btn) {
 // Keep lrCopy for backwards compat (not used in new system)
 function lrCopy(text, side, btn) {
   let t = applyLaterality(text, side);
-  t = applyGender(t, side);
+  t = applyGender(t, null);
   navigator.clipboard.writeText(t).then(() => {
     const o = btn.textContent; btn.textContent = '✓';
     setTimeout(() => btn.textContent = o, 1200);
