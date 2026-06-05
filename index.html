@@ -138,6 +138,94 @@ body { overflow: hidden; }
 .ki-copy-btn { display: block; margin-top: 8px; background: #f0e8d8; border: 1px solid #d0c0a0; border-radius: 5px; font-family: inherit; font-size: 10px; color: #5a4020; padding: 4px 10px; cursor: pointer; }
 .ki-copy-btn:hover { background: #e0d0b8; }
 .no-results { text-align: center; padding: 80px; color: #bbb; font-size: 14px; }
+
+/* ══════════════════════════════════════════════════════
+   TURBO-ASSISTENT – added layer, existing Bausteine remain unchanged
+   ══════════════════════════════════════════════════════ */
+#turbo-panel {
+  background: linear-gradient(135deg,#17100a 0%,#2a1d10 55%,#5a3513 100%);
+  color:#f8efe0;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,.16);
+}
+#turbo-head { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; margin-bottom:14px; }
+#turbo-title { font-size:20px; font-weight:700; letter-spacing:.01em; }
+#turbo-sub { font-size:12px; color:#d8c19a; margin-top:3px; line-height:1.5; }
+#turbo-mini { font-size:10px; color:#b69a68; text-transform:uppercase; letter-spacing:.18em; white-space:nowrap; margin-top:5px; }
+#turbo-grid { display:grid; grid-template-columns:repeat(6,minmax(120px,1fr)); gap:10px; }
+.turbo-card {
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  padding:13px 12px;
+  cursor:pointer;
+  transition:transform .12s, background .12s, border-color .12s;
+  min-height:90px;
+}
+.turbo-card:hover { transform:translateY(-2px); background:rgba(255,255,255,.13); border-color:#c8a048; }
+.turbo-ico { font-size:22px; line-height:1; margin-bottom:9px; }
+.turbo-name { font-size:13px; font-weight:700; color:#fff7e8; }
+.turbo-desc { font-size:10.5px; line-height:1.45; color:#d9c6a5; margin-top:4px; }
+.turbo-card.cp { border-color:rgba(100,160,220,.32); }
+.turbo-card.cu { border-color:rgba(230,130,80,.32); }
+.turbo-card.bg { border-color:rgba(220,190,70,.42); }
+
+#turbo-modal {
+  position:fixed; inset:0; z-index:9999; background:rgba(10,8,5,.58);
+  display:none; align-items:center; justify-content:center; padding:24px;
+}
+#turbo-modal.open { display:flex; }
+#turbo-box {
+  width:min(980px,96vw); max-height:92vh; overflow:hidden; display:flex; flex-direction:column;
+  background:#fffdf8; border:1.5px solid #e3d7c2; border-radius:18px;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+}
+#turbo-box-head {
+  background:#161008; color:#f5ead8; padding:15px 18px; display:flex; justify-content:space-between; align-items:center;
+}
+#turbo-box-title { font-size:17px; font-weight:700; color:#c8a048; }
+#turbo-close { background:none; border:none; color:#bba47a; font-size:24px; cursor:pointer; }
+#turbo-close:hover { color:#fff; }
+#turbo-body { padding:16px; overflow-y:auto; display:grid; grid-template-columns:360px 1fr; gap:16px; }
+.turbo-form { background:#f6f1e8; border:1.5px solid #eadfcd; border-radius:13px; padding:13px; }
+.turbo-form label { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.13em; color:#8a6d3c; margin:10px 0 4px; }
+.turbo-form input,.turbo-form textarea,.turbo-form select {
+  width:100%; border:1.5px solid #d8c8aa; background:#fff; border-radius:8px; padding:8px 10px;
+  font-family:inherit; font-size:12.5px; outline:none; color:#1a1208;
+}
+.turbo-form textarea { min-height:78px; resize:vertical; line-height:1.45; }
+.turbo-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.turbo-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:13px; }
+.turbo-btn {
+  background:#161008; color:#f5ead8; border:none; border-radius:8px; padding:8px 12px;
+  font-family:inherit; font-size:12px; font-weight:700; cursor:pointer;
+}
+.turbo-btn.secondary { background:#fff; color:#5a4020; border:1.5px solid #d0c0a0; }
+.turbo-btn:hover { filter:brightness(1.1); }
+#turbo-output {
+  background:#fff; border:1.5px solid #eadfcd; border-radius:13px; padding:14px;
+  font-family:'JetBrains Mono','Courier New',monospace; font-size:12px; line-height:1.72;
+  white-space:pre-wrap; min-height:420px; color:#1f180d;
+}
+.turbo-template-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:8px; }
+.turbo-template-btn {
+  background:#fff; border:1.5px solid #d8c8aa; border-radius:9px; padding:9px 10px;
+  text-align:left; cursor:pointer; font-size:12px; color:#3a2816; font-weight:600;
+}
+.turbo-template-btn:hover { border-color:#a07838; background:#fff8ea; }
+@media (max-width:1100px) { #turbo-grid { grid-template-columns:repeat(3,1fr); } #turbo-body { grid-template-columns:1fr; } }
+@media (max-width:760px) {
+  #shell { flex-direction:column; }
+  #sb { width:100%; height:140px; }
+  #turbo-grid { grid-template-columns:repeat(2,1fr); }
+  #turbo-body { padding:10px; }
+}
+.btn-lr.sel-side,.btn-lr.sel-gender { background:#161008 !important; color:#f5ead8 !important; border-color:#161008 !important; }
+.lr-herr { color:#1a3a60; border-color:#90b8d8; }
+.lr-frau { color:#7a3050; border-color:#d090a8; }
+
 </style>
 </head>
 <body>
@@ -222,6 +310,30 @@ body { overflow: hidden; }
 </div>
 
 </div>
+
+<!-- TURBO MODAL – added, does not replace existing workflow -->
+<div id="turbo-modal">
+  <div id="turbo-box">
+    <div id="turbo-box-head">
+      <div>
+        <div id="turbo-box-title">Turbo-Assistent</div>
+        <div id="turbo-sub">Strukturierte Schnellgeneratoren für Notaufnahme, OP, Röntgen, BG und Verlauf.</div>
+      </div>
+      <button id="turbo-close" onclick="closeTurbo()">×</button>
+    </div>
+    <div id="turbo-body">
+      <div class="turbo-form" id="turbo-form"></div>
+      <div>
+        <div id="turbo-output">Bitte Modul auswählen und Angaben eintragen.</div>
+        <div class="turbo-actions">
+          <button class="turbo-btn" onclick="copyTurboOutput(this)">📋 Ergebnis kopieren</button>
+          <button class="turbo-btn secondary" onclick="sendTurboToKI()">✦ In KI-Assistent übernehmen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ══════════════════════════════════════════════════════════════════════
 //  DATA  –  flat list, each item = one visible card
@@ -1145,83 +1257,102 @@ function copyText(text, btn) {
 // Jede Karte speichert ihre eigene Auswahl: cardState[lbl] = {side, gender}
 const cardState = {};
 
+
 function applyLaterality(t, side) {
   if (!side) return t;
 
-  const map = {
-    re:  { long: 'rechts',    short: 're',   art: 'rechten',      dat: 'rechtem' },
-    li:  { long: 'links',     short: 'li',   art: 'linken',       dat: 'linkem'  },
-    bds: { long: 'beidseits', short: 'bds.', art: 'beidseitigen', dat: 'beidseitigem' }
-  }[side];
-  if (!map) return t;
+  const long = side === 're' ? 'rechts' : side === 'li' ? 'links' : 'beidseits';
+  const adj = side === 're' ? 'rechten' : side === 'li' ? 'linken' : 'beidseitigen';
+  const adjNomFem = side === 're' ? 'rechte' : side === 'li' ? 'linke' : 'beidseitige';
+  const adjDat = side === 're' ? 'rechten' : side === 'li' ? 'linken' : 'beidseitigen';
+  const short = side === 're' ? 're.' : side === 'li' ? 'li.' : 'bds.';
 
-  t = t.replace(/rechts\s*\/\s*links/gi, map.long);
-  t = t.replace(/links\s*\/\s*rechts/gi, map.long);
-  t = t.replace(/re\.?\s*\/\s*li\.?/gi, map.short);
-  t = t.replace(/li\.?\s*\/\s*re\.?/gi, map.short);
-  t = t.replace(/recht(?:e|en|er|es|em)?\s*\/\s*link(?:e|en|er|es|em)?/gi, map.art);
-  t = t.replace(/link(?:e|en|er|es|em)?\s*\/\s*recht(?:e|en|er|es|em)?/gi, map.art);
+  // Slash patterns first
+  t = t.replace(/\brechts\s*\/\s*links\b/gi, long);
+  t = t.replace(/\blinks\s*\/\s*rechts\b/gi, long);
+  t = t.replace(/\bre\.?\s*\/\s*li\.?\b/gi, short);
+  t = t.replace(/\bli\.?\s*\/\s*re\.?\b/gi, short);
 
-  // Ausgeschriebene Kasusformen
-  t = t.replace(/des rechten\s*\/\s*linken/gi, side === 'bds' ? 'beider' : 'des ' + map.art);
-  t = t.replace(/dem rechten\s*\/\s*linken/gi, side === 'bds' ? 'beiden' : 'dem ' + map.art);
-  t = t.replace(/den rechten\s*\/\s*linken/gi, side === 'bds' ? 'beide'  : 'den ' + map.art);
-  t = t.replace(/der rechten\s*\/\s*linken/gi, side === 'bds' ? 'beider' : 'der ' + map.art);
-  t = t.replace(/am rechten\s*\/\s*linken/gi,  side === 'bds' ? 'beidseits am'     : 'am ' + map.art);
-  t = t.replace(/im rechten\s*\/\s*linken/gi,  side === 'bds' ? 'beidseits im'     : 'im ' + map.art);
-  t = t.replace(/in der rechten\s*\/\s*linken/gi, side === 'bds' ? 'beidseits in der' : 'in der ' + map.art);
-  t = t.replace(/auf die rechte\s*\/\s*linke/gi,  side === 'bds' ? 'auf beide'        : 'auf die ' + map.art);
-  t = t.replace(/mit dem rechten\s*\/\s*linken/gi,side === 'bds' ? 'mit beiden'       : 'mit dem ' + map.art);
+  // Frequent German casus patterns used in the Bausteine
+  t = t.replace(/\bdes rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'beider' : 'des ' + adj);
+  t = t.replace(/\bdem rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'beiden' : 'dem ' + adjDat);
+  t = t.replace(/\bden rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'beide' : 'den ' + adj);
+  t = t.replace(/\bder rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'beider' : 'der ' + adj);
+  t = t.replace(/\bam rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'beidseits am' : 'am ' + adj);
+  t = t.replace(/\bim rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'beidseits im' : 'im ' + adj);
+  t = t.replace(/\bin der rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'beidseits in der' : 'in der ' + adjNomFem);
+  t = t.replace(/\bauf die rechte\s*\/\s*linke\b/gi, side === 'bds' ? 'auf beide' : 'auf die ' + adjNomFem);
+  t = t.replace(/\bmit dem rechten\s*\/\s*linken\b/gi, side === 'bds' ? 'mit beiden' : 'mit dem ' + adjDat);
+
+  // Generic adjective slash patterns after the specific ones
+  t = t.replace(/\brechte[nrsm]?\s*\/\s*linke[nrsm]?\b/gi, side === 'bds' ? 'beidseitigen' : adj);
+  t = t.replace(/\blinke[nrsm]?\s*\/\s*rechte[nrsm]?\b/gi, side === 'bds' ? 'beidseitigen' : adj);
+
   return t;
 }
 
 function applyGender(t, gender) {
   if (!gender) return t;
 
+  const malePairs = [
+    [/Die Patientin\s*\/\s*der Patient/g, 'Der Patient'],
+    [/die Patientin\s*\/\s*der Patient/g, 'der Patient'],
+    [/Der Patient\s*\/\s*die Patientin/g, 'Der Patient'],
+    [/der Patient\s*\/\s*die Patientin/g, 'der Patient'],
+    [/Die Patientin\s*\/\s*Der Patient/g, 'Der Patient'],
+    [/die Patientin\s*\/\s*den Patienten/g, 'den Patienten'],
+    [/den Patienten\s*\/\s*die Patientin/g, 'den Patienten'],
+    [/der Patientin\s*\/\s*dem Patienten/g, 'dem Patienten'],
+    [/dem Patienten\s*\/\s*der Patientin/g, 'dem Patienten'],
+    [/der Patientin\s*\/\s*des Patienten/g, 'des Patienten'],
+    [/des Patienten\s*\/\s*der Patientin/g, 'des Patienten'],
+    [/welche\s*\/\s*welcher/g, 'welcher'],
+    [/welcher\s*\/\s*welche/g, 'welcher'],
+    [/welche\s*\/\s*welchen/g, 'welchen'],
+    [/Herrn?\s*\/\s*Frau/g, 'Herrn'],
+    [/Frau\s*\/\s*Herrn?/g, 'Herrn'],
+    [/Er\s*\/\s*Sie/g, 'Er'],
+    [/Sie\s*\/\s*Er/g, 'Er'],
+    [/er\s*\/\s*sie/g, 'er'],
+    [/sie\s*\/\s*er/g, 'er']
+  ];
+
+  const femalePairs = [
+    [/Die Patientin\s*\/\s*der Patient/g, 'Die Patientin'],
+    [/die Patientin\s*\/\s*der Patient/g, 'die Patientin'],
+    [/Der Patient\s*\/\s*die Patientin/g, 'Die Patientin'],
+    [/der Patient\s*\/\s*die Patientin/g, 'die Patientin'],
+    [/Die Patientin\s*\/\s*Der Patient/g, 'Die Patientin'],
+    [/die Patientin\s*\/\s*den Patienten/g, 'die Patientin'],
+    [/den Patienten\s*\/\s*die Patientin/g, 'die Patientin'],
+    [/der Patientin\s*\/\s*dem Patienten/g, 'der Patientin'],
+    [/dem Patienten\s*\/\s*der Patientin/g, 'der Patientin'],
+    [/der Patientin\s*\/\s*des Patienten/g, 'der Patientin'],
+    [/des Patienten\s*\/\s*der Patientin/g, 'der Patientin'],
+    [/welche\s*\/\s*welcher/g, 'welche'],
+    [/welcher\s*\/\s*welche/g, 'welche'],
+    [/welche\s*\/\s*welchen/g, 'welche'],
+    [/Herrn?\s*\/\s*Frau/g, 'Frau'],
+    [/Frau\s*\/\s*Herrn?/g, 'Frau'],
+    [/Er\s*\/\s*Sie/g, 'Sie'],
+    [/Sie\s*\/\s*Er/g, 'Sie'],
+    [/er\s*\/\s*sie/g, 'sie'],
+    [/sie\s*\/\s*er/g, 'sie']
+  ];
+
+  const list = gender === 'herr' ? malePairs : femalePairs;
+  list.forEach(([rx, repl]) => t = t.replace(rx, repl));
+
+  // Only convert remaining explicit female/male nouns, without breaking already correct casus.
   if (gender === 'herr') {
-    t = t.replace(/Die Patientin\s*\/\s*der Patient/g, 'Der Patient');
-    t = t.replace(/die Patientin\s*\/\s*der Patient/g, 'der Patient');
-    t = t.replace(/Der Patient\s*\/\s*die Patientin/g, 'Der Patient');
-    t = t.replace(/der Patient\s*\/\s*die Patientin/g, 'der Patient');
-    t = t.replace(/Die Patientin\s*\/\s*Der Patient/g, 'Der Patient');
-    t = t.replace(/die Patientin\s*\/\s*den Patienten/g, 'den Patienten');
-    t = t.replace(/den Patienten\s*\/\s*die Patientin/g, 'den Patienten');
-    t = t.replace(/der Patientin\s*\/\s*dem Patienten/g, 'dem Patienten');
-    t = t.replace(/dem Patienten\s*\/\s*der Patientin/g, 'dem Patienten');
-    t = t.replace(/der Patientin\s*\/\s*des Patienten/g, 'des Patienten');
-    t = t.replace(/des Patienten\s*\/\s*der Patientin/g, 'des Patienten');
     t = t.replace(/\bPatientin\b/g, 'Patient');
     t = t.replace(/\bPatientinnen\b/g, 'Patienten');
-    t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welcher');
-    t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welcher');
-    t = t.replace(/\bHerrn?\s*\/\s*Frau\b/g, 'Herrn');
-    t = t.replace(/\bFrau\s*\/\s*Herrn?\b/g, 'Herrn');
-    t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Er');
-    t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'er');
-    return t;
-  }
-
-  if (gender === 'frau') {
-    t = t.replace(/Die Patientin\s*\/\s*der Patient/g, 'Die Patientin');
-    t = t.replace(/die Patientin\s*\/\s*der Patient/g, 'die Patientin');
-    t = t.replace(/Der Patient\s*\/\s*die Patientin/g, 'Die Patientin');
-    t = t.replace(/der Patient\s*\/\s*die Patientin/g, 'die Patientin');
-    t = t.replace(/Die Patientin\s*\/\s*Der Patient/g, 'Die Patientin');
-    t = t.replace(/die Patientin\s*\/\s*den Patienten/g, 'die Patientin');
-    t = t.replace(/den Patienten\s*\/\s*die Patientin/g, 'die Patientin');
-    t = t.replace(/der Patientin\s*\/\s*dem Patienten/g, 'der Patientin');
-    t = t.replace(/dem Patienten\s*\/\s*der Patientin/g, 'der Patientin');
-    t = t.replace(/der Patientin\s*\/\s*des Patienten/g, 'der Patientin');
-    t = t.replace(/des Patienten\s*\/\s*der Patientin/g, 'der Patientin');
-    t = t.replace(/\bPatient\b(?!in)/g, 'Patientin');
-    t = t.replace(/\bPatienten\b(?! und)/g, 'Patientin');
-    t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welche');
-    t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welche');
-    t = t.replace(/\bHerrn?\s*\/\s*Frau\b/g, 'Frau');
-    t = t.replace(/\bFrau\s*\/\s*Herrn?\b/g, 'Frau');
-    t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Sie');
-    t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'sie');
-    return t;
+  } else {
+    t = t.replace(/\bder Patient\b/g, 'die Patientin');
+    t = t.replace(/\bDer Patient\b/g, 'Die Patientin');
+    t = t.replace(/\bden Patienten\b/g, 'die Patientin');
+    t = t.replace(/\bdem Patienten\b/g, 'der Patientin');
+    t = t.replace(/\bdes Patienten\b/g, 'der Patientin');
   }
   return t;
 }
@@ -1358,7 +1489,7 @@ function render() {
     return;
   }
 
-  let html = '';
+  let html = turboPanelHTML();
   let lastG = '';
 
   filtered.forEach(it => {
@@ -1431,6 +1562,458 @@ function lrCopyByLbl(lbl, side, btn) {
   lrCopy(it.txt, side, btn);
 }
 
+
+// ══════════════════════════════════════════════════════
+//  TURBO-ASSISTENT – quick generators
+// ══════════════════════════════════════════════════════
+let turboMode = 'arztbrief';
+
+const TOP_NOTAUFNAHME = {
+  'OSG-Distorsion': `Diagnosen:
+Distorsionstrauma des oberen Sprunggelenks rechts / links.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Supinationstrauma des rechten / linken Sprunggelenks in unserer Notaufnahme vor. Es bestanden sofort einsetzende Schmerzen sowie eine Schwellung lateral.
+
+Klinischer Befund:
+Schwellung und Hämatomverfärbung lateral. Druckschmerz über dem Lig. fibulotalare anterius. Kein Druckschmerz über der Basis Metatarsale V, kein Druckschmerz über dem Malleolus medialis, kein Druckschmerz über der proximalen Fibula. Gehfähigkeit erhalten. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen OSG rechts / links in 2 Ebenen: Kein Frakturnachweis.
+
+Therapie / Verlauf:
+Anlage einer OSG-Orthese, Analgesie und Beratung.
+
+Procedere:
+Schonung, Kühlung, Hochlagerung. AirCast-Walker für 4–6 Wochen. Analgesie bei Bedarf. Bei Befundverschlechterung jederzeitige Wiedervorstellung in der Notaufnahme möglich.`,
+
+  'Distale Radiusfraktur': `Diagnosen:
+Distale Radiusfraktur rechts / links.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Sturz auf die ausgestreckte rechte / linke Hand mit Schmerzen und Schwellung im Handgelenksbereich vor.
+
+Klinischer Befund:
+Schwellung und Druckschmerz distal radiusseitig rechts / links. Handgelenkbeweglichkeit schmerzhaft eingeschränkt. Keine offene Verletzung. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen Handgelenk rechts / links in 2 Ebenen: Distale Radiusfraktur rechts / links.
+
+Therapie / Verlauf:
+Analgesie, Ruhigstellung mittels dorsaler Unterarmgipsschiene und ausführliche Beratung.
+
+Procedere:
+Hochlagerung, Kühlung, Analgesie bei Bedarf. Bei Dislokation Vorstellung im Aufnahmezentrum zur OP-Planung, sonst Röntgenkontrolle in 7–10 Tagen.`,
+
+  'Weber-B-Fraktur': `Diagnosen:
+Weber-B-Fraktur rechts / links.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Distorsionstrauma des rechten / linken oberen Sprunggelenks mit Schmerzen, Schwellung und eingeschränkter Belastbarkeit vor.
+
+Klinischer Befund:
+Schwellung und Druckschmerz über dem lateralen Malleolus rechts / links. Keine offene Verletzung. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen OSG rechts / links in 2 Ebenen: Weber-B-Fraktur.
+
+Therapie / Verlauf:
+Ruhigstellung, Analgesie und Beratung.
+
+Procedere:
+Je nach Stabilität konservative Therapie im Walker oder stationäre Aufnahme zur operativen Versorgung. Bein hochlagern, kühlen, Thromboseprophylaxe nach Risikoprofil.`,
+
+  'Weber-C-Fraktur': `Diagnosen:
+Weber-C-Fraktur rechts / links mit Verdacht auf Syndesmosenverletzung.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Drehtrauma des rechten / linken oberen Sprunggelenks mit erheblicher Schwellung und Schmerzen vor.
+
+Klinischer Befund:
+Ausgeprägte Schwellung und Druckschmerz lateral oberhalb des Syndesmosenniveaus. Syndesmosen-Druckschmerz positiv. Eingeschränkte Belastbarkeit. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen OSG rechts / links in 2 Ebenen: Weber-C-Fraktur. CT OSG zur präoperativen Planung empfohlen.
+
+Therapie / Verlauf:
+Dorsale Unterschenkelgipsschiene, Analgesie, Hochlagerung.
+
+Procedere:
+Stationäre Aufnahme zur operativen Versorgung. Nüchtern ab 22:00 Uhr, Thromboseprophylaxe, präoperative Diagnostik.`,
+
+  'Schulterluxation': `Diagnosen:
+Anteriore Schultergelenkluxation rechts / links. Zustand nach geschlossener Reposition.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Sturz mit Schmerzen und federnder Fixation der rechten / linken Schulter vor.
+
+Klinischer Befund:
+Klinisch imponierte eine anteriore Schultergelenkluxation. Axillarissensibilität orientierend intakt. A. radialis tastbar. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen Schulter rechts / links ap und axial: Anteriore Schulterluxation, kein sicherer Frakturnachweis. Röntgenkontrolle nach Reposition: Regelrechte Reposition.
+
+Therapie / Verlauf:
+Geschlossene Reposition unter Analgesie, Anlage eines Gilchrist-Verbandes.
+
+Procedere:
+Gilchrist-Verband für 3 Wochen. Schonung. MRT Schulter elektiv empfohlen. Orthopädische Kontrolle in 1–2 Wochen.`,
+
+  'Rippenfraktur': `Diagnosen:
+Rippenfraktur rechts / links ohne Pneumothorax.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Sturz mit atemabhängigen Schmerzen lateral-thorakal rechts / links vor.
+
+Klinischer Befund:
+Druckschmerz über der betroffenen Rippe rechts / links. Atemexkursion schmerzhaft eingeschränkt. Keine Dyspnoe. Auskultatorisch Vesikuläratmen beidseits.
+
+Diagnostik:
+Röntgen Thorax: Rippenfraktur rechts / links. Kein Pneumothorax, kein Hämatothorax.
+
+Therapie / Verlauf:
+Analgesie und Beratung.
+
+Procedere:
+Ausreichende Analgesie, Atemgymnastik, Schonung. Bei Dyspnoe, Fieber oder progredienten Schmerzen sofortige Wiedervorstellung.`,
+
+  'Schenkelhalsfraktur': `Diagnosen:
+Mediale Schenkelhalsfraktur rechts / links.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach häuslichem Sturz mit Schmerzen in der rechten / linken Hüfte und Gehunfähigkeit vor.
+
+Klinischer Befund:
+Verkürzte und außenrotierte untere Extremität rechts / links. Leisten- und Trochanterdruckschmerz. Hüftbeweglichkeit stark schmerzhaft eingeschränkt. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen Becken ap und Hüfte axial rechts / links: Mediale Schenkelhalsfraktur.
+
+Therapie / Verlauf:
+Analgesie, Lagerung, präoperative Vorbereitung.
+
+Procedere:
+Stationäre Aufnahme zur operativen Versorgung. Nüchtern ab 22:00 Uhr. Präoperatives Labor, EKG und Röntgen-Thorax veranlasst.`,
+
+  'Kopfplatzwunde': `Diagnosen:
+Kopfplatzwunde. Schädel-Hirn-Trauma Grad I°.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Sturz mit Anprall des Kopfes und Kopfplatzwunde vor. Keine Bewusstlosigkeit, keine Amnesie, kein Erbrechen.
+
+Klinischer Befund:
+Wache, orientierte Patientin / wacher, orientierter Patient. GCS 15. Pupillen isokor, Lichtreaktion prompt beidseits. Kopfplatzwunde ca. ___ cm. Keine fokal-neurologischen Ausfälle.
+
+Diagnostik:
+CCT nach klinischer Einschätzung / Kriterien nicht indiziert bzw. durchgeführt.
+
+Therapie / Verlauf:
+Wundreinigung, Desinfektion, Wundversorgung in Lokalanästhesie, steriler Verband. Tetanusschutz geprüft.
+
+Procedere:
+Fadenzug in 7–10 Tagen. Häusliche Überwachung für 24 Stunden. Wiedervorstellung bei Erbrechen, starken Kopfschmerzen, Bewusstseinstrübung oder neurologischen Auffälligkeiten.`,
+
+  'SHT I°': `Diagnosen:
+Schädel-Hirn-Trauma Grad I°.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Sturz mit Kopfanprall vor. Keine Bewusstlosigkeit, keine Amnesie, kein Erbrechen.
+
+Klinischer Befund:
+GCS 15. Pupillen isokor, Lichtreaktion prompt beidseits. Kein Meningismus. Keine fokal-neurologischen Ausfälle. HWS frei beweglich.
+
+Diagnostik:
+CCT nach klinischer Einschätzung nicht indiziert / durchgeführt.
+
+Therapie / Verlauf:
+Klinische Untersuchung, Beobachtung und Beratung.
+
+Procedere:
+Häusliche Überwachung für 24 Stunden. Kein Autofahren für 24 Stunden. Wiedervorstellung bei Erbrechen, Bewusstseinstrübung, starken Kopfschmerzen, Krampfanfall oder Pupillenasymmetrie.`,
+
+  'Knieprellung': `Diagnosen:
+Knieprellung rechts / links.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Sturz mit direktem Anprall auf das rechte / linke Knie vor. Es bestanden Schmerzen und Schwellung.
+
+Klinischer Befund:
+Gehfähigkeit erhalten. Leichte Schwellung rechts / links. Kein Hämatom. Kein relevanter intraartikulärer Erguss. Bandstabilität regelrecht. Lachman-Test negativ. McMurray negativ. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen Knie rechts / links in 2 Ebenen: Kein Frakturnachweis.
+
+Therapie / Verlauf:
+Analgesie, Schonung und Beratung.
+
+Procedere:
+Schonung, Kühlung, Hochlagerung. Analgesie bei Bedarf. Bei Befundverschlechterung oder Schmerzpersistenz orthopädische Kontrolle.`,
+
+  'Fingerluxation': `Diagnosen:
+Luxation des PIP-Gelenks D___ rechts / links. Zustand nach geschlossener Reposition.
+
+Anamnese:
+Die Patientin / der Patient stellte sich nach Sportverletzung mit Fehlstellung und Schmerzen am rechten / linken Finger vor.
+
+Klinischer Befund:
+Dorsale Fehlstellung im PIP-Gelenk D___ rechts / links. Nach Reposition regelrechte Achse, stabiles Gelenk. Beuge- und Streckfunktion intakt. Periphere Durchblutung, Motorik und Sensibilität intakt.
+
+Diagnostik:
+Röntgen Finger rechts / links vor und nach Reposition: Regelrechte Gelenkkongruenz, kein sicherer Frakturnachweis.
+
+Therapie / Verlauf:
+Geschlossene Reposition in Fingerleitungsanästhesie, Buddy-Taping.
+
+Procedere:
+Buddy-Taping für 4–6 Wochen. Frühfunktionelle Bewegungsübungen. Wiedervorstellung bei Instabilität, Schmerzen oder Bewegungseinschränkung.`
+};
+
+function turboPanelHTML() {
+  if (query) return '';
+  return `
+    <section id="turbo-panel">
+      <div id="turbo-head">
+        <div>
+          <div id="turbo-title">⚡ Turbo-Assistent</div>
+          <div id="turbo-sub">Schnellgeneratoren für Arztbrief, OP-Bericht, Röntgen, BG/D-Arzt, Notaufnahme und postoperative Verlaufskontrolle.</div>
+        </div>
+        <div id="turbo-mini">GitHub Pages · Client-side</div>
+      </div>
+      <div id="turbo-grid">
+        <div class="turbo-card cu" onclick="openTurbo('arztbrief')"><div class="turbo-ico">📄</div><div class="turbo-name">Arztbrief CU</div><div class="turbo-desc">Diagnosen → Anamnese → Befund → Diagnostik → Therapie → Procedere</div></div>
+        <div class="turbo-card cp" onclick="openTurbo('op')"><div class="turbo-ico">🏥</div><div class="turbo-name">OP-Bericht</div><div class="turbo-desc">Indikation, Lagerung, Zugang, Implantat, Wundverschluss</div></div>
+        <div class="turbo-card cu" onclick="openTurbo('rx')"><div class="turbo-ico">🩻</div><div class="turbo-name">Röntgen</div><div class="turbo-desc">Standardisierte Radiologie-Formulierungen</div></div>
+        <div class="turbo-card bg" onclick="openTurbo('bg')"><div class="turbo-ico">🧾</div><div class="turbo-name">BG / D-Arzt</div><div class="turbo-desc">Arbeitsunfall, Wegeunfall, D-Arzt-Verfahren</div></div>
+        <div class="turbo-card cu" onclick="openTurbo('top')"><div class="turbo-ico">🚑</div><div class="turbo-name">Top Notaufnahme</div><div class="turbo-desc">Häufige Fälle als kompletter Schnellbrief</div></div>
+        <div class="turbo-card cp" onclick="openTurbo('postop')"><div class="turbo-ico">🔁</div><div class="turbo-name">Post-OP Verlauf</div><div class="turbo-desc">1 Woche bis 12 Monate postop</div></div>
+      </div>
+    </section>`;
+}
+
+function openTurbo(mode) {
+  turboMode = mode;
+  document.getElementById('turbo-modal').classList.add('open');
+  renderTurboForm(mode);
+  generateTurbo();
+}
+function closeTurbo() { document.getElementById('turbo-modal').classList.remove('open'); }
+
+function renderTurboForm(mode) {
+  const f = document.getElementById('turbo-form');
+  const title = {
+    arztbrief:'📄 Arztbrief CU Generator',
+    op:'🏥 OP-Bericht Generator',
+    rx:'🩻 Röntgen-Assistent',
+    bg:'🧾 BG / D-Arzt Assistent',
+    top:'🚑 Top Notaufnahme Templates',
+    postop:'🔁 Postoperative Verlaufskontrolle'
+  }[mode];
+
+  let html = `<h3 style="margin-bottom:8px;color:#1a1208">${title}</h3>`;
+
+  if (mode === 'arztbrief') {
+    html += `
+      <label>Diagnose</label><input id="t_diagnose" placeholder="z.B. Distale Radiusfraktur rechts">
+      <label>Anamnese / Unfallmechanismus</label><textarea id="t_anamnese" placeholder="z.B. Sturz auf ausgestreckte Hand, sofort Schmerzen und Schwellung..."></textarea>
+      <label>Klinischer Befund</label><textarea id="t_befund" placeholder="z.B. Schwellung dorsalradial, DS Processus styloideus radii, DMS intakt..."></textarea>
+      <label>Diagnostik</label><textarea id="t_diag" placeholder="z.B. Röntgen Handgelenk rechts in 2 Ebenen: distale Radiusfraktur..."></textarea>
+      <label>Therapie / Verlauf</label><textarea id="t_therapie" placeholder="z.B. dorsale Unterarmgipsschiene, Analgesie, Beratung..."></textarea>
+      <label>Procedere</label><textarea id="t_proc" placeholder="z.B. Vorstellung Aufnahmezentrum morgen 09:00 Uhr, nüchtern ab 22 Uhr..."></textarea>`;
+  }
+
+  if (mode === 'op') {
+    html += `
+      <label>Operation</label><input id="t_op" placeholder="z.B. Plattenosteosynthese distale Radiusfraktur rechts">
+      <label>Diagnose</label><input id="t_diagnose" placeholder="z.B. Distale Radiusfraktur rechts mit Dislokation">
+      <div class="turbo-row"><div><label>Zugang</label><input id="t_zugang" placeholder="z.B. volar nach Henry"></div><div><label>Implantat</label><input id="t_implantat" placeholder="z.B. VA-LCP distaler Radius"></div></div>
+      <label>Besonderheiten</label><textarea id="t_besonderheiten" placeholder="z.B. komplikationslos, gute Reposition, stabile Osteosynthese..."></textarea>`;
+  }
+
+  if (mode === 'rx') {
+    html += `
+      <label>Region / Aufnahme</label><input id="t_region" placeholder="z.B. Handgelenk rechts in 2 Ebenen">
+      <label>Befund / Diagnose</label><select id="t_rx_type">
+        <option>Distale Radiusfraktur</option><option>Weber-B-Fraktur</option><option>Weber-C-Fraktur</option>
+        <option>Rippenfraktur</option><option>Humeruskopffraktur</option><option>Schenkelhalsfraktur</option><option>Schulterluxation</option>
+        <option>Kein Frakturnachweis</option>
+      </select>
+      <label>Zusatzangaben</label><textarea id="t_extra" placeholder="z.B. ohne relevante Dislokation, Gelenkstellung regelrecht..."></textarea>`;
+  }
+
+  if (mode === 'bg') {
+    html += `
+      <label>Unfallart</label><select id="t_bg_type"><option>Arbeitsunfall</option><option>Wegeunfall</option><option>Schulunfall</option><option>BG-Fall</option></select>
+      <label>Unfallhergang</label><textarea id="t_anamnese" placeholder="z.B. Patient sei während der Arbeit umgeknickt..."></textarea>
+      <label>Diagnose</label><input id="t_diagnose" placeholder="z.B. OSG-Distorsion rechts">
+      <label>Procedere</label><textarea id="t_proc" placeholder="z.B. D-Arzt-Verfahren eingeleitet, BG-Sprechstunde..."></textarea>`;
+  }
+
+  if (mode === 'top') {
+    html += `<label>Häufiger Notaufnahme-Fall</label><div class="turbo-template-grid">`;
+    Object.keys(TOP_NOTAUFNAHME).forEach(k => html += `<button class="turbo-template-btn" onclick="setTopTemplate('${k.replace(/'/g,"\\'")}')">${k}</button>`);
+    html += `</div><input id="t_top_key" type="hidden" value="OSG-Distorsion">`;
+  }
+
+  if (mode === 'postop') {
+    html += `
+      <label>Zeitpunkt</label><select id="t_postop_time"><option>1 Woche postop</option><option>2 Wochen postop</option><option>6 Wochen postop</option><option>3 Monate postop</option><option>6 Monate postop</option><option>12 Monate postop</option></select>
+      <label>Operation</label><input id="t_op" placeholder="z.B. Abdominoplastik / Plattenosteosynthese Radius">
+      <label>Aktueller Befund</label><textarea id="t_befund" placeholder="z.B. reizlose Wundverhältnisse, keine Infektzeichen, Schwellung rückläufig..."></textarea>
+      <label>Procedere</label><textarea id="t_proc" placeholder="z.B. weitere Schonung, Kompression, Kontrolle in 6 Wochen..."></textarea>`;
+  }
+
+  html += `<div class="turbo-actions"><button class="turbo-btn" onclick="generateTurbo()">Generieren</button><button class="turbo-btn secondary" onclick="clearTurboInputs()">Leeren</button></div>`;
+  f.innerHTML = html;
+  f.querySelectorAll('input, textarea, select').forEach(el => el.addEventListener('input', generateTurbo));
+}
+
+function v(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+function fallback(x, fb) { return x || fb; }
+
+function generateTurbo() {
+  let out = '';
+  if (turboMode === 'arztbrief') {
+    out = `Diagnosen:
+${fallback(v('t_diagnose'),'___')}
+
+Anamnese:
+${fallback(v('t_anamnese'),'Die Patientin / der Patient stellte sich notfallmäßig in unserer Notaufnahme vor. Der genaue Unfallmechanismus ist ergänzend zu dokumentieren.')}
+
+Klinischer Befund:
+${fallback(v('t_befund'),'Klinischer Untersuchungsbefund nicht vollständig dokumentiert. Periphere Durchblutung, Motorik und Sensibilität sind zu prüfen und zu dokumentieren.')}
+
+Diagnostik:
+${fallback(v('t_diag'),'Bildgebung / Diagnostik nicht dokumentiert.')}
+
+Therapie / Verlauf:
+${fallback(v('t_therapie'),'Es erfolgten klinische Untersuchung, Beratung und symptomatische Therapie.')}
+
+Procedere:
+${fallback(v('t_proc'),'Bei Befundverschlechterung jederzeitige Wiedervorstellung in der Notaufnahme möglich.')}`;
+  }
+
+  if (turboMode === 'op') {
+    out = `Indikation:
+Bei oben genannter Diagnose bestand die Indikation zur operativen Versorgung mittels ${fallback(v('t_op'),'___')}.
+
+Diagnose:
+${fallback(v('t_diagnose'),'___')}
+
+Operation:
+${fallback(v('t_op'),'___')}
+
+Lagerung:
+Die Lagerung erfolgte in Rückenlage. Die zu operierende Extremität wurde frei beweglich gelagert.
+
+Desinfektion / Abdeckung:
+Nach standardisierter Hautdesinfektion erfolgte die sterile Abdeckung des Operationsgebietes.
+
+Operationsverlauf:
+Nach Team-Time-Out erfolgte der Zugang ${fallback(v('t_zugang'),'entsprechend der Operationsplanung')}. Schichtweises Präparieren unter Schonung der relevanten neurovaskulären Strukturen. Darstellung der Fraktur- bzw. Operationsregion. Reposition unter Sicht und bildwandlergestützter Kontrolle.
+
+Implantation:
+${fallback(v('t_implantat'),'Das Implantat ist zu ergänzen.')} wurde eingebracht. Die Lagekontrolle zeigte eine regelrechte Stellung und stabile Versorgung.
+
+Besonderheiten:
+${fallback(v('t_besonderheiten'),'Keine intraoperativen Besonderheiten. Der Eingriff verlief komplikationslos.')}
+
+Wundverschluss:
+Sorgfältige Blutstillung. Schichtweiser Wundverschluss. Steriler Wundverband.
+
+Postoperatives Procedere:
+Postoperative Überwachung, Analgesie nach Schema, Hochlagerung / Schonung. Röntgenkontrolle und weitere Mobilisation nach hausinternem Standard.`;
+  }
+
+  if (turboMode === 'rx') {
+    const type = v('t_rx_type');
+    const region = fallback(v('t_region'), 'Röntgenaufnahme');
+    const extra = v('t_extra');
+    const rxMap = {
+      'Distale Radiusfraktur': `Nachweis einer distalen Radiusfraktur. Gelenkstellung und Dislokationsgrad bitte klinisch-radiologisch korrelieren.`,
+      'Weber-B-Fraktur': `Nachweis einer Weber-B-Fraktur der distalen Fibula. Das obere Sprunggelenk ist auf Kongruenz zu beurteilen.`,
+      'Weber-C-Fraktur': `Nachweis einer Weber-C-Fraktur oberhalb des Syndesmosenniveaus. Verdacht auf Syndesmosenverletzung.`,
+      'Rippenfraktur': `Nachweis einer Rippenfraktur. Kein sicherer Hinweis auf Pneumothorax oder Hämatothorax, sofern klinisch-radiologisch nicht anders angegeben.`,
+      'Humeruskopffraktur': `Nachweis einer subkapitalen Humerusfraktur. Glenohumerale Artikulation erhalten.`,
+      'Schenkelhalsfraktur': `Nachweis einer medialen Schenkelhalsfraktur. Hüftgelenkstellung erhalten.`,
+      'Schulterluxation': `Nachweis einer anterioren Schultergelenkluxation. Nach Reposition regelrechte Gelenkstellung zu dokumentieren.`,
+      'Kein Frakturnachweis': `Kein sicherer Nachweis einer frischen Fraktur oder Luxation. Gelenkstellung regelrecht.`
+    };
+    out = `${region}:
+${rxMap[type] || 'Befund bitte ergänzen.'}${extra ? '\n' + extra : ''}`;
+  }
+
+  if (turboMode === 'bg') {
+    out = `${fallback(v('t_bg_type'),'BG-Fall')}.
+
+Unfallhergang:
+${fallback(v('t_anamnese'),'Unfallhergang nicht vollständig dokumentiert und ergänzend zu erfragen.')}
+
+Diagnose:
+${fallback(v('t_diagnose'),'___')}
+
+BG / D-Arzt:
+Es handelt sich anamnestisch um einen ${fallback(v('t_bg_type'),'BG-Fall')}. Das D-Arzt-Verfahren wurde eingeleitet. Die weitere Behandlung erfolgt im Rahmen des berufsgenossenschaftlichen Heilverfahrens.
+
+Procedere:
+${fallback(v('t_proc'),'Wiedervorstellung in der BG-Sprechstunde bei Schmerzpersistenz. Bei Befundverschlechterung jederzeitige Wiedervorstellung in der Notaufnahme möglich.')}`;
+  }
+
+  if (turboMode === 'top') {
+    const key = v('t_top_key') || 'OSG-Distorsion';
+    out = TOP_NOTAUFNAHME[key] || '';
+  }
+
+  if (turboMode === 'postop') {
+    out = `${fallback(v('t_postop_time'),'Postoperative Verlaufskontrolle')} nach ${fallback(v('t_op'),'oben genanntem Eingriff')}.
+
+Anamnese:
+Die Patientin / der Patient stellt sich zur planmäßigen postoperativen Verlaufskontrolle vor. Subjektiv berichtet die Patientin / der Patient über einen regelrechten Verlauf.
+
+Klinischer Befund:
+${fallback(v('t_befund'),'Reizlose Wundverhältnisse. Keine Rötung, keine Überwärmung, keine Sekretion. Schwellung rückläufig. Keine klinischen Hinweise auf Infekt oder Wundheilungsstörung.')}
+
+Beurteilung:
+Regelrechter postoperativer Verlauf.
+
+Procedere:
+${fallback(v('t_proc'),'Weitere Schonung nach Maßgabe der Operation. Verlaufskontrolle nach Vereinbarung.')}`;
+  }
+
+  document.getElementById('turbo-output').textContent = out;
+}
+
+function setTopTemplate(key) {
+  document.getElementById('t_top_key').value = key;
+  generateTurbo();
+}
+
+function clearTurboInputs() {
+  document.querySelectorAll('#turbo-form input, #turbo-form textarea').forEach(el => el.value = '');
+  generateTurbo();
+}
+
+function copyTurboOutput(btn) {
+  const txt = document.getElementById('turbo-output').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const o = btn.textContent; btn.textContent = '✓ Kopiert';
+    setTimeout(() => btn.textContent = o, 1400);
+  });
+}
+
+function sendTurboToKI() {
+  const txt = document.getElementById('turbo-output').textContent;
+  toggleKI();
+  const inp = document.getElementById('ki-inp');
+  inp.value = 'Bitte sprachlich glätten und im Stil der vorhandenen Bausteine formulieren, ohne neue Befunde zu erfinden:\n\n' + txt;
+  inp.focus();
+  closeTurbo();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeTurbo();
+});
+
+
 // ══════════════════════════════════════════════════════
 //  KI — Groq API (Llama 3, kostenlos)
 // ══════════════════════════════════════════════════════
@@ -1446,17 +2029,32 @@ let oaiKey = localStorage.getItem('groq_key') || '';
 let currentMode = 'freitext';
 const kiHistory = [];
 
-const SYSTEM_PROMPT = `Du bist ein erfahrener Facharzt in Plastischer, Rekonstruktiver und Ästhetischer Chirurgie und Unfallchirurgie. Du hilfst Dr. Luis Perez (Assistenzarzt Plastische Chirurgie, Sana Klinikum Hof, unter Prof. Dr. Polykandriotis, FAU Erlangen-Nürnberg) im klinischen Alltag.
+const SYSTEM_PROMPT = `Du bist ein medizinischer Schreibassistent für deutsche Unfallchirurgie, Plastische Chirurgie und Handchirurgie.
 
-Du kannst folgende Aufgaben übernehmen:
-1. ANAMNESE: Aus kurzen Stichworten eine vollständige deutsche Anamnese (Hauptbeschwerde, Anamnese, VE, Medikamente, Allergien, Sozialanamnese) formulieren.
-2. BEFUND: Aus kurzen Befunddaten einen vollständigen strukturierten Untersuchungsbefund formulieren (Inspektion, Palpation, Funktion, Neurologie, Bildgebung).
-3. DIAGNOSE: Aus Anamnese und Befund eine differenzierte Diagnose mit Differentialdiagnosen und Therapieempfehlung erstellen.
-4. ARZTBRIEF CP: Vollständigen Arztbrief für Plastische Chirurgie (Sana Klinikum Hof) erstellen.
-5. ARZTBRIEF CU: Vollständigen Arztbrief für Unfallchirurgie erstellen.
-6. FREIE FRAGE: Beliebige klinische Fragen beantworten.
+GRUNDREGELN:
+- Antworte immer auf Deutsch.
+- Schreibe im Stil deutscher Krankenhausdokumentation.
+- Verwende kurze, klare, klinisch präzise Formulierungen.
+- Erfinde keine Befunde, Diagnosen, Bildgebung oder Therapien.
+- Wenn Angaben fehlen, schreibe neutral "nicht dokumentiert" oder formuliere allgemein.
+- Bevorzuge Formulierungen aus den vorhandenen Bausteinen der Webseite.
+- Bei Arztbriefen immer diese Reihenfolge verwenden:
+  1. Diagnosen
+  2. Anamnese
+  3. Klinischer Befund
+  4. Diagnostik
+  5. Therapie / Verlauf
+  6. Procedere
 
-Antworte immer auf Deutsch. Klinisch präzise. Nutze deutsche medizinische Fachsprache. Kein langes Präambel — direkt mit dem Inhalt beginnen.`;
+VORHANDENE BAUSTEIN-STILE DER SEITE:
+- Unfallchirurgie: kurze Notaufnahme-Briefe mit Anamnese, Befund, Röntgen, Therapie und Proc.
+- Plastische Chirurgie: ambulante Briefe, OP-Verlauf, postoperative Verlaufskontrollen.
+- Standardformulierungen: "Periphere Durchblutung, Motorik und Sensibilität intakt", "Bei Befundverschlechterung jederzeitige Wiedervorstellung", "reizlose Wundverhältnisse", "Wundheilung per primam intentionem".
+- Rechts/links und Herr/Frau müssen korrekt angepasst werden.
+
+AUFGABE:
+Formuliere fertige Texte, die direkt in einen Arztbrief, OP-Bericht, Untersuchungsbefund oder Verlauf kopiert werden können.`;
+
 
 const MODE_PROMPTS = {
   anamnese: 'Erstelle eine vollständige deutsche Anamnese aus folgenden Stichworten. Gliedere in: Hauptbeschwerde, Aktuelle Anamnese, Vorerkrankungen/Voroperationen, Medikamente, Allergien, Sozialanamnese, Familienanamnese:\n\n',
@@ -1546,7 +2144,7 @@ async function sendKI() {
 
   const waitEl = document.createElement('div');
   waitEl.className = 'ki-m ki-a';
-  waitEl.innerHTML = '<span style="color:#bbb">GPT-4o denkt…</span>';
+  waitEl.innerHTML = '<span style="color:#bbb">Llama 3 denkt…</span>';
   document.getElementById('ki-msgs').appendChild(waitEl);
   document.getElementById('ki-msgs').scrollTop = 99999;
 
