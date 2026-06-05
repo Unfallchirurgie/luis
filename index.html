@@ -76,6 +76,10 @@ body { overflow: hidden; }
 .lr-re { color: #1a3a60; border-color: #90b8d8; } .lr-re:hover { background: #ddeef8; }
 .lr-li { color: #5a2008; border-color: #d0a080; } .lr-li:hover { background: #faebd8; }
 .lr-bds { color: #666; border-color: #ccc; font-size: 10px; } .lr-bds:hover { background: #f4f2ee; }
+.btn-lr.sel-side, .btn-lr.sel-gender { background: #161008; color: #f5ead8; border-color: #161008; box-shadow: 0 0 0 2px rgba(160,120,56,.18); }
+.card-foot-sep { width: 1px; height: 20px; background: #e8e0d0; margin: 0 2px; }
+.lr-herr { color: #1a3a60; border-color: #90b8d8; } .lr-herr:hover { background: #ddeef8; }
+.lr-frau { color: #7a2a60; border-color: #d8a8c8; } .lr-frau:hover { background: #f8e0f0; }
 .card-click-hint { font-size: 10px; color: #ccc; margin-left: auto; font-style: italic; }
 .card.ref-card { background: #faf9f6; border-color: #ede8e0; opacity: .75; }
 .card.ref-card:hover { opacity: 1; }
@@ -1156,45 +1160,93 @@ function copyText(text, btn) {
 const cardState = {};
 
 function applyLaterality(t, side) {
-  if (side === 're') {
-    t = t.replace(/rechts\s*\/\s*links/gi, 'rechts');
-    t = t.replace(/\bre\s*\/\s*li\b/g, 're');
-    return t;
-  }
-  if (side === 'li') {
-    t = t.replace(/rechts\s*\/\s*links/gi, 'links');
-    t = t.replace(/\bre\s*\/\s*li\b/g, 'li');
-    return t;
-  }
-  if (side === 'bds') {
-    t = t.replace(/rechts\s*\/\s*links/gi, 'beidseits');
-    t = t.replace(/\bre\s*\/\s*li\b/g, 'bds.');
-    return t;
-  }
+  if (!side) return t;
+
+  const map = {
+    re:  { long: 'rechts', short: 're',  art: 'rechten', dat: 'rechtem' },
+    li:  { long: 'links',  short: 'li',  art: 'linken',  dat: 'linkem'  },
+    bds: { long: 'beidseits', short: 'bds.', art: 'beidseitigen', dat: 'beidseitigem' }
+  }[side];
+  if (!map) return t;
+
+  // Standardmuster in den Bausteinen
+  t = t.replace(/rechts\s*\/\s*links/gi, map.long);
+  t = t.replace(/links\s*\/\s*rechts/gi, map.long);
+  t = t.replace(/re\.?\s*\/\s*li\.?/gi, map.short);
+  t = t.replace(/li\.?\s*\/\s*re\.?/gi, map.short);
+  t = t.replace(/recht(?:e|en|er|es|em)?\s*\/\s*link(?:e|en|er|es|em)?/gi, map.art);
+  t = t.replace(/link(?:e|en|er|es|em)?\s*\/\s*recht(?:e|en|er|es|em)?/gi, map.art);
+
+  // Häufige ausgeschriebene Formulierungen
+  t = t.replace(/des rechten\s*\/\s*linken/gi, side === 'bds' ? 'beider' : 'des ' + map.art);
+  t = t.replace(/dem rechten\s*\/\s*linken/gi, side === 'bds' ? 'beiden' : 'dem ' + map.art);
+  t = t.replace(/den rechten\s*\/\s*linken/gi, side === 'bds' ? 'beide' : 'den ' + map.art);
+  t = t.replace(/der rechten\s*\/\s*linken/gi, side === 'bds' ? 'beider' : 'der ' + map.art);
+  t = t.replace(/am rechten\s*\/\s*linken/gi, side === 'bds' ? 'beidseits am' : 'am ' + map.art);
+  t = t.replace(/im rechten\s*\/\s*linken/gi, side === 'bds' ? 'beidseits im' : 'im ' + map.art);
+  t = t.replace(/in der rechten\s*\/\s*linken/gi, side === 'bds' ? 'beidseits in der' : 'in der ' + map.art);
+  t = t.replace(/auf die rechte\s*\/\s*linke/gi, side === 'bds' ? 'auf beide' : 'auf die ' + map.art);
+  t = t.replace(/mit dem rechten\s*\/\s*linken/gi, side === 'bds' ? 'mit beiden' : 'mit dem ' + map.art);
+
   return t;
 }
 
 function applyGender(t, gender) {
+  if (!gender) return t;
+
   if (gender === 'herr') {
-    t = t.replace(/[Dd]ie Patientin\s*\/\s*[Dd]er Patient/g, 'der Patient');
-    t = t.replace(/[Dd]er Patient\s*\/\s*[Dd]ie Patientin/g, 'der Patient');
+    // Patient:innen-Formeln
+    t = t.replace(/Die Patientin\s*\/\s*der Patient/g, 'Der Patient');
+    t = t.replace(/die Patientin\s*\/\s*der Patient/g, 'der Patient');
+    t = t.replace(/Der Patient\s*\/\s*die Patientin/g, 'Der Patient');
+    t = t.replace(/der Patient\s*\/\s*die Patientin/g, 'der Patient');
+    t = t.replace(/Die Patientin\s*\/\s*Der Patient/g, 'Der Patient');
+
+    // Kasusformen
+    t = t.replace(/die Patientin\s*\/\s*den Patienten/g, 'den Patienten');
+    t = t.replace(/den Patienten\s*\/\s*die Patientin/g, 'den Patienten');
+    t = t.replace(/der Patientin\s*\/\s*dem Patienten/g, 'dem Patienten');
+    t = t.replace(/dem Patienten\s*\/\s*der Patientin/g, 'dem Patienten');
+    t = t.replace(/der Patientin\s*\/\s*des Patienten/g, 'des Patienten');
+    t = t.replace(/des Patienten\s*\/\s*der Patientin/g, 'des Patienten');
+
+    // einzelne feminine Formen, die in deinen Bausteinen vorkommen können
     t = t.replace(/\bPatientin\b/g, 'Patient');
+    t = t.replace(/\bPatientinnen\b/g, 'Patienten');
     t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welcher');
     t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welcher');
-    t = t.replace(/\bHerr[n]?\s*\/\s*Frau\b/g, 'Herrn');
-    t = t.replace(/\bFrau\s*\/\s*Herr[n]?\b/g, 'Herrn');
+    t = t.replace(/\bwelche\b/g, 'welcher');
+    t = t.replace(/\bHerrn?\s*\/\s*Frau\b/g, 'Herrn');
+    t = t.replace(/\bFrau\s*\/\s*Herrn?\b/g, 'Herrn');
     t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Er');
     t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'er');
     return t;
   }
+
   if (gender === 'frau') {
-    t = t.replace(/[Dd]ie Patientin\s*\/\s*[Dd]er Patient/g, 'die Patientin');
-    t = t.replace(/[Dd]er Patient\s*\/\s*[Dd]ie Patientin/g, 'die Patientin');
-    t = t.replace(/\bPatient\b(?!in)/g, 'Patientin');
+    // Patient:innen-Formeln
+    t = t.replace(/Die Patientin\s*\/\s*der Patient/g, 'Die Patientin');
+    t = t.replace(/die Patientin\s*\/\s*der Patient/g, 'die Patientin');
+    t = t.replace(/Der Patient\s*\/\s*die Patientin/g, 'Die Patientin');
+    t = t.replace(/der Patient\s*\/\s*die Patientin/g, 'die Patientin');
+    t = t.replace(/Die Patientin\s*\/\s*Der Patient/g, 'Die Patientin');
+
+    // Kasusformen
+    t = t.replace(/die Patientin\s*\/\s*den Patienten/g, 'die Patientin');
+    t = t.replace(/den Patienten\s*\/\s*die Patientin/g, 'die Patientin');
+    t = t.replace(/der Patientin\s*\/\s*dem Patienten/g, 'der Patientin');
+    t = t.replace(/dem Patienten\s*\/\s*der Patientin/g, 'der Patientin');
+    t = t.replace(/der Patientin\s*\/\s*des Patienten/g, 'der Patientin');
+    t = t.replace(/des Patienten\s*\/\s*der Patientin/g, 'der Patientin');
+
+    // Nur sichere Maskulinformen ersetzen, ohne Komposita wie "Patientenkurve" kaputt zu machen
+    t = t.replace(/\bPatient\b/g, 'Patientin');
+    t = t.replace(/\bPatienten\b/g, 'Patientin');
     t = t.replace(/\bwelche\s*\/\s*welcher\b/g, 'welche');
     t = t.replace(/\bwelcher\s*\/\s*welche\b/g, 'welche');
-    t = t.replace(/\bHerr[n]?\s*\/\s*Frau\b/g, 'Frau');
-    t = t.replace(/\bFrau\s*\/\s*Herr[n]?\b/g, 'Frau');
+    t = t.replace(/\bwelcher\b/g, 'welche');
+    t = t.replace(/\bHerrn?\s*\/\s*Frau\b/g, 'Frau');
+    t = t.replace(/\bFrau\s*\/\s*Herrn?\b/g, 'Frau');
     t = t.replace(/\bEr\s*\/\s*[Ss]ie\b/g, 'Sie');
     t = t.replace(/\b[Ss]ie\s*\/\s*[Ee]r\b/g, 'sie');
     return t;
@@ -1210,26 +1262,27 @@ function buildText(rawText, lbl) {
   return t;
 }
 
+function refreshCardText(lbl) {
+  const card = document.querySelector('[data-card="' + CSS.escape(lbl) + '"]');
+  const it = getItemByLbl(lbl);
+  if (!card || !it) return;
+  const body = card.querySelector('.card-body');
+  if (body) body.innerHTML = hl(buildText(it.txt, lbl), query);
+}
+
 function selectSide(lbl, side, btn) {
   if (!cardState[lbl]) cardState[lbl] = {};
-  // Toggle off if already selected
-  if (cardState[lbl].side === side) {
-    cardState[lbl].side = null;
-  } else {
-    cardState[lbl].side = side;
-  }
+  cardState[lbl].side = (cardState[lbl].side === side) ? null : side;
   updateCardButtons(lbl);
+  refreshCardText(lbl);
   copyAndFlash(lbl, btn);
 }
 
 function selectGender(lbl, gender, btn) {
   if (!cardState[lbl]) cardState[lbl] = {};
-  if (cardState[lbl].gender === gender) {
-    cardState[lbl].gender = null;
-  } else {
-    cardState[lbl].gender = gender;
-  }
+  cardState[lbl].gender = (cardState[lbl].gender === gender) ? null : gender;
   updateCardButtons(lbl);
+  refreshCardText(lbl);
   copyAndFlash(lbl, btn);
 }
 
@@ -1240,7 +1293,7 @@ function updateCardButtons(lbl) {
   card.querySelectorAll('.btn-lr').forEach(b => {
     const s = b.dataset.side;
     const g = b.dataset.gender;
-    if (s) b.classList.toggle('sel-side',   st.side   === s);
+    if (s) b.classList.toggle('sel-side', st.side === s);
     if (g) b.classList.toggle('sel-gender', st.gender === g);
   });
 }
@@ -1256,10 +1309,8 @@ function copyAndFlash(lbl, btn) {
   });
 }
 
-// Keep lrCopy for backwards compat (not used in new system)
 function lrCopy(text, side, btn) {
-  let t = applyLaterality(text, side);
-  t = applyGender(t, side);
+  const t = applyLaterality(text, side);
   navigator.clipboard.writeText(t).then(() => {
     const o = btn.textContent; btn.textContent = '✓';
     setTimeout(() => btn.textContent = o, 1200);
@@ -1375,7 +1426,7 @@ function render() {
           <span class="dep-tag ${tagClass}">${tagText}</span>
           <span class="card-lbl">${esc(it.lbl)}</span>
         </div>
-        <div class="card-body">${hl(it.txt, query)}</div>
+        <div class="card-body">${hl(buildText(it.txt, it.lbl), query)}</div>
         <div class="card-foot">
           ${lrBtns}
           ${genderBtns}
@@ -1387,6 +1438,7 @@ function render() {
 
   area.innerHTML = html;
   document.getElementById('counter').textContent = q ? `${filtered.length} Treffer` : `${filtered.length} Bausteine`;
+  filtered.forEach(it => updateCardButtons(it.lbl));
 }
 
 // lookup helpers used in inline onclick
@@ -1425,32 +1477,120 @@ function addMsg(text, cls) {
 }
 
 // ══════════════════════════════════════════════════════
-//  KI — GPT-4o via OpenAI API
+//  KI — Llama 3 via Groq API
 // ══════════════════════════════════════════════════════
 let oaiKey = localStorage.getItem('oai_key') || '';
 let currentMode = 'freitext';
 const kiHistory = [];
 
-const SYSTEM_PROMPT = `Du bist ein erfahrener Facharzt in Plastischer, Rekonstruktiver und Ästhetischer Chirurgie und Unfallchirurgie. Du hilfst Dr. Luis Perez (Assistenzarzt Plastische Chirurgie, Sana Klinikum Hof, unter Prof. Dr. Polykandriotis, FAU Erlangen-Nürnberg) im klinischen Alltag.
+const SYSTEM_PROMPT = `Du bist ein medizinischer Schreibassistent für die deutsche Notaufnahme, Unfallchirurgie, Plastische Chirurgie und Handchirurgie.
 
-Du kannst folgende Aufgaben übernehmen:
-1. ANAMNESE: Aus kurzen Stichworten eine vollständige deutsche Anamnese (Hauptbeschwerde, Anamnese, VE, Medikamente, Allergien, Sozialanamnese) formulieren.
-2. BEFUND: Aus kurzen Befunddaten einen vollständigen strukturierten Untersuchungsbefund formulieren (Inspektion, Palpation, Funktion, Neurologie, Bildgebung).
-3. DIAGNOSE: Aus Anamnese und Befund eine differenzierte Diagnose mit Differentialdiagnosen und Therapieempfehlung erstellen.
-4. ARZTBRIEF CP: Vollständigen Arztbrief für Plastische Chirurgie (Sana Klinikum Hof) erstellen.
-5. ARZTBRIEF CU: Vollständigen Arztbrief für Unfallchirurgie erstellen.
-6. FREIE FRAGE: Beliebige klinische Fragen beantworten.
+WICHTIGE GRUNDREGELN:
+- Antworte IMMER auf Deutsch.
+- Beginne direkt mit dem klinischen Text, ohne Einleitung wie "Gerne" oder "Hier ist".
+- Verwende den nüchternen deutschen Krankenhausstil.
+- Nutze vorrangig die Textbausteine und Formulierungen aus dieser Webseite.
+- Erfinde keine Befunde, Diagnosen, Laborwerte, Bildgebung oder Therapien.
+- Wenn eine Information fehlt, schreibe neutral "nicht dokumentiert" oder lasse den Punkt kurz offen.
+- Bei Arztbriefen ist die Reihenfolge IMMER:
+  1. Diagnosen
+  2. Anamnese
+  3. Klinischer Befund
+  4. Diagnostik
+  5. Therapie und Verlauf
+  6. Prozedere / Empfehlung
 
-Antworte immer auf Deutsch. Klinisch präzise. Nutze deutsche medizinische Fachsprache. Kein langes Präambel — direkt mit dem Inhalt beginnen.`;
+STANDARDSTRUKTUR ARZTBRIEF:
+Diagnosen:
+-
+
+Anamnese:
+Die Patientin / der Patient stellte sich ...
+
+Klinischer Befund:
+Bei der klinischen Untersuchung zeigte sich ...
+
+Diagnostik:
+...
+
+Therapie und Verlauf:
+...
+
+Prozedere / Empfehlung:
+...
+
+STANDARDSTRUKTUR OP-BERICHT:
+Diagnose:
+Operation:
+Indikation:
+Anästhesie:
+Lagerung:
+Desinfektion und sterile Abdeckung:
+Operatives Vorgehen:
+Intraoperativer Befund:
+Wundverschluss / Verband:
+Postoperatives Prozedere:
+
+Bei Unfallchirurgie/Notaufnahme besonders DMS, Tetanusschutz, Antikoagulation, Bildgebung und Wiedervorstellungshinweise berücksichtigen.
+Bei Handchirurgie besonders DMS, 2-Punktdiskriminierung, Beuge-/Strecksehnenfunktion, Rotationsfehler und Durchblutung berücksichtigen.`;
 
 const MODE_PROMPTS = {
-  anamnese: 'Erstelle eine vollständige deutsche Anamnese aus folgenden Stichworten. Gliedere in: Hauptbeschwerde, Aktuelle Anamnese, Vorerkrankungen/Voroperationen, Medikamente, Allergien, Sozialanamnese, Familienanamnese:\n\n',
-  'befund-cp': 'Erstelle einen vollständigen Untersuchungsbefund für Plastische Chirurgie / Handchirurgie aus folgenden Angaben. Gliedere in: Inspektion, Palpation, Beweglichkeit/Funktion, Neurologie/DMS, Bildgebung, Zusammenfassung:\n\n',
-  'befund-cu': 'Erstelle einen vollständigen Untersuchungsbefund für Unfallchirurgie / Notaufnahme aus folgenden Angaben. Gliedere in: Allgemeinzustand, Inspektion, Palpation, Beweglichkeit, Neurologie/DMS, Spezielle Tests, Bildgebung, Diagnose:\n\n',
-  diagnose: 'Erstelle eine strukturierte Diagnose mit Differentialdiagnosen und Therapieempfehlung aus folgenden klinischen Angaben:\n\n',
-  'brief-cp': 'Erstelle einen vollständigen Arztbrief für Plastische Chirurgie (Sana Klinikum Hof, Prof. Dr. Polykandriotis) mit folgenden Angaben. Enthält: Diagnose, Anamnese, Befund, Therapie, Prozedere:\n\n',
-  'brief-cu': 'Erstelle einen vollständigen Arztbrief für Unfallchirurgie / Notaufnahme (Sana Klinikum Hof) mit folgenden Angaben:\n\n',
-  freitext: ''
+  anamnese: `Erstelle aus den folgenden Stichworten eine klinische Anamnese auf Deutsch. 
+Nutze eine knappe, professionelle Formulierung im Krankenhausstil.
+Keine Diagnose vorwegnehmen, wenn sie nicht sicher angegeben ist.
+
+Eingabe:
+`,
+  'befund-cp': `Erstelle einen vollständigen klinischen Befund für Plastische Chirurgie / Handchirurgie.
+Struktur: Inspektion, Palpation, Beweglichkeit/Funktion, Sehnenfunktion, Neurologie/DMS, Bildgebung, Zusammenfassung.
+Nutze passende Formulierungen aus den Webseiten-Bausteinen.
+
+Eingabe:
+`,
+  'befund-cu': `Erstelle einen vollständigen klinischen Befund für Unfallchirurgie / Notaufnahme.
+Struktur: Allgemeinzustand, Inspektion, Palpation, Beweglichkeit, spezielle Tests, DMS/Neurologie, Bildgebung, Zusammenfassung.
+Nutze passende Formulierungen aus den Webseiten-Bausteinen.
+
+Eingabe:
+`,
+  diagnose: `Erstelle aus den Angaben eine strukturierte klinische Einschätzung auf Deutsch.
+Struktur: Wahrscheinlichste Diagnose, Differentialdiagnosen, sinnvolle Diagnostik, Therapie/Prozedere.
+Keine nicht belegten Tatsachen erfinden.
+
+Eingabe:
+`,
+  'brief-cp': `Erstelle einen vollständigen Arztbrief für Plastische Chirurgie / Handchirurgie.
+Die Reihenfolge MUSS sein:
+1. Diagnosen
+2. Anamnese
+3. Klinischer Befund
+4. Diagnostik
+5. Therapie und Verlauf
+6. Prozedere / Empfehlung
+
+Nutze den Stil der Webseite und passende Bausteine.
+
+Eingabe:
+`,
+  'brief-cu': `Erstelle einen vollständigen Arztbrief für Unfallchirurgie / Notaufnahme.
+Die Reihenfolge MUSS sein:
+1. Diagnosen
+2. Anamnese
+3. Klinischer Befund
+4. Diagnostik
+5. Therapie und Verlauf
+6. Prozedere / Empfehlung
+
+Nutze den Stil der Webseite und passende Bausteine.
+
+Eingabe:
+`,
+  freitext: `Beantworte die folgende klinische Frage oder erstelle den gewünschten Text auf Deutsch.
+Wenn ein Arztbrief verlangt wird, verwende zwingend die Reihenfolge:
+Diagnosen, Anamnese, Klinischer Befund, Diagnostik, Therapie und Verlauf, Prozedere / Empfehlung.
+
+Eingabe:
+`
 };
 
 const MODE_PLACEHOLDERS = {
@@ -1513,6 +1653,69 @@ function addMsg(text, cls) {
   return m;
 }
 
+
+function normalizeForKI(s) {
+  return (s || '')
+    .toLowerCase()
+    .replace(/[ä]/g, 'ae')
+    .replace(/[ö]/g, 'oe')
+    .replace(/[ü]/g, 'ue')
+    .replace(/[ß]/g, 'ss');
+}
+
+function getKnowledgeContext(userText, mode) {
+  const query = normalizeForKI(userText + ' ' + mode);
+  const modeDep = mode.includes('cu') ? 'cu' : (mode.includes('cp') ? 'cp' : null);
+
+  const scored = ITEMS
+    .filter(it => it && it.txt && !it.ml)
+    .map(it => {
+      const hay = normalizeForKI([it.g, it.lbl, it.txt].join(' '));
+      let score = 0;
+
+      // Fachrichtung bevorzugen
+      if (modeDep && it.dep === modeDep) score += 8;
+
+      // direkte Treffer in Label / Gruppe stärker gewichten
+      const label = normalizeForKI((it.lbl || '') + ' ' + (it.g || ''));
+      query.split(/[^a-z0-9]+/).filter(w => w.length > 3).forEach(w => {
+        if (label.includes(w)) score += 5;
+        if (hay.includes(w)) score += 1;
+      });
+
+      // typische Schlüsselwörter
+      const keys = ['osg','radius','hand','finger','hws','lws','knie','schulter','huefte','hüfte','sht','kopf','thorax','rippe','wunde','schnitt','fraktur','luxation','distorsion','verbrennung','dupuytren','arztbrief','op','station'];
+      keys.forEach(k => {
+        if (query.includes(normalizeForKI(k)) && hay.includes(normalizeForKI(k))) score += 6;
+      });
+
+      return { it, score };
+    })
+    .filter(x => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 8)
+    .map(x => x.it);
+
+  const base = scored.length ? scored : ITEMS.filter(it => it && it.txt && !it.ml).slice(0, 6);
+
+  return base.map((it, i) => 
+    `BAUSTEIN ${i + 1} — ${it.g} — ${it.lbl}\n${it.txt}`
+  ).join('\n\n---\n\n');
+}
+
+function buildUserPrompt(mode, text) {
+  const prefix = MODE_PROMPTS[mode] || MODE_PROMPTS.freitext;
+  const knowledge = getKnowledgeContext(text, mode);
+
+  return `${prefix}${text}
+
+VERWENDE DIESE RELEVANTEN WEBSEITEN-BAUSTEINE ALS STIL- UND FORMATVORLAGE:
+${knowledge}
+
+AUFGABE:
+Erstelle die Antwort anhand der Eingabe. Übernimm den Stil und die Struktur der Bausteine, aber passe Inhalt, Seite, Geschlecht und klinische Details an die Eingabe an.`;
+}
+
 async function sendKI() {
   const inp = document.getElementById('ki-inp');
   const text = inp.value.trim();
@@ -1523,15 +1726,14 @@ async function sendKI() {
   }
   inp.value = '';
 
-  const prefix = MODE_PROMPTS[currentMode] || '';
-  const fullText = prefix + text;
+  const fullText = buildUserPrompt(currentMode, text);
 
   addMsg(text, 'ki-u');
   kiHistory.push({ role: 'user', content: fullText });
 
   const waitEl = document.createElement('div');
   waitEl.className = 'ki-m ki-a';
-  waitEl.innerHTML = '<span style="color:#bbb">GPT-4o denkt…</span>';
+  waitEl.innerHTML = '<span style="color:#bbb">Llama 3 denkt…</span>';
   document.getElementById('ki-msgs').appendChild(waitEl);
   document.getElementById('ki-msgs').scrollTop = 99999;
 
